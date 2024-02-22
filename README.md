@@ -20,6 +20,6 @@ Mateus Goulart **mateusgoulart20@hotmail.com**
 
 Thiago Ramalho **thiagoramalhosetubal6@gmail.com**
 
-Wenderson
+Wenderson Farias **wendersonpfarias@gmail.com**
 
 Vinicius de Moraes

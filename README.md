@@ -22,4 +22,4 @@ Thiago Ramalho **thiagoramalhosetubal6@gmail.com**
 
 Wenderson Farias **wendersonpfarias@gmail.com**
 
-Vinicius de Moraes
+Vinicius de Moraes **viniciusdemoraespro@gmail.com**

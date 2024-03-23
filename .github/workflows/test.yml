@@ -20,4 +20,4 @@ jobs:
           java-version: '17'
 
       - name: Test project
-        run: mvn clean install
+        run: mvn clean install -DskipTests

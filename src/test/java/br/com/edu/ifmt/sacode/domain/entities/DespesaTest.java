@@ -1,15 +1,33 @@
 package br.com.edu.ifmt.sacode.domain.entities;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@SpringBootTest
 public class DespesaTest {
-    public static void main(String[] args) {
-        Despesa a = new Despesa("bananas", 10, "101010", "AAA",
-         "Rogério", true, "null",
-          null, 1);
-        Despesa b = new Despesa("nutella", 50, "111010", "AAA",
-         "Rogérinho", false, "Rogério",
-          a, 2);
-        
-        System.out.println(a.toString());
-        System.out.println(b.toString());
-    }
+
+  @Test
+  void testToStringJSONFormat() {
+    assertDoesNotThrow(new Executable() {
+
+      @Override
+      public void execute() throws Throwable {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.readValue(new User().toString().getBytes(),Map.class);
+      }
+    });
+  }
 }
+
+
+
+    
+  
+

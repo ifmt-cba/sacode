@@ -1,5 +1,5 @@
 package br.com.edu.ifmt.sacode.domain.entities;
-
+import java.util.Date;
 
 //import org.json; //.JSONObject;
 
@@ -11,7 +11,7 @@ public class Despesa {
     
     private String descricao;
     private float valor;
-    private String date;
+    private Date date;
     private String usuario;
     private String autorDespesa;
     private boolean fixa;
@@ -20,18 +20,17 @@ public class Despesa {
     private int numParcela;
 
 
-    public Despesa(
-        String descricao, float valor, String date, String usuario, String autorDespesa, boolean fixa,
-            String financiadorDespesa, Despesa despesaOriginal, int numParcela) {
-        this.descricao = descricao;
-        this.valor = valor;
-        this.date = date;
-        this.usuario = usuario;
-        this.autorDespesa = autorDespesa;
-        this.fixa = fixa;
-        this.financiadorDespesa = financiadorDespesa;
-        this.despesaOriginal = despesaOriginal;
-        this.numParcela = numParcela;
+    public Despesa() {
+        this.descricao = null;
+        this.descricao = null;
+        this.valor = 0;
+        this.date = null;
+        this.usuario = null;
+        this.autorDespesa = null;
+        this.fixa = false;
+        this.financiadorDespesa = null;
+        this.despesaOriginal = new Despesa();
+        this.numParcela = 0;
     }
   
     public String getDescricao() {return descricao;}
@@ -42,9 +41,9 @@ public class Despesa {
 
     public void setValor(float valor) {this.valor = valor;}
 
-    public String getDate() {return date;}
+    public Date getDate() {return date;}
 
-    public void setDate(String date) {this.date = date;}
+    public void setDate(Date date) {this.date = date;}
 
     public String getUsuario() {return usuario;}
 
@@ -69,21 +68,21 @@ public class Despesa {
     public int getNumParcela() {return numParcela;}
 
     public void setNumParcela(int numParcela) {this.numParcela = numParcela;}   
-    
+
     
     @Override
     public String toString() {
         return String.format( """
                 {
-                    \"descricao\":\"%s\",
-                    \"valor\":%s,
-                    \"date\":\"%s\",
-                    \"usuario\":\"%s\",
-                    \"autoDespesa\":\"%s\",
-                    \"fixa\": %s,
-                    \"financiadorDespesa\":\"%s\",
-                    \"despesaOriginal\":%s,
-                    \"numParcela\":%s
+                    "descricao":"%s",                   
+                    "valor":%s,
+                    "date":"%s",
+                    "usuario":"%s",
+                    "autoDespesa":"%s",
+                    "fixa": %s,
+                    "financiadorDespesa":"%s",
+                    "despesaOriginal":%s,
+                    "numParcela":%s
                 }
                 """,
             this.descricao.toString(),

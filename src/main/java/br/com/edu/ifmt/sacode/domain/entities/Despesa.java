@@ -1,41 +1,38 @@
 package br.com.edu.ifmt.sacode.domain.entities;
 import java.util.Date;
 
-//import org.json; //.JSONObject;
+import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
+import br.com.edu.ifmt.sacode.domain.entities.vo.MembroFamiliar;
 
-//import br.edu.ifmt.springbootcleanarch.domain.entities.vo.Email;
-//import br.edu.ifmt.springbootcleanarch.domain.entities.vo.Password;
-//import br.edu.ifmt.springbootcleanarch.domain.entities.vo.Username;
 
 public class Despesa {
     
-    private String descricao;
+    private Descricao descricao;
     private float valor;
     private Date date;
-    private String usuario;
-    private String autorDespesa;
+    private User usuario;
+    private MembroFamiliar autorDespesa;
     private boolean fixa;
-    private String financiadorDespesa;
+    private MembroFamiliar financiadorDespesa;
     private Despesa despesaOriginal;
     private int numParcela;
 
 
     public Despesa() {
         this.descricao = null;
-        this.descricao = null;
         this.valor = 0;
         this.date = null;
         this.usuario = null;
-        this.autorDespesa = null;
+        this.autorDespesa = new MembroFamiliar(null);
         this.fixa = false;
-        this.financiadorDespesa = null;
+        this.financiadorDespesa = new MembroFamiliar(null);
         this.despesaOriginal = new Despesa();
         this.numParcela = 0;
     }
   
-    public String getDescricao() {return descricao;}
+    public Descricao getDescricao() {return descricao;}
     
-    public void setDescricao(String descricao) {this.descricao = descricao;}
+    public void setDescricao(Descricao descricao) {this.descricao = descricao;}
 
     public float getValor() {return valor;}
 
@@ -45,21 +42,21 @@ public class Despesa {
 
     public void setDate(Date date) {this.date = date;}
 
-    public String getUsuario() {return usuario;}
+    public User getUsuario() {return usuario;}
 
-    public void setUsuario(String usuario) {this.usuario = usuario; }
+    public void setUsuario(User usuario) {this.usuario = usuario; }
 
-    public String getAutorDespesa() {return autorDespesa;}
+    public MembroFamiliar getAutorDespesa() {return autorDespesa;}
 
-    public void setAutorDespesa(String autorDespesa) {this.autorDespesa = autorDespesa;}
+    public void setAutorDespesa(MembroFamiliar autorDespesa) {this.autorDespesa = autorDespesa;}
 
     public boolean isFixa() {return fixa;}
 
     public void setFixa(boolean fixa) {this.fixa = fixa;}
 
-    public String getFinanciadorDespesa() {return financiadorDespesa;}
+    public MembroFamiliar getFinanciadorDespesa() {return financiadorDespesa;}
 
-    public void setFinanciadorDespesa(String financiadorDespesa) {this.financiadorDespesa = financiadorDespesa;}
+    public void setFinanciadorDespesa(MembroFamiliar financiadorDespesa) {this.financiadorDespesa = financiadorDespesa;}
 
     public Despesa getDespesaOriginal() {return despesaOriginal;}
 
@@ -92,17 +89,8 @@ public class Despesa {
             this.autorDespesa.toString(),
             Boolean.toString(this.fixa),
             this.financiadorDespesa.toString(),
-            n(this.despesaOriginal),
+            this.despesaOriginal.toString(),
             Integer.toString(this.numParcela)
         );
-    }
-
-
-    String n(Despesa a){
-        if(a == null){
-            return "null";
-        }else{
-            return new String("\n"+a.toString()); 
-        }
     }
 }

@@ -47,9 +47,9 @@ public class Moeda {
         return new Moeda(codigoAlvo, valorConvertido);
     }
 
-    private static BigDecimal obterTaxaDeCambio(String moedaOrigem, String moedaAlvo) throws IOException, JSONException {
+    public static BigDecimal obterTaxaDeCambio(String moedaOrigem, String moedaAlvo) throws IOException, JSONException {
         //String apiKey = "SUA_CHAVE_DE_API";
-        String urlStr = "https://economia.awesomeapi.com.br/json/last/" + moedaOrigem + moedaAlvo;
+        String urlStr = "https://economia.awesomeapi.com.br/json/last/" + moedaOrigem + "-" + moedaAlvo;
 
         URL url = new URL(urlStr);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -66,7 +66,14 @@ public class Moeda {
         in.close();
 
         JSONObject jsonObject = new JSONObject(response.toString());
-        JSONObject rates = jsonObject.getJSONObject("bid");
-        return new BigDecimal(rates.getDouble(moedaAlvo));
+        System.out.println(jsonObject.toString());
+        String rates = jsonObject.getJSONObject(moedaOrigem + moedaAlvo).getString("bid");
+        
+        return new BigDecimal(rates);
+    }
+
+    public Moeda mockMoeda()
+    {
+        return new Moeda("BRL", new BigDecimal(100));
     }
 }

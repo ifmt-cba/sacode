@@ -1,14 +1,16 @@
 package br.com.edu.ifmt.sacode.domain.entities;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
 import br.com.edu.ifmt.sacode.domain.entities.vo.MembroFamiliar;
+import br.com.edu.ifmt.sacode.domain.entities.vo.Moeda;
 
 
 public class Despesa {
     
     private Descricao descricao;
-    private float valor;
+    private Moeda valor;
     private Date date;
     private User usuario;
     private MembroFamiliar autorDespesa;
@@ -20,7 +22,7 @@ public class Despesa {
 
     public Despesa() {
         this.descricao = null;
-        this.valor = 0;
+        this.valor = valor.criar("BRL", new BigDecimal(0));
         this.date = null;
         this.usuario = null;
         this.autorDespesa = new MembroFamiliar(null);
@@ -34,9 +36,9 @@ public class Despesa {
     
     public void setDescricao(Descricao descricao) {this.descricao = descricao;}
 
-    public float getValor() {return valor;}
+    public BigDecimal getValor() {return valor.getValor();}
 
-    public void setValor(float valor) {this.valor = valor;}
+    public void setValor(BigDecimal valor) {this.valor.setValor(valor);}
 
     public Date getDate() {return date;}
 
@@ -83,7 +85,7 @@ public class Despesa {
                 }
                 """,
             this.descricao.toString(),
-            Float.toString(this.valor),
+            this.valor.getValor(),
             this.date.toString(),
             this.usuario.toString(),
             this.autorDespesa.toString(),

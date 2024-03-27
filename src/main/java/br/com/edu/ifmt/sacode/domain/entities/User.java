@@ -17,6 +17,7 @@ public class User {
     private List<String> membroFamiliar;
 
     public User() {
+        this.idUsuario = new UUID(0, 0);
         this.username = new Username(null);
         this.password = new Password(null);
         this.email = new Email(null);

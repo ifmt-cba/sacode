@@ -15,12 +15,12 @@ import java.util.UUID;
 
 
 @SpringBootTest
-public class CreateUserServiceTest {
-    static CreateUserService createUserService;
+public class UserServiceTest {
+    static UserService userService;
 
     @BeforeAll
     static void init() {
-        createUserService = new CreateUserService(new UserPort() {
+        userService = new UserService(new UserPort() {
 
             @Override
             public User createUser(User user) {
@@ -33,29 +33,37 @@ public class CreateUserServiceTest {
             }
 
             @Override
-            public void deleteUser(UUID id, User user){ }
+            public void deleteUser(UUID id, User user) {
+            }
 
             @Override
-            public User getByIdUser(UUID userId){ return new User();}
+            public User getByIdUser(UUID userId) {
+                return new User();
+            }
 
 
         },
                 new LogPort() {
 
                     @Override
-                    public void trace(String msg) { }
+                    public void trace(String msg) {
+                    }
 
                     @Override
-                    public void debug(String msg) { }
+                    public void debug(String msg) {
+                    }
 
                     @Override
-                    public void info(String msg) { }
+                    public void info(String msg) {
+                    }
 
                     @Override
-                    public void warn(String msg) { }
+                    public void warn(String msg) {
+                    }
 
                     @Override
-                    public void error(String msg) { }
+                    public void error(String msg) {
+                    }
 
                 });
     }
@@ -63,7 +71,7 @@ public class CreateUserServiceTest {
     @Test
     void shouldThrowException() {
         assertThrows(UserException.class, () -> {
-            createUserService.createUser(new User());
+            userService.createUser(new User());
         });
     }
 

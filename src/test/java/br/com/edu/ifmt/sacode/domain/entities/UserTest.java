@@ -19,7 +19,7 @@ public class UserTest {
 
             @Override
             public void execute() throws Throwable {
-                ObjectMapper objectMapper = new ObjectMapper();
+                ObjectMapper objectMapper = null;
                 objectMapper.readValue(new User().toString().getBytes(),Map.class);
             }
 

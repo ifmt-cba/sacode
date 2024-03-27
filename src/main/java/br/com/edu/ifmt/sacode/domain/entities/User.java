@@ -8,6 +8,10 @@ import br.com.edu.ifmt.sacode.domain.entities.vo.Email;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Password;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Username;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class User {
     private UUID idUsuario;
     private Username username;
@@ -21,6 +25,7 @@ public class User {
         this.username = new Username(null);
         this.password = new Password(null);
         this.email = new Email(null);
+        this.superUsuario = false;
         this.membroFamiliar = new ArrayList<>();
     }
 
@@ -120,7 +125,7 @@ public class User {
                 idUsuario.toString(),
                 username.toString(),
                 email.toString(),
-                Boolean.toString(this.superUsuario),
+                Boolean.toString(superUsuario),
                 password.toString());
     }
 

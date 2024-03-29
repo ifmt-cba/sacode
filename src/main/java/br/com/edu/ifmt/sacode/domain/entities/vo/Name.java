@@ -3,7 +3,7 @@ package br.com.edu.ifmt.sacode.domain.entities.vo;
 import java.util.regex.Pattern;
 
 /*
- * Um nome válido deve :
+ * Um nome válido deve atender a seguinte regex : 
  *  ^[a-zA-ZÀ-ÿ\\s'-]{8,80}$
  *  ^ Tipifica que a string deve corresponder a regex do inicio ao final
  *  [a-zA-ZÀ-ÿ\\s'-] Um conjunto de caracteres que inclui letras de A a Z (maiúsculas e minúsculas),

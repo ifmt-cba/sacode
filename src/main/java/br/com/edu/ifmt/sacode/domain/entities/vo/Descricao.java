@@ -14,6 +14,14 @@ public class Descricao {
 
     private String descricao;
 
+    public Descricao(){
+        this.descricao = null;
+    }
+
+    public boolean equals(Descricao entrada){
+        return this.descricao.equals(entrada.descricao);
+    }
+
     public Descricao(String descricao) {
         if (descricao != null && Pattern.matches(regex, descricao)) {
             this.descricao = descricao;

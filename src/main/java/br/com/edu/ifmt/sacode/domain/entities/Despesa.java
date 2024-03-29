@@ -1,98 +1,107 @@
 package br.com.edu.ifmt.sacode.domain.entities;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.UUID;
 
 import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
-import br.com.edu.ifmt.sacode.domain.entities.vo.MembroFamiliar;
+import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Moeda;
 
 
 public class Despesa {
-    
+    private UUID idDespesa;
     private Descricao descricao;
     private Moeda valor;
-    private Date date;
-    private User usuario;
-    private MembroFamiliar autorDespesa;
-    private boolean fixa;
-    private MembroFamiliar financiadorDespesa;
-    private Despesa despesaOriginal;
-    private int numParcela;
+    private LocalDate data;
+    private UUID usuario;
+    private Nome autorDespesa;
+    private Boolean fixa;
+    private Nome financiadorDespesa;
+    private UUID correlacaoParcelas;
+    private Integer numParcela;
 
-
+    // criação do obe
     public Despesa() {
-        this.descricao = null;
-        this.valor = valor.criar("BRL", new BigDecimal(0));
-        this.date = null;
+        this.idDespesa = new UUID(0, 0);
+        this.descricao = new Descricao();
+        this.valor = Moeda.criar("BRL", new BigDecimal(0));
+        this.data = LocalDate.now();
         this.usuario = null;
-        this.autorDespesa = new MembroFamiliar(null);
-        this.fixa = false;
-        this.financiadorDespesa = new MembroFamiliar(null);
-        this.despesaOriginal = new Despesa();
-        this.numParcela = 0;
+        this.autorDespesa = new Nome();
+        this.fixa = null;
+        this.financiadorDespesa = new Nome();
+        this.correlacaoParcelas = null;
+        this.numParcela = null;
     }
-  
+
+    // getters e setters padrão
+    public UUID getIdDespesa(){return idDespesa;}
+
+    public void setIdDespesa(UUID idDespesa) {this.idDespesa = idDespesa;}
+
     public Descricao getDescricao() {return descricao;}
     
     public void setDescricao(Descricao descricao) {this.descricao = descricao;}
 
-    public BigDecimal getValor() {return valor.getValor();}
+    public Moeda getValor() {return valor;}
 
-    public void setValor(BigDecimal valor) {this.valor.setValor(valor);}
+    public void setValor(Moeda valor) {this.valor = valor;}
 
-    public Date getDate() {return date;}
+    public LocalDate getData() {return data;}
 
-    public void setDate(Date date) {this.date = date;}
+    public void setData( LocalDate data) {this.data = data;}
 
-    public User getUsuario() {return usuario;}
+    public UUID getUsuario() {return usuario;}
 
-    public void setUsuario(User usuario) {this.usuario = usuario; }
+    public void setUsuario(UUID usuario) {this.usuario = usuario; }
 
-    public MembroFamiliar getAutorDespesa() {return autorDespesa;}
+    public Nome getAutorDespesa() {return autorDespesa;}
 
-    public void setAutorDespesa(MembroFamiliar autorDespesa) {this.autorDespesa = autorDespesa;}
+    public void setAutorDespesa(Nome autorDespesa) {this.autorDespesa = autorDespesa;}
 
-    public boolean isFixa() {return fixa;}
+    public Boolean isFixa() {return fixa;}
 
-    public void setFixa(boolean fixa) {this.fixa = fixa;}
+    public void setFixa(Boolean fixa) {this.fixa = fixa;}
 
-    public MembroFamiliar getFinanciadorDespesa() {return financiadorDespesa;}
+    public Nome getFinanciadorDespesa() {return financiadorDespesa;}
 
-    public void setFinanciadorDespesa(MembroFamiliar financiadorDespesa) {this.financiadorDespesa = financiadorDespesa;}
+    public void setFinanciadorDespesa(Nome financiadorDespesa) {this.financiadorDespesa = financiadorDespesa;}
 
-    public Despesa getDespesaOriginal() {return despesaOriginal;}
+    public UUID getCorrelacaoParcelas() {return correlacaoParcelas;}
 
-    public void setDespesaOriginal(Despesa despesaOriginal) {this.despesaOriginal = despesaOriginal;}
+    public void setCorrelacaoParcelas(UUID correlacaoParcelas) {this.correlacaoParcelas = correlacaoParcelas;}
 
-    public int getNumParcela() {return numParcela;}
+    public Integer getNumParcela() {return numParcela;}
 
-    public void setNumParcela(int numParcela) {this.numParcela = numParcela;}   
+    public void setNumParcela(Integer numParcela) {this.numParcela = numParcela;}   
 
     
     @Override
     public String toString() {
         return String.format( """
                 {
+                    "idDespesa":"%s",                   
                     "descricao":"%s",                   
                     "valor":%s,
-                    "date":"%s",
+                    "data":"%s",
                     "usuario":"%s",
                     "autoDespesa":"%s",
                     "fixa": %s,
                     "financiadorDespesa":"%s",
-                    "despesaOriginal":%s,
+                    "correlacaoParcelas":%s,
                     "numParcela":%s
                 }
                 """,
+            this.idDespesa.toString(),
             this.descricao.toString(),
             this.valor.getValor(),
-            this.date.toString(),
+            this.data.toString(),
             this.usuario.toString(),
             this.autorDespesa.toString(),
-            Boolean.toString(this.fixa),
+            this.fixa.toString(),
             this.financiadorDespesa.toString(),
-            this.despesaOriginal.toString(),
-            Integer.toString(this.numParcela)
+            this.correlacaoParcelas.toString(),
+            this.numParcela.toString()
         );
     }
 }

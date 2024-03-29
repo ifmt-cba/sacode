@@ -19,7 +19,7 @@ public class Moeda {
         this.valor = valor;
     }
 
-    public Moeda criar(String codigo, BigDecimal valor) {
+    public static Moeda criar(String codigo, BigDecimal valor) {
         if (codigo == null || codigo.isEmpty()) {
             throw new IllegalArgumentException("Código da moeda não pode ser nulo ou vazio");
         }
@@ -75,5 +75,14 @@ public class Moeda {
     public Moeda mockMoeda()
     {
         return new Moeda("BRL", new BigDecimal(100));
+    }
+
+    @Override
+    public String toString(){
+        return codigo+valor;
+    }
+    public Moeda(String moedaString){
+        this.codigo = moedaString.substring(0, 3);
+        this.valor = new BigDecimal(moedaString.substring(3));
     }
 }

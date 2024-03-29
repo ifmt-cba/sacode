@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
  *  ^ Tipifica que a string deve corresponder a regex do inicio ao final
  *  [a-zA-ZÀ-ÿ\\s'-] Um conjunto de caracteres que inclui letras de A a Z (maiúsculas e minúsculas),
  *  letras acentuadas (como À-ÿ), espaços, hifens e apóstrofos.
- *  + o conjunto de caracteres pode ocorrer uma ou mais vezes.
  *  {8,80} restrição de comprimento
  *  $ Fim da string
  */

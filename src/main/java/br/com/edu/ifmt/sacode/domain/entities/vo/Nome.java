@@ -10,22 +10,23 @@ import java.util.regex.Pattern;
  * - e o tamanho mínimo é 30 e mínimo 3.
  * - sendo ^[A-Z][a-z]+( [A-Z][a-z]?).{3,29}$
  */
-public class MembroFamiliar {
+public class Nome {
     private static final String regex = "^[A-Z][a-z]+( [A-Z][a-z]?).{3,29}$";
 
-    private String membroFamiliar;
+    private String nome;
 
-    public MembroFamiliar(String membroFamiliar) {
-        if (membroFamiliar != null && Pattern.matches(regex, membroFamiliar)) {
-            this.membroFamiliar = membroFamiliar;
+    public Nome(){this.nome = new String();}
+    public Nome(String nome) {
+        if (nome != null && Pattern.matches(regex, nome)) {
+            this.nome = nome;
         } else {
-            this.membroFamiliar = null;
+            this.nome = null;
         }
     }
 
     @Override
     public String toString() {
-        return membroFamiliar;
+        return nome;
     }
 
 }

@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  sacode:
+    image: br.edu.ifmt/sacode
+    container_name: sacode
+    ports:
+      - '7070:7070'
+    restart: always
+    networks:
+      - ifmt
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:7070/users"]
+    #   interval: 4s
+    #   timeout: 20s
+    #   retries: 5
+
+networks:
+  ifmt:
+    external: true

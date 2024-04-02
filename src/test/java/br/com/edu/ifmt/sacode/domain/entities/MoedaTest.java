@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import br.com.edu.ifmt.sacode.domain.entities.vo.Moeda;
+import br.com.edu.ifmt.sacode.domain.entities.vo.TipoMoeda;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -19,19 +20,30 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 public class MoedaTest {
 
-    @Mock
-    private Moeda moeda;
+    @Test
+    public void testGetCodigo() {
+        Moeda moeda = new Moeda(TipoMoeda.REAL, new BigDecimal(100));
+        assertEquals("BRL", moeda.getCodigo());
+    }
 
     @Test
-    public void testConverterMoeda() throws IOException, JSONException {
-        // Criando instância da moeda
-        Moeda moedaOrigem = new Moeda("USD", new BigDecimal(0));
+    public void testGetValor() {
+        Moeda moeda = new Moeda(TipoMoeda.DOLAR, new BigDecimal(50));
+        assertEquals(new BigDecimal(50), moeda.getValor());
+    }
 
-        // Convertendo para outra moeda
-        Moeda moedaConvertida = moedaOrigem.converterPara("BRL");
+    @Test
+    public void testSetValor() {
+        Moeda moeda = new Moeda(TipoMoeda.EURO, new BigDecimal(200));
+        moeda.setValor(new BigDecimal(250));
+        assertEquals(new BigDecimal(250), moeda.getValor());
+    }
 
-        // Verificando se a conversão está correta
-        assertEquals("BRL", moedaConvertida.getCodigo());
-        assertEquals( 0, Integer.valueOf(moedaConvertida.getValor().intValue()));
+    @Test
+    public void testMockMoeda() {
+        Moeda moeda = new Moeda(TipoMoeda.REAL, new BigDecimal(100));
+        Moeda mockMoeda = moeda.mockMoeda();
+        assertEquals(TipoMoeda.REAL.getCodigo(), mockMoeda.getCodigo());
+        assertEquals(new BigDecimal(100), mockMoeda.getValor());
     }
 }

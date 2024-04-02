@@ -24,8 +24,8 @@ public class Despesa {
     public Despesa() {
         this.idDespesa = new UUID(0, 0);
         this.descricao = new Descricao();
-        this.valor = Moeda.criar("BRL", new BigDecimal(0));
-        this.data = LocalDate.now();
+        this.valor = valor.mockMoeda();
+        this.data = null;
         this.usuario = null;
         this.autorDespesa = new Nome();
         this.fixa = null;

@@ -27,4 +27,26 @@ public class CategoryName {
         return categoryName;
     }
 
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        if (categoryName != null && Pattern.matches(regex, categoryName)) {
+            this.categoryName = categoryName;
+        } else {
+            this.categoryName = null;
+        }
+    }
+
+    public boolean isValid() {
+        if (categoryName != null || !categoryName.isEmpty()){
+            return true;
+        }
+
+        return false;
+    }
+
+    
+
 }

@@ -34,5 +34,9 @@ public class Descricao {
     public String toString() {
         return descricao;
     }
-
+    
+    public static Descricao mock()
+    {
+        return new Descricao("Roberto");
+    }
 }

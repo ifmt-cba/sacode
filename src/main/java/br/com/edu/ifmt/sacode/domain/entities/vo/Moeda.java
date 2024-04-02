@@ -22,7 +22,7 @@ public class Moeda {
         this.valor = valor;
     }
 
-    public Moeda mockMoeda()
+    public static Moeda mockMoeda()
     {
         return new Moeda(TipoMoeda.REAL, new BigDecimal(0));
     }

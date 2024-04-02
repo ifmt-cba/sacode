@@ -1,5 +1,4 @@
 package br.com.edu.ifmt.sacode.domain.entities;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -23,8 +22,8 @@ public class Despesa {
     // criação do obe
     public Despesa() {
         this.idDespesa = new UUID(0, 0);
-        this.descricao = new Descricao();
-        this.valor = valor.mockMoeda();
+        this.descricao = Descricao.mock();
+        this.valor = Moeda.mockMoeda();
         this.data = null;
         this.usuario = null;
         this.autorDespesa = new Nome();

@@ -41,7 +41,7 @@ public class MoedaTest {
 
     @Test
     public void testMockMoeda() {
-        Moeda moeda = new Moeda(TipoMoeda.REAL, new BigDecimal(100));
+        Moeda moeda = new Moeda(TipoMoeda.REAL, new BigDecimal(0));
         Moeda mockMoeda = moeda.mockMoeda();
         assertEquals(TipoMoeda.REAL.getCodigo(), mockMoeda.getCodigo());
         assertEquals(new BigDecimal(100), mockMoeda.getValor());

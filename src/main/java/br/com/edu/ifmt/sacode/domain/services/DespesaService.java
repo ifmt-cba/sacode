@@ -40,7 +40,7 @@ public class DespesaService {
             }
             despesaResponse = despesaPort.criarDespesa(despesa);
         } catch (Exception e) {
-            throw new DespesaException("despesa.criarDespesa().fail " + e);
+            throw new DespesaException(exc.toString());
         }
         logPort.info("Despesa criada com sucesso.");
         logPort.debug(despesa.toString());
@@ -65,10 +65,10 @@ public class DespesaService {
             exc.append(excRB.getString("despesa.usuario.invalid").concat(" "));
 
         if (despesa.getAutorDespesa().toString() == null)
-            exc.append(excRB.getString("despesa.autoDespesa.invalid").concat(" "));
+            exc.append(excRB.getString("despesa.autorDespesa.invalid").concat(" "));
 
         if (despesa.isFixa().equals(null))
-            exc.append(excRB.getString("despesa.autoDespesa.invalid").concat(" "));
+            exc.append(excRB.getString("despesa.fixa.invalid").concat(" "));
 
         if (despesa.getFinanciadorDespesa().toString() == null)
             exc.append(excRB.getString("despesa.financiadorDespesa.invalid").concat(" "));
@@ -142,16 +142,16 @@ public class DespesaService {
      * porAnos
      */
     public List<Despesa> porMes(UUID user, int ano, int mes) throws DespesaException {
-        logPort.trace("-> DespesaService.porMes()");
+        logPort.trace("-> DespesaService.porMes");
         StringBuilder exc = new StringBuilder();
         List<Despesa> despesaResponse;
         
-        if (user.toString() == null)
-            exc.append(excRB.getString("despesa.porMes().userinvalid").concat(" "));
+        if (user == null)
+            exc.append(excRB.getString("despesa.porMes.userinvalid").concat(" "));
         if(mes>12||mes<1)
-            exc.append(excRB.getString("despesa.porMes().mesExcedido").concat(" "));
+            exc.append(excRB.getString("despesa.porMes.mesExcedido").concat(" "));
         if(ano<=0)
-            exc.append(excRB.getString("despesa.porMes().anoNegativo").concat(" "));
+            exc.append(excRB.getString("despesa.porMes.anoNegativo").concat(" "));
 
         if (!exc.isEmpty()) {
             logPort.warn(exc.toString());
@@ -162,7 +162,7 @@ public class DespesaService {
             LocalDate.of(ano,mes,1),
             LocalDate.of(ano, mes, 1).plusMonths(1).minusDays(1)
         );
-        logPort.trace("<- DespesaService.porMes()");
+        logPort.trace("<- DespesaService.porMes");
         return despesaResponse;
     }
 

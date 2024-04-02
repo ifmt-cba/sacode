@@ -22,7 +22,7 @@ public class Despesa {
 
     public Despesa() {
         this.descricao = null;
-        this.valor = valor.criar("BRL", new BigDecimal(0));
+        this.valor = valor.mockMoeda();
         this.date = null;
         this.usuario = null;
         this.autorDespesa = new MembroFamiliar(null);

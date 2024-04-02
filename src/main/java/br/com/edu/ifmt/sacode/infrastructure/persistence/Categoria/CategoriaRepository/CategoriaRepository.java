@@ -6,10 +6,9 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import br.com.edu.ifmt.sacode.domain.entities.Categoria;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.Categoria.CategoriaORM.CategoriaORM;
 
-public interface CategoriaRepository extends CrudRepository<Categoria, String>{
+public interface CategoriaRepository extends CrudRepository<CategoriaORM, String>{
     CategoriaORM findByIdCategoria(String idCategoria);
 
     List<CategoriaORM> findByName(String categoriaNome);

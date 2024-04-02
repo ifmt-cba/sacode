@@ -11,37 +11,45 @@ import br.com.edu.ifmt.sacode.domain.entities.vo.Username;
 
 public class User {
     private UUID idUsuario;
-    private Name name;
-    private Username username;
-    private Password password;
+    private Name nome;
+    private Username nomeUsuario;
+    private Password senha;
     private Email email;
     private boolean superUsuario;
     private List<Name> membroFamiliar;
 
     public User() {
         this.idUsuario = new UUID(0, 0);
-        this.name = new Name(null);
-        this.username = new Username(null);
-        this.password = new Password(null);
+        this.nome = new Name(null);
+        this.nomeUsuario = new Username(null);
+        this.senha = new Password(null);
         this.email = new Email(null);
         this.superUsuario = false;
         this.membroFamiliar = new ArrayList<>();
     }
 
-    public Username getUsername() {
-        return username;
+    public User(UUID idUsuario, Name nome, Username nomeUsuario, Password senha, Email email, boolean superUsuario, List<Name> membroFamiliar) {
+        this.idUsuario = idUsuario;
+        this.nome = nome;
+        this.nomeUsuario = nomeUsuario;
+        this.senha = senha;
+        this.email = email;
+        this.superUsuario = superUsuario;
+        this.membroFamiliar = membroFamiliar;
     }
 
-    public void setUsername(Username username) {
-        this.username = username;
+    public Username getNomeUsuario() {
+        return nomeUsuario;
     }
 
-    public Password getPassword() {
-        return password;
+    public void setNomeUsuario(Username nomeUsuario) { this.nomeUsuario = nomeUsuario; }
+
+    public Password getSenha() {
+        return senha;
     }
 
-    public void setPassword(Password password) {
-        this.password = password;
+    public void setSenha(Password senha) {
+        this.senha = senha;
     }
 
     public Email getEmail() {
@@ -69,11 +77,11 @@ public class User {
     }
 
     public Name getName() {
-        return name;
+        return nome;
     }
 
     public void setName(Name name) {
-        this.name = name;
+        this.nome = name;
     }
 
     public List<Name> getMembroFamiliar() {
@@ -97,11 +105,11 @@ public class User {
                 }
                 """,
                 idUsuario.toString(),
-                name.toString(),
-                username.toString(),
+                nome.toString(),
+                nomeUsuario.toString(),
                 email.toString(),
                 Boolean.toString(superUsuario),
-                password.toString());
+                senha.toString());
     }
 
 }

@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface CategoriaPort {
     Categoria saveCategoria(Categoria categoria);
 
-    void deleteCategoria(UUID id, Categoria categoria);
+    boolean deleteCategoria(UUID id, Categoria categoria);
 
     Categoria findByIdCategoria(UUID categoriaId);
 

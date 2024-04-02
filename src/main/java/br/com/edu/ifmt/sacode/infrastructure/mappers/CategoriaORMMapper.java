@@ -1,5 +1,7 @@
 package br.com.edu.ifmt.sacode.infrastructure.mappers;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import br.com.edu.ifmt.sacode.domain.entities.Categoria;
@@ -29,5 +31,14 @@ public class CategoriaORMMapper {
         categoriaDomain.setIdCategoriaPai(UUID.fromString(categoriaORM.getCategoriaPai()));
         
         return categoriaDomain;
+    }
+
+    public List<Categoria> ormListToDomainList(List<CategoriaORM> categoriasORM) {
+        List<Categoria> categoriasDomain = new ArrayList<>();
+        for (CategoriaORM categoriaORM : categoriasORM) {
+            categoriasDomain.add(ormToDomain(categoriaORM));
+        }
+
+        return categoriasDomain;
     }
 }

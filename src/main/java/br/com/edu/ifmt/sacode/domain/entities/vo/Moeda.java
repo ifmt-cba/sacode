@@ -10,7 +10,6 @@ public class Moeda {
         this.tipoMoeda = tipoMoeda;
         this.valor = valor;
     }
-
     public String getCodigo() {
         return this.tipoMoeda.getCodigo();
     }
@@ -23,8 +22,17 @@ public class Moeda {
         this.valor = valor;
     }
 
-    public Moeda mockMoeda()
+    public static Moeda mockMoeda()
     {
-        return new Moeda(TipoMoeda.REAL, new BigDecimal(100));
+        return new Moeda(TipoMoeda.REAL, new BigDecimal(0));
+    }
+
+    @Override
+    public String toString(){
+        return tipoMoeda.toString()+valor;
+    }
+    public Moeda(String moedaString){
+        this.tipoMoeda = TipoMoeda.match(moedaString.substring(0, 3));
+        this.valor = new BigDecimal(moedaString.substring(3));
     }
 }

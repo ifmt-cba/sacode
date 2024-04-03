@@ -4,10 +4,7 @@ import java.util.UUID;
 
 import java.util.List;
 
-import br.com.edu.ifmt.sacode.domain.entities.vo.Email;
-import br.com.edu.ifmt.sacode.domain.entities.vo.Name;
-import br.com.edu.ifmt.sacode.domain.entities.vo.Password;
-import br.com.edu.ifmt.sacode.domain.entities.vo.Username;
+import br.com.edu.ifmt.sacode.domain.entities.vo.*;
 import jakarta.persistence.*;
 
 @Entity
@@ -30,7 +27,7 @@ public class UserORM {
         Email email, 
         Username username, 
         Password password, 
-        Name nome, 
+        Nome nome,
         boolean superusuario, 
         List<String> membroFamiliar
     )

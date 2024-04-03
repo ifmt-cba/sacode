@@ -54,8 +54,6 @@ public class User {
 
     public void setSenha(Password senha) {
         this.senha = senha;
-    public void setSenha(Password senha) {
-        this.senha = senha;
     }
 
     public Email getEmail() {
@@ -103,7 +101,6 @@ public class User {
         return String.format("""
                 {
                     "idUsuario":"%s",
-                    "name":"%s",
                     "name":"%s",
                     "username":"%s",
                     "email":"%s",

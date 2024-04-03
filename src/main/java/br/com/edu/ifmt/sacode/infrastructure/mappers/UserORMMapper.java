@@ -3,6 +3,7 @@ package br.com.edu.ifmt.sacode.infrastructure.mappers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import br.com.edu.ifmt.sacode.domain.entities.User;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Email;
@@ -21,7 +22,8 @@ public class UserORMMapper {
             user.getSenha(),
             user.getName(),
             user.isSuperUsuario(),
-            user.getMembroFamiliar()
+            user.getMembroFamiliar().stream().map(Name::toString)
+                    .collect(Collectors.toList())
         );
     }
 
@@ -33,7 +35,9 @@ public class UserORMMapper {
         user.setSenha(new Password(userORM.getPassword()));
         user.setName(new Name(userORM.getNome()));
         user.setSuperUsuario(userORM.isSuperusuario());
-        user.setMembroFamiliar(userORM.getMembroFamiliar());
+        user.setMembroFamiliar(userORM.getMembroFamiliar().stream()
+                .map(Name::new)
+                .collect(Collectors.toList()));
         return user;
     }
 

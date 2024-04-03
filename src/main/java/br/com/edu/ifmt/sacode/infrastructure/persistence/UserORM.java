@@ -8,10 +8,7 @@ import br.com.edu.ifmt.sacode.domain.entities.vo.Email;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Name;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Password;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Username;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "user")
@@ -24,8 +21,9 @@ public class UserORM {
     private String password;
     private String nome;
     private boolean superusuario;
-    @OneToMany
-    private List<Name> membroFamiliar;
+
+    @ElementCollection
+    private List<String> membroFamiliar;
 
     public UserORM(
         UUID id, 
@@ -34,7 +32,7 @@ public class UserORM {
         Password password, 
         Name nome, 
         boolean superusuario, 
-        List<Name> membroFamiliar
+        List<String> membroFamiliar
     )
     {
         this.id = id.toString();
@@ -44,6 +42,10 @@ public class UserORM {
         this.nome = nome.toString();
         this.superusuario = superusuario;
         this.membroFamiliar = membroFamiliar;
+    }
+
+    public UserORM() {
+
     }
 
     public String getId() {
@@ -83,11 +85,11 @@ public class UserORM {
     public void setSuperusuario(boolean superusuario) {
         this.superusuario = superusuario;
     }
-    public List<Name> getMembroFamiliar() {
+    public List<String> getMembroFamiliar() {
         return membroFamiliar;
     }
 
-    public void setMembroFamiliar(List<Name> membroFamiliar) {
+    public void setMembroFamiliar(List<String> membroFamiliar) {
         this.membroFamiliar = membroFamiliar;
     }
 

@@ -15,13 +15,14 @@ public class UserRepositoryAdapter implements UserPort{
     
     private final UserRepository userRepository;
     private final UserORMMapper userORMMapper;
-    @Autowired
-    private final LogPort logPort = null;
+
+    private final LogPort logPort;
 
     
-    public UserRepositoryAdapter(UserRepository userRepository, UserORMMapper userORMMapper) {
+    public UserRepositoryAdapter(UserRepository userRepository, UserORMMapper userORMMapper, LogPort logPort) {
         this.userRepository = userRepository;
         this.userORMMapper = userORMMapper;
+        this.logPort = logPort;
     }
 
     @Override

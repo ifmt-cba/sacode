@@ -1,4 +1,4 @@
-package br.com.edu.ifmt.sacode.infrastructure.persistence.Categoria.CategoriaORM;
+package br.com.edu.ifmt.sacode.infrastructure.persistence;
 
 import java.util.UUID;
 
@@ -7,15 +7,17 @@ import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-@Entity(name = "CATEGORIA")
+@Entity
+@Table(name = "categoria")
 public class CategoriaORM {
 
     @Id
-    private String idCategoria;
+    private String id;
     private String nome;
     private String descricao;
-    private String categoriaPai;
+    private String categoriapai;
 
     // @OneToMany(mappedBy = "categoriaPai", cascade = CascadeType.ALL,
     // orphanRemoval = true)
@@ -27,10 +29,10 @@ public class CategoriaORM {
     public CategoriaORM(UUID id, CategoryName nome, Descricao descricao,
             UUID idCategoriaPai) {
 
-        this.idCategoria = id.toString();
+        this.id = id.toString();
         this.nome = nome.getCategoryName();
         this.descricao = descricao.getDescricao();
-        this.categoriaPai = idCategoriaPai.toString();
+        this.categoriapai = idCategoriaPai.toString();
 
     }
 
@@ -45,18 +47,18 @@ public class CategoriaORM {
                     "subCategorias":[%s]
                 }
                 """,
-                idCategoria.toString(),
+                id.toString(),
                 nome.toString(),
                 descricao.toString(),
-                categoriaPai == null ? null : categoriaPai.toString());
+                categoriapai == null ? null : categoriapai.toString());
     }
 
     public String getIdCategoria() {
-        return idCategoria;
+        return id;
     }
 
     public void setIdCategoria(String idCategoria) {
-        this.idCategoria = idCategoria;
+        this.id = idCategoria;
     }
 
     public String getNome() {
@@ -76,11 +78,11 @@ public class CategoriaORM {
     }
 
     public String getCategoriaPai() {
-        return categoriaPai;
+        return categoriapai;
     }
 
     public void setCategoriaPai(String categoriaPai) {
-        this.categoriaPai = categoriaPai;
+        this.categoriapai = categoriaPai;
     }
 
 }

@@ -7,7 +7,7 @@ import java.util.UUID;
 import br.com.edu.ifmt.sacode.domain.entities.Categoria;
 import br.com.edu.ifmt.sacode.domain.entities.vo.CategoryName;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
-import br.com.edu.ifmt.sacode.infrastructure.persistence.Categoria.CategoriaORM.CategoriaORM;
+import br.com.edu.ifmt.sacode.infrastructure.persistence.CategoriaORM;
 
 public class CategoriaORMMapper {
     

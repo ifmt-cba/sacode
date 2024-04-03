@@ -1,22 +1,17 @@
-package br.com.edu.ifmt.sacode.infrastructure.persistence.Categoria.CategoriaRepository;
-
+package br.com.edu.ifmt.sacode.infrastructure.persistence;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import br.com.edu.ifmt.sacode.infrastructure.persistence.Categoria.CategoriaORM.CategoriaORM;
-
 public interface CategoriaRepository extends CrudRepository<CategoriaORM, String>{
     CategoriaORM findByIdCategoria(String idCategoria);
 
-    List<CategoriaORM> findByName(String categoriaNome);
+    List<CategoriaORM> findByNome(String categoriaNome);
 
     List<CategoriaORM> findByUsuarioId(String usuarioId);
 
-    @Query("SELECT c FROM CATEGORIA c WHERE c.idCategoriaPai = :idCategoriaPai")
+    @Query("SELECT c FROM categoria c WHERE c.idCategoriaPai = :idCategoriaPai")
     List<CategoriaORM> findByCategoriaPaiByIdCategoria(String idCategoriaPai);
-
-    
 }

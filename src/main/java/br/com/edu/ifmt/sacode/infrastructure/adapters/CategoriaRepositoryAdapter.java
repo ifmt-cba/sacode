@@ -10,19 +10,20 @@ import br.com.edu.ifmt.sacode.domain.entities.vo.CategoryName;
 import br.com.edu.ifmt.sacode.domain.ports.CategoriaPort;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
 import br.com.edu.ifmt.sacode.infrastructure.mappers.CategoriaORMMapper;
-import br.com.edu.ifmt.sacode.infrastructure.persistence.Categoria.CategoriaORM.CategoriaORM;
-import br.com.edu.ifmt.sacode.infrastructure.persistence.Categoria.CategoriaRepository.CategoriaRepository;
+import br.com.edu.ifmt.sacode.infrastructure.persistence.CategoriaORM;
+import br.com.edu.ifmt.sacode.infrastructure.persistence.CategoriaRepository;
 
 public class CategoriaRepositoryAdapter implements CategoriaPort {
     private final CategoriaRepository categoriaRepository;
     private final CategoriaORMMapper categoriaORMMapper;
 
     @Autowired
-    private final LogPort logPort = null;
+    private LogPort logPort = null;
 
-    public CategoriaRepositoryAdapter(CategoriaRepository categoriaRepository, CategoriaORMMapper categoriaORMMapper) {
+    public CategoriaRepositoryAdapter(CategoriaRepository categoriaRepository, CategoriaORMMapper categoriaORMMapper, LogPort logPort) {
         this.categoriaRepository = categoriaRepository;
         this.categoriaORMMapper = categoriaORMMapper;
+        this.logPort = logPort;
     }
 
     @Override
@@ -72,7 +73,7 @@ public class CategoriaRepositoryAdapter implements CategoriaPort {
     @Override
     public List<Categoria> buscaCategoriasPorNome(CategoryName nome) {
         logPort.trace("-> CategoriaRepositoryAdapter.buscaCategoriasPorNome");
-        List<CategoriaORM> categoriasORM = categoriaRepository.findByName(nome.getCategoryName().toString());
+        List<CategoriaORM> categoriasORM = categoriaRepository.findByNome(nome.getCategoryName());
         logPort.debug(categoriasORM.toString());
         logPort.trace("<- CategoriaRepositoryAdapter.buscaCategoriasPorNome");
         return categoriaORMMapper.ormListToDomainList(categoriasORM);

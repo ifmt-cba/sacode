@@ -5,22 +5,22 @@ import java.util.List;
 import java.util.UUID;
 
 import br.com.edu.ifmt.sacode.domain.entities.vo.Email;
-import br.com.edu.ifmt.sacode.domain.entities.vo.Name;
+import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Password;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Username;
 
 public class User {
     private UUID idUsuario;
-    private Name nome;
+    private Nome nome;
     private Username nomeUsuario;
     private Password senha;
     private Email email;
     private boolean superUsuario;
-    private List<Name> membroFamiliar;
+    private List<Nome> membroFamiliar;
 
     public User() {
         this.idUsuario = new UUID(0, 0);
-        this.nome = new Name(null);
+        this.nome = new Nome(null);
         this.nomeUsuario = new Username(null);
         this.senha = new Password(null);
         this.email = new Email(null);
@@ -28,7 +28,8 @@ public class User {
         this.membroFamiliar = new ArrayList<>();
     }
 
-    public User(UUID idUsuario, Name nome, Username nomeUsuario, Password senha, Email email, boolean superUsuario, List<Name> membroFamiliar) {
+    public User(UUID idUsuario, Nome nome, Username nomeUsuario, Password senha, Email email, boolean superUsuario,
+            List<Nome> membroFamiliar) {
         this.idUsuario = idUsuario;
         this.nome = nome;
         this.nomeUsuario = nomeUsuario;
@@ -42,7 +43,9 @@ public class User {
         return nomeUsuario;
     }
 
-    public void setNomeUsuario(Username nomeUsuario) { this.nomeUsuario = nomeUsuario; }
+    public void setNomeUsuario(Username nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
 
     public Password getSenha() {
         return senha;
@@ -76,19 +79,19 @@ public class User {
         this.superUsuario = superUsuario;
     }
 
-    public Name getName() {
+    public Nome getName() {
         return nome;
     }
 
-    public void setName(Name name) {
+    public void setName(Nome name) {
         this.nome = name;
     }
 
-    public List<Name> getMembroFamiliar() {
+    public List<Nome> getMembroFamiliar() {
         return membroFamiliar;
     }
 
-    public void setMembroFamiliar(List<Name> membroFamiliar) {
+    public void setMembroFamiliar(List<Nome> membroFamiliar) {
         this.membroFamiliar = membroFamiliar;
     }
 

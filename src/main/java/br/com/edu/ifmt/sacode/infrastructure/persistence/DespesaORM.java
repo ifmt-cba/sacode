@@ -8,8 +8,10 @@ import br.com.edu.ifmt.sacode.domain.entities.vo.Moeda;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "despesa")
 public class DespesaORM {
 
     @Id

@@ -16,6 +16,7 @@ import br.com.edu.ifmt.sacode.infrastructure.persistence.DespesaRepository;
 public class DespesaRepositoryAdapter implements DespesaPort {
   private final DespesaRepository despesaRepository;
   private final DespesaORMMapper despesaORMMapper;
+
   @Autowired
   private final LogPort logPort = null;
 

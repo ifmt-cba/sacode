@@ -23,6 +23,7 @@ public class Descricao {
         return this.descricao.equals(entrada.descricao);
     }
 
+
     public Descricao(String descricao) {
         if (descricao != null && Pattern.matches(regex, descricao)) {
             this.descricao = descricao;

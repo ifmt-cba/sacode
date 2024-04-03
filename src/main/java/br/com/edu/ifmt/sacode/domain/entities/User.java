@@ -25,6 +25,7 @@ public class User {
         this.senha = new Password(null);
         this.email = new Email(null);
         this.superUsuario = false;
+        this.superUsuario = false;
         this.membroFamiliar = new ArrayList<>();
     }
 
@@ -51,6 +52,8 @@ public class User {
         return senha;
     }
 
+    public void setSenha(Password senha) {
+        this.senha = senha;
     public void setSenha(Password senha) {
         this.senha = senha;
     }
@@ -100,6 +103,7 @@ public class User {
         return String.format("""
                 {
                     "idUsuario":"%s",
+                    "name":"%s",
                     "name":"%s",
                     "username":"%s",
                     "email":"%s",

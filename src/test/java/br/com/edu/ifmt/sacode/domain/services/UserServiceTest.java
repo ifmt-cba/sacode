@@ -1,6 +1,5 @@
 package br.com.edu.ifmt.sacode.domain.services;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
@@ -10,7 +9,7 @@ import java.util.UUID;
 
 import br.com.edu.ifmt.sacode.domain.entities.User;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Email;
-import br.com.edu.ifmt.sacode.domain.entities.vo.Name;
+import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Password;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Username;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
@@ -33,7 +32,6 @@ public class UserServiceTest {
 
     private static final UUID ID = UUID.randomUUID();
 
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -41,8 +39,8 @@ public class UserServiceTest {
     }
 
     @Test
-    void deveSalvarUsuario() throws UserException{
-        User usuario = new User(UUID.randomUUID(),new Name("PedrinhoJogado"),new Username("pedro001"),
+    void deveSalvarUsuario() throws UserException {
+        User usuario = new User(UUID.randomUUID(), new Nome("PedrinhoJogado"), new Username("pedro001"),
                 new Password("a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3"),
                 new Email("pedro@gmail.com"), false, List.of());
 
@@ -78,7 +76,6 @@ public class UserServiceTest {
 
         verify(logPort).info(anyString());
     }
-
 
     @Test
     void DeveRetornarUsuarioQuandoBuscarPorId() throws UserException {

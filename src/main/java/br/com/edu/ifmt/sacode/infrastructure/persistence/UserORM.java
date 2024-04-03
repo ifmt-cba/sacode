@@ -35,7 +35,8 @@ public class UserORM {
         Name nome, 
         boolean superusuario, 
         List<Name> membroFamiliar
-        ) {
+    )
+    {
         this.id = id.toString();
         this.email = email.toString();
         this.username = username.toString();

@@ -35,13 +35,20 @@ public class UserRepositoryAdapter implements UserPort{
 
     @Override
     public User salvarUsuario(User user) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'salvarUsuario'");
+        logPort.trace(" -> UserRepositoryAdapter.salvarUsuario");
+        UserORM usuarioSalvar = userORMMapper.toORM(user);
+        logPort.info(" Usuario mapeado para o banco de dados");
+        userRepository.save(usuarioSalvar);
+        logPort.debug(" Salvo com sucesso");
+        return userORMMapper.toDomainObj(usuarioSalvar);
     }
 
     @Override
     public void deletarUsuario(UUID id, User user) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletarUsuario'");
+        logPort.trace(" -> UserRepositoryAdapter.deletarUsuario");
+        UserORM usuarioDeletar = userORMMapper.toORM(user);
+        logPort.info(" Usuario mapeado para o banco de dados");
+        userRepository.delete(usuarioDeletar);
+        logPort.debug(" Deletado com sucesso");
     }
 }

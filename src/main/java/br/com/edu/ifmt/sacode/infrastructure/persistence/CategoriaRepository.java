@@ -6,12 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 public interface CategoriaRepository extends CrudRepository<CategoriaORM, String>{
-    CategoriaORM findByIdCategoria(String idCategoria);
-
     List<CategoriaORM> findByNome(String categoriaNome);
 
-    List<CategoriaORM> findByUsuarioId(String usuarioId);
+//    List<CategoriaORM> findByUsuarioId(String usuarioId);
 
-    @Query("SELECT c FROM categoria c WHERE c.idCategoriaPai = :idCategoriaPai")
-    List<CategoriaORM> findByCategoriaPaiByIdCategoria(String idCategoriaPai);
+//    @Query("SELECT c FROM CategoriaORM c WHERE c.categoriaPai = :idCategoriaPai")
+//    List<CategoriaORM> findByCategoriaPaiAndIdCategoria(String idCategoriaPai);
+
+    
 }

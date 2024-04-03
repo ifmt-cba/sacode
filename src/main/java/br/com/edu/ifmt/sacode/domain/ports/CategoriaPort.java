@@ -13,9 +13,9 @@ public interface CategoriaPort {
 
     Categoria findByIdCategoria(UUID categoriaId);
 
-    List<Categoria> buscaSubCategorias(UUID categoriaIdPai);
+//    List<Categoria> buscaSubCategorias(UUID categoriaIdPai);
 
     List<Categoria> buscaCategoriasPorNome(CategoryName nome);
 
-    List<Categoria> buscaCategoriasPorUsuario(UUID usuarioId);
+//    List<Categoria> buscaCategoriasPorUsuario(UUID usuarioId);
 }

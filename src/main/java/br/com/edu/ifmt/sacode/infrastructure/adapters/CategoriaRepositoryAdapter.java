@@ -17,8 +17,7 @@ public class CategoriaRepositoryAdapter implements CategoriaPort {
     private final CategoriaRepository categoriaRepository;
     private final CategoriaORMMapper categoriaORMMapper;
 
-    @Autowired
-    private LogPort logPort = null;
+    private final LogPort logPort;
 
     public CategoriaRepositoryAdapter(CategoriaRepository categoriaRepository, CategoriaORMMapper categoriaORMMapper, LogPort logPort) {
         this.categoriaRepository = categoriaRepository;
@@ -55,37 +54,37 @@ public class CategoriaRepositoryAdapter implements CategoriaPort {
     @Override
     public Categoria findByIdCategoria(UUID categoriaId) {
         logPort.trace("-> CategoriaRepositoryAdapter.findByIdCategoria");
-        CategoriaORM categoriaORM = categoriaRepository.findByIdCategoria(categoriaId.toString());
+        CategoriaORM categoriaORM = categoriaRepository.findById(categoriaId.toString()).orElseThrow();
         logPort.debug(categoriaORM.toString());
         logPort.trace("<- CategoriaRepositoryAdapter.findByIdCategoria");
         return categoriaORMMapper.ormToDomain(categoriaORM);
     }
 
-    @Override
-    public List<Categoria> buscaSubCategorias(UUID categoriaIdPai) {
-        logPort.trace("-> CategoriaRepositoryAdapter.buscaSubCategorias");
-        List<CategoriaORM> categoriasORM = categoriaRepository.findByCategoriaPaiByIdCategoria(categoriaIdPai.toString());
-        logPort.debug(categoriasORM.toString());
-        logPort.trace("<- CategoriaRepositoryAdapter.buscaSubCategorias");
-        return categoriaORMMapper.ormListToDomainList(categoriasORM);
-    }
+//    @Override
+//    public List<Categoria> buscaSubCategorias(UUID categoriaIdPai) {
+//        logPort.trace("-> CategoriaRepositoryAdapter.buscaSubCategorias");
+//        List<CategoriaORM> categoriasORM = categoriaRepository.findByCategoriaPaiByIdCategoria(categoriaIdPai.toString());
+//        logPort.debug(categoriasORM.toString());
+//        logPort.trace("<- CategoriaRepositoryAdapter.buscaSubCategorias");
+//        return categoriaORMMapper.ormListToDomainList(categoriasORM);
+//    }
 
     @Override
     public List<Categoria> buscaCategoriasPorNome(CategoryName nome) {
         logPort.trace("-> CategoriaRepositoryAdapter.buscaCategoriasPorNome");
-        List<CategoriaORM> categoriasORM = categoriaRepository.findByNome(nome.getCategoryName());
+        List<CategoriaORM> categoriasORM = categoriaRepository.findByNome(nome.getCategoryName().toString());
         logPort.debug(categoriasORM.toString());
         logPort.trace("<- CategoriaRepositoryAdapter.buscaCategoriasPorNome");
         return categoriaORMMapper.ormListToDomainList(categoriasORM);
     }
 
-    @Override
-    public List<Categoria> buscaCategoriasPorUsuario(UUID usuarioId) {
-        logPort.trace("-> CategoriaRepositoryAdapter.buscaCategoriasPorUsuario");
-        List<CategoriaORM> categoriasORM = categoriaRepository.findByUsuarioId(usuarioId.toString());
-        logPort.debug(categoriasORM.toString());
-        logPort.trace("<- CategoriaRepositoryAdapter.buscaCategoriasPorUsuario");
-        return categoriaORMMapper.ormListToDomainList(categoriasORM);
-    }
+//    @Override
+//    public List<Categoria> buscaCategoriasPorUsuario(UUID usuarioId) {
+//        logPort.trace("-> CategoriaRepositoryAdapter.buscaCategoriasPorUsuario");
+//        List<CategoriaORM> categoriasORM = categoriaRepository.findByUsuarioId(usuarioId.toString());
+//        logPort.debug(categoriasORM.toString());
+//        logPort.trace("<- CategoriaRepositoryAdapter.buscaCategoriasPorUsuario");
+//        return categoriaORMMapper.ormListToDomainList(categoriasORM);
+//    }
 
 }

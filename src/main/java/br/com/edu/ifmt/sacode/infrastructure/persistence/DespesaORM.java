@@ -3,11 +3,15 @@ package br.com.edu.ifmt.sacode.infrastructure.persistence;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import br.com.edu.ifmt.sacode.domain.entities.Usuario;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Moeda;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
+import br.com.edu.ifmt.sacode.infrastructure.mappers.UsuarioORMMapper;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,7 +23,11 @@ public class DespesaORM {
     private String descricao;
     private String valor;
     private LocalDate data;
+
+    //@ManyToOne
+    //@JoinColumn(name = "usuario")
     private String usuario;
+
     private String autor;
     private Boolean fixa;
     private String financiador;

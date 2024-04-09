@@ -3,21 +3,26 @@ package br.com.edu.ifmt.sacode.domain.entities.vo;
 import java.util.regex.Pattern;
 
 /**
- * O nome do MembroFamiliar deve ser:
- * - ser nome seguido de sobrenome,
- * - começando por letra maiuscula
- * - o sobrnome é opcional
- * - e o tamanho mínimo é 30 e mínimo 3.
- * - sendo ^[A-Z][a-z]+( [A-Z][a-z]?).{3,29}$
+ * Um nome válido deve atender a seguinte regex :
+ * ^[a-zA-ZÀ-ÿ\\s'-]{8,80}$
+ * ^ Tipifica que a string deve corresponder a regex do inicio ao final
+ * [a-zA-ZÀ-ÿ\\s'-] Um conjunto de caracteres que inclui letras de A a Z
+ * (maiúsculas e minúsculas),
+ * letras acentuadas (como À-ÿ), espaços, hifens e apóstrofos.
+ * {8,80} restrição de comprimento
+ * $ Fim da string
  */
 public class Nome {
-    private static final String regex = "^[A-Z][a-z]+( [A-Z][a-z]?).{3,29}$";
+    private static final String regexNome = "^[a-zA-ZÀ-ÿ\\s'-]{7,79}$";
 
     private String nome;
 
-    public Nome(){this.nome = new String();}
+    public Nome() {
+        this.nome = new String();
+    }
+
     public Nome(String nome) {
-        if (nome != null && Pattern.matches(regex, nome)) {
+        if (nome != null && Pattern.matches(regexNome, nome)) {
             this.nome = nome;
         } else {
             this.nome = null;

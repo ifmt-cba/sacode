@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import br.com.edu.ifmt.sacode.domain.entities.Categoria;
-import br.com.edu.ifmt.sacode.domain.entities.vo.CategoryName;
+import br.com.edu.ifmt.sacode.domain.entities.vo.NomeCategoria;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.CategoriaORM;
 
@@ -16,7 +16,7 @@ public class CategoriaORMMapper {
         
         categoriaORM.setDescricao(categoriaDomain.getDescricao().getDescricao());
         categoriaORM.setIdCategoria(categoriaDomain.getId().toString());
-        categoriaORM.setNome(categoriaDomain.getNome().getCategoryName());
+        categoriaORM.setNome(categoriaDomain.getNome().getNomeCategoria());
         categoriaORM.setCategoriaPai(categoriaDomain.getIdCategoriaPai().toString());
         return categoriaORM;
     
@@ -26,7 +26,7 @@ public class CategoriaORMMapper {
         Categoria categoriaDomain = new Categoria();
          
         categoriaDomain.setId(UUID.fromString(categoriaORM.getIdCategoria()));
-        categoriaDomain.setNome( new CategoryName(categoriaORM.getNome()));
+        categoriaDomain.setNome( new NomeCategoria(categoriaORM.getNome()));
         categoriaDomain.setDescricao(new Descricao(categoriaORM.getDescricao()));
         categoriaDomain.setIdCategoriaPai(UUID.fromString(categoriaORM.getCategoriaPai()));
         

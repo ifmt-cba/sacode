@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.edu.ifmt.sacode.domain.entities.Categoria;
-import br.com.edu.ifmt.sacode.domain.entities.vo.CategoryName;
+import br.com.edu.ifmt.sacode.domain.entities.vo.NomeCategoria;
 import br.com.edu.ifmt.sacode.domain.ports.CategoriaPort;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
 import br.com.edu.ifmt.sacode.infrastructure.mappers.CategoriaORMMapper;
@@ -70,9 +70,9 @@ public class CategoriaRepositoryAdapter implements CategoriaPort {
 //    }
 
     @Override
-    public List<Categoria> buscaCategoriasPorNome(CategoryName nome) {
+    public List<Categoria> buscaCategoriasPorNome(NomeCategoria nome) {
         logPort.trace("-> CategoriaRepositoryAdapter.buscaCategoriasPorNome");
-        List<CategoriaORM> categoriasORM = categoriaRepository.findByNome(nome.getCategoryName().toString());
+        List<CategoriaORM> categoriasORM = categoriaRepository.findByNome(nome.getNomeCategoria().toString());
         logPort.debug(categoriasORM.toString());
         logPort.trace("<- CategoriaRepositoryAdapter.buscaCategoriasPorNome");
         return categoriaORMMapper.ormListToDomainList(categoriasORM);

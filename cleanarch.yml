@@ -1,0 +1,44 @@
+#https://cloud.google.com/blog/products/containers-kubernetes/kubernetes-best-practices-resource-requests-and-limits
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sacode-deployment
+  labels:
+    app: sacode
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sacode
+  template:
+    metadata:
+      labels:
+        app: sacode
+    spec:
+      containers:
+      - name: sacode
+        image: br.edu.ifmt/sacode
+        imagePullPolicy: Never
+        resources:
+          limits:
+            cpu: "1"        
+            memory: "200Mi"
+          requests:
+            cpu: "0.5"       # deve garantir pelo menos meia CPU
+            memory: "100Mi"  # deve garantir pelo menos 100 megas de memória
+        ports:
+        - containerPort: 7070
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sacode-service
+spec:
+  selector:
+    app: sacode
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 7070
+      targetPort: 7070
+      nodePort: 30000

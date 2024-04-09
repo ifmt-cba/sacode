@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
-public class UserTest {
+public class UsuarioTest {
 
     @Test
     void testToStringJSONFormat() {
@@ -20,7 +20,7 @@ public class UserTest {
             @Override
             public void execute() throws Throwable {
                 ObjectMapper objectMapper = new ObjectMapper();
-                objectMapper.readValue(new User().toString().getBytes(),Map.class);
+                objectMapper.readValue(new Usuario().toString().getBytes(),Map.class);
             }
 
         });

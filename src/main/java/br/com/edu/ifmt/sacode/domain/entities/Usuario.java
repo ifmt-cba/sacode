@@ -9,7 +9,7 @@ import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Password;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Username;
 
-public class User {
+public class Usuario {
     private UUID idUsuario;
     private Nome nome;
     private Username nomeUsuario;
@@ -18,7 +18,7 @@ public class User {
     private boolean superUsuario;
     private List<Nome> membroFamiliar;
 
-    public User() {
+    public Usuario() {
         this.idUsuario = new UUID(0, 0);
         this.nome = new Nome(null);
         this.nomeUsuario = new Username(null);
@@ -29,7 +29,7 @@ public class User {
         this.membroFamiliar = new ArrayList<>();
     }
 
-    public User(UUID idUsuario, Nome nome, Username nomeUsuario, Password senha, Email email, boolean superUsuario,
+    public Usuario(UUID idUsuario, Nome nome, Username nomeUsuario, Password senha, Email email, boolean superUsuario,
             List<Nome> membroFamiliar) {
         this.idUsuario = idUsuario;
         this.nome = nome;

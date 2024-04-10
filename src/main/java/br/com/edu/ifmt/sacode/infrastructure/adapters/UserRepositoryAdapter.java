@@ -11,14 +11,13 @@ import br.com.edu.ifmt.sacode.infrastructure.mappers.UserORMMapper;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.UserORM;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.UserRepository;
 
-public class UserRepositoryAdapter implements UserPort{
-    
+public class UserRepositoryAdapter implements UserPort {
+
     private final UserRepository userRepository;
     private final UserORMMapper userORMMapper;
 
     private final LogPort logPort;
 
-    
     public UserRepositoryAdapter(UserRepository userRepository, UserORMMapper userORMMapper, LogPort logPort) {
         this.userRepository = userRepository;
         this.userORMMapper = userORMMapper;
@@ -26,10 +25,10 @@ public class UserRepositoryAdapter implements UserPort{
     }
 
     @Override
-    public User buscaPorIdUsuario(UUID id)
-    {
+    public User buscaPorIdUsuario(UUID id) {
         logPort.trace("-> UserRepositoryAdapter.buscarPorIdUsuario");
-        UserORM usuarioEncontrado = userRepository.findById(id.toString());
+        UserORM usuarioEncontrado = userRepository.findById(id.toString())
+                .orElseThrow();
         logPort.trace("<- UserRepositoryAdapter.buscarPorIdUsuario");
         return userORMMapper.toDomainObj(usuarioEncontrado);
     }

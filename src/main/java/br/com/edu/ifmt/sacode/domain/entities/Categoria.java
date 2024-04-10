@@ -1,35 +1,35 @@
 package br.com.edu.ifmt.sacode.domain.entities;
 
-import br.com.edu.ifmt.sacode.domain.entities.vo.CategoryName;
+import br.com.edu.ifmt.sacode.domain.entities.vo.NomeCategoria;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
 import java.util.UUID;
 
 public class Categoria {
 
     private UUID id;
-    private CategoryName nome;
+    private UUID usuario;
+    private NomeCategoria nome;
     private Descricao descricao;
     private UUID idCategoriaPai;
 
     public Categoria() {
-        this.nome = new CategoryName(null);
+        this.id = null;
+        this.usuario = null;
+        this.nome = new NomeCategoria(null);
         this.descricao = new Descricao(null);
-        
+        this.idCategoriaPai = null;
     }
 
-    public UUID getId() {
-        return id;
-    }
+    public UUID getId() {return id;}
+    public void setId(UUID id) {this.id = id;}
+    public UUID getUsuario() {return usuario;}
+    public void setUsuario(UUID usuario) {this.usuario = usuario;}
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public CategoryName getNome() {
+    public NomeCategoria getNome() {
         return nome;
     }
 
-    public void setNome(CategoryName nome) {
+    public void setNome(NomeCategoria nome) {
         this.nome = nome;
     }
 
@@ -55,14 +55,16 @@ public class Categoria {
         return String.format("""
                 {
                     "id":"%s",
+                    "usuario":"%s"
                     "nome":"%s",
                     "descricao":"%s",
                     "idCategoriaPai":"%s"
                 }
                 """,
                 id.toString(),
+                usuario.toString(),
                 nome.toString(),
                 descricao.toString(),
-                idCategoriaPai == null ? null : idCategoriaPai.toString());
+                idCategoriaPai == null ? "null" : idCategoriaPai.toString());
     }
 }

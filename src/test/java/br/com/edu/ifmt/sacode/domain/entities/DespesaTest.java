@@ -20,7 +20,7 @@ public class DespesaTest {
       @Override
       public void execute() throws Throwable {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.readValue(new User().toString().getBytes(),Map.class);
+        objectMapper.readValue(new Usuario().toString().getBytes(),Map.class);
       }
     });
   }

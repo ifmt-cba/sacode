@@ -4,6 +4,6 @@ import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends CrudRepository<UserORM, String> {
+public interface UsuarioRepository extends CrudRepository<UsuarioORM, String> {
 
 }

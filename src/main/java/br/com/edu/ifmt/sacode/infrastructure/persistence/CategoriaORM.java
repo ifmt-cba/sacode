@@ -2,7 +2,7 @@ package br.com.edu.ifmt.sacode.infrastructure.persistence;
 
 import java.util.UUID;
 
-import br.com.edu.ifmt.sacode.domain.entities.vo.CategoryName;
+import br.com.edu.ifmt.sacode.domain.entities.vo.NomeCategoria;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
 
 import jakarta.persistence.Entity;
@@ -17,7 +17,7 @@ public class CategoriaORM {
     private String id;
     private String nome;
     private String descricao;
-    private String categoriapai;
+    private String categoriaPai;
 
     // @OneToMany(mappedBy = "categoriaPai", cascade = CascadeType.ALL,
     // orphanRemoval = true)
@@ -26,13 +26,13 @@ public class CategoriaORM {
     public CategoriaORM() {
     }
 
-    public CategoriaORM(UUID id, CategoryName nome, Descricao descricao,
+    public CategoriaORM(UUID id, NomeCategoria nome, Descricao descricao,
             UUID idCategoriaPai) {
 
         this.id = id.toString();
-        this.nome = nome.getCategoryName();
+        this.nome = nome.getNomeCategoria();
         this.descricao = descricao.getDescricao();
-        this.categoriapai = idCategoriaPai.toString();
+        this.categoriaPai = idCategoriaPai.toString();
 
     }
 
@@ -50,7 +50,7 @@ public class CategoriaORM {
                 id.toString(),
                 nome.toString(),
                 descricao.toString(),
-                categoriapai == null ? null : categoriapai.toString());
+                categoriaPai == null ? null : categoriaPai.toString());
     }
 
     public String getIdCategoria() {
@@ -78,11 +78,11 @@ public class CategoriaORM {
     }
 
     public String getCategoriaPai() {
-        return categoriapai;
+        return categoriaPai;
     }
 
     public void setCategoriaPai(String categoriaPai) {
-        this.categoriapai = categoriaPai;
+        this.categoriaPai = categoriaPai;
     }
 
 }

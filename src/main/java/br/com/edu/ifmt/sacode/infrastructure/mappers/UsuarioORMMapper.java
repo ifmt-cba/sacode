@@ -5,17 +5,17 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import br.com.edu.ifmt.sacode.domain.entities.User;
+import br.com.edu.ifmt.sacode.domain.entities.Usuario;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Email;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Password;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Username;
-import br.com.edu.ifmt.sacode.infrastructure.persistence.UserORM;
+import br.com.edu.ifmt.sacode.infrastructure.persistence.UsuarioORM;
 
-public class UserORMMapper {
+public class UsuarioORMMapper {
 
-    public UserORM toORM(User user) {
-        return new UserORM(
+    public static UsuarioORM toORM(Usuario user) {
+        return new UsuarioORM(
                 user.getIdUsuario(),
                 user.getEmail(),
                 user.getNomeUsuario(),
@@ -26,8 +26,8 @@ public class UserORMMapper {
                         .collect(Collectors.toList()));
     }
 
-    public User toDomainObj(UserORM userORM) {
-        User user = new User();
+    public static Usuario toDomainObj(UsuarioORM userORM) {
+        Usuario user = new Usuario();
         user.setIdUsuario(UUID.fromString(userORM.getId()));
         user.setEmail(new Email(userORM.getEmail()));
         user.setNomeUsuario(new Username(userORM.getUsername()));
@@ -40,9 +40,9 @@ public class UserORMMapper {
         return user;
     }
 
-    public List<User> toDomainList(List<UserORM> usersORM) {
-        List<User> users = new ArrayList<>();
-        for (UserORM userORM : usersORM) {
+    public List<Usuario> toDomainList(List<UsuarioORM> usersORM) {
+        List<Usuario> users = new ArrayList<>();
+        for (UsuarioORM userORM : usersORM) {
             users.add(toDomainObj(userORM));
         }
         return users;

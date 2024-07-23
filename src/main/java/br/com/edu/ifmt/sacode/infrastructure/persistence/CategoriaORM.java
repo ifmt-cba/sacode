@@ -1,13 +1,12 @@
 package br.com.edu.ifmt.sacode.infrastructure.persistence;
 
-import java.util.UUID;
-
-import br.com.edu.ifmt.sacode.domain.entities.vo.NomeCategoria;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
-
+import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "categoria")
@@ -18,6 +17,7 @@ public class CategoriaORM {
     private String nome;
     private String descricao;
     private String categoriaPai;
+    private String usuario;
 
     // @OneToMany(mappedBy = "categoriaPai", cascade = CascadeType.ALL,
     // orphanRemoval = true)
@@ -26,13 +26,14 @@ public class CategoriaORM {
     public CategoriaORM() {
     }
 
-    public CategoriaORM(UUID id, NomeCategoria nome, Descricao descricao,
-            UUID idCategoriaPai) {
+    public CategoriaORM(UUID id, Nome nomeCategoria, Descricao descricao,
+                        UUID idCategoriaPai, String usuario) {
 
         this.id = id.toString();
-        this.nome = nome.getNomeCategoria();
+        this.nome = nomeCategoria.toString();
         this.descricao = descricao.getDescricao();
         this.categoriaPai = idCategoriaPai.toString();
+        this.usuario = usuario;
 
     }
 
@@ -44,13 +45,16 @@ public class CategoriaORM {
                     "nome":"%s",
                     "descricao":"%s",
                     "idCategoriaPai":"%s",
-                    "subCategorias":[%s]
+                    "usuario":"%s",
+                  
                 }
                 """,
                 id.toString(),
                 nome.toString(),
                 descricao.toString(),
-                categoriaPai == null ? null : categoriaPai.toString());
+                categoriaPai == null ? null : categoriaPai.toString(),
+                usuario
+                );
     }
 
     public String getIdCategoria() {
@@ -85,4 +89,7 @@ public class CategoriaORM {
         this.categoriaPai = categoriaPai;
     }
 
+    public void setUsuario(String usuario) {this.usuario = usuario; }
+
+    public String getUsuario() {return usuario; }
 }

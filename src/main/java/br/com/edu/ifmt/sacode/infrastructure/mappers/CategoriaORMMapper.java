@@ -1,14 +1,16 @@
 package br.com.edu.ifmt.sacode.infrastructure.mappers;
 
+import br.com.edu.ifmt.sacode.domain.entities.Categoria;
+import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
+import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
+import br.com.edu.ifmt.sacode.infrastructure.persistence.CategoriaORM;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import br.com.edu.ifmt.sacode.domain.entities.Categoria;
-import br.com.edu.ifmt.sacode.domain.entities.vo.NomeCategoria;
-import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
-import br.com.edu.ifmt.sacode.infrastructure.persistence.CategoriaORM;
-
+@Component
 public class CategoriaORMMapper {
     
     public CategoriaORM domainToORM(Categoria categoriaDomain) {
@@ -16,7 +18,7 @@ public class CategoriaORMMapper {
         
         categoriaORM.setDescricao(categoriaDomain.getDescricao().getDescricao());
         categoriaORM.setIdCategoria(categoriaDomain.getId().toString());
-        categoriaORM.setNome(categoriaDomain.getNome().getNomeCategoria());
+        categoriaORM.setNome(categoriaDomain.getNome().toString());
         categoriaORM.setCategoriaPai(categoriaDomain.getIdCategoriaPai().toString());
         return categoriaORM;
     
@@ -26,7 +28,7 @@ public class CategoriaORMMapper {
         Categoria categoriaDomain = new Categoria();
          
         categoriaDomain.setId(UUID.fromString(categoriaORM.getIdCategoria()));
-        categoriaDomain.setNome( new NomeCategoria(categoriaORM.getNome()));
+        categoriaDomain.setNome( new Nome(categoriaORM.getNome()));
         categoriaDomain.setDescricao(new Descricao(categoriaORM.getDescricao()));
         categoriaDomain.setIdCategoriaPai(UUID.fromString(categoriaORM.getCategoriaPai()));
         

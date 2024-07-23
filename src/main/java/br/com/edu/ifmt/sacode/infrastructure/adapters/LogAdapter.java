@@ -4,8 +4,10 @@ import br.com.edu.ifmt.sacode.domain.ports.LogPort;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 
+@Component
 public class LogAdapter implements LogPort {
     
     private static final Logger logger = LoggerFactory.getLogger(LogAdapter.class);

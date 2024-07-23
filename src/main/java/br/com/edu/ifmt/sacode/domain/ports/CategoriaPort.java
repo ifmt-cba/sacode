@@ -1,21 +1,24 @@
 package br.com.edu.ifmt.sacode.domain.ports;
 
 import br.com.edu.ifmt.sacode.domain.entities.Categoria;
-import br.com.edu.ifmt.sacode.domain.entities.vo.NomeCategoria;
+import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
+import br.com.edu.ifmt.sacode.domain.services.exception.CategoriaException;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface CategoriaPort {
-    Categoria saveCategoria(Categoria categoria);
-    
-    boolean deleteCategoria(UUID id, Categoria categoria);
+    Categoria criarCategoria(Categoria categoria) throws CategoriaException;
 
-    Categoria findByIdCategoria(UUID categoriaId);
+    Categoria atualizarCategoria(Categoria categoria);
 
-//    List<Categoria> buscaSubCategorias(UUID categoriaIdPai);
+    void excluirCategoria(UUID id, Categoria categoria);
 
-    List<Categoria> buscaCategoriasPorNome(NomeCategoria nome);
+    Categoria buscarCategoria(UUID categoriaId);
 
-//    List<Categoria> buscaCategoriasPorUsuario(UUID usuarioId);
+    List<Categoria> buscaSubCategorias(UUID categoriaIdPai);
+
+    List<Categoria> buscaCategoriasPorNome(Nome nomeCategoria);
+
+    List<Categoria> buscaCategoriasPorUsuario(UUID usuarioId);
 }

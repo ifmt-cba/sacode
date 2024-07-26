@@ -16,45 +16,19 @@ public class CategoriaORM {
     private String id;
     private String nome;
     private String descricao;
-    private String categoriaPai;
+    private String categoriaSuperior;
     private String usuario;
-
-    // @OneToMany(mappedBy = "categoriaPai", cascade = CascadeType.ALL,
-    // orphanRemoval = true)
-    // private List<Categoria> subCategorias;
 
     public CategoriaORM() {
     }
 
     public CategoriaORM(UUID id, Nome nomeCategoria, Descricao descricao,
-                        UUID idCategoriaPai, String usuario) {
-
+                        UUID categoriaSuperior, String usuario) {
         this.id = id.toString();
         this.nome = nomeCategoria.toString();
-        this.descricao = descricao.getDescricao();
-        this.categoriaPai = idCategoriaPai.toString();
+        this.descricao = descricao.toString();
+        this.categoriaSuperior = categoriaSuperior.toString();
         this.usuario = usuario;
-
-    }
-
-    @Override
-    public String toString() {
-        return String.format("""
-                {
-                    "id":"%s",
-                    "nome":"%s",
-                    "descricao":"%s",
-                    "idCategoriaPai":"%s",
-                    "usuario":"%s",
-                  
-                }
-                """,
-                id.toString(),
-                nome.toString(),
-                descricao.toString(),
-                categoriaPai == null ? null : categoriaPai.toString(),
-                usuario
-                );
     }
 
     public String getIdCategoria() {
@@ -81,15 +55,45 @@ public class CategoriaORM {
         this.descricao = descricao;
     }
 
-    public String getCategoriaPai() {
-        return categoriaPai;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setCategoriaPai(String categoriaPai) {
-        this.categoriaPai = categoriaPai;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
-    public void setUsuario(String usuario) {this.usuario = usuario; }
+    public String getId() {
+        return id;
+    }
 
-    public String getUsuario() {return usuario; }
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCategoriaSuperior() {
+        return categoriaSuperior;
+    }
+
+    public void setCategoriaSuperior(String categoriaSuperior) {
+        this.categoriaSuperior = categoriaSuperior;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("""
+                        {
+                            "id":"%s",
+                            "nome":"%s",
+                            "descricao":"%s",
+                            "usuario":"%s",
+                            "idCategoriaSuperior":"%s"
+                        }
+                        """,
+                id != null ? id : "null",
+                nome != null ? nome : "null",
+                descricao != null ? descricao : "null",
+                usuario != null ? usuario : "null",
+                categoriaSuperior != null ? categoriaSuperior : "null");
+    }
 }

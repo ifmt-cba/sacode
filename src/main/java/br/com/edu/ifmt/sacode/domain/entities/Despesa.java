@@ -1,10 +1,11 @@
 package br.com.edu.ifmt.sacode.domain.entities;
-import java.time.LocalDate;
-import java.util.UUID;
 
 import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
-import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Moeda;
+import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
+
+import java.time.LocalDate;
+import java.util.UUID;
 
 
 public class Despesa {
@@ -23,7 +24,7 @@ public class Despesa {
     // criação do obe
     public Despesa() {
         this.idDespesa = new UUID(0, 0);
-        this.descricao = Descricao.mock();
+        this.descricao = new Descricao();
         this.valor = Moeda.mockMoeda();
         this.data = null;
         this.usuario = null;

@@ -10,13 +10,13 @@ import java.util.UUID;
 public interface CategoriaPort {
     Categoria criarCategoria(Categoria categoria) throws CategoriaException;
 
-    Categoria atualizarCategoria(Categoria categoria);
+    Categoria atualizarCategoria(Categoria categoria) throws CategoriaException;;
 
-    void excluirCategoria(UUID id, Categoria categoria);
+    void excluirCategoria(UUID idCategoria) throws CategoriaException;
 
     Categoria buscarCategoria(UUID categoriaId);
 
-    List<Categoria> buscaSubCategorias(UUID categoriaIdPai);
+    List<Categoria> buscaSubCategorias(UUID categoriaSuperior);
 
     List<Categoria> buscaCategoriasPorNome(Nome nomeCategoria);
 

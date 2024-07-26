@@ -8,6 +8,6 @@ import java.util.List;
 @Repository
 public interface CategoriaRepository extends CrudRepository<CategoriaORM, String>{
     List<CategoriaORM> findByNome(String categoriaNome);
-    List<CategoriaORM> findByCategoriaPai(String categoriaPai);
-    List<CategoriaORM> findByUsuario(String string);
+    List<CategoriaORM> findByCategoriaSuperior(String categoriaSuperior);
+    List<CategoriaORM> findByUsuario(String idUsuario);
 }

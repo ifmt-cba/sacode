@@ -31,27 +31,35 @@ public class CategoriaRepositoryAdapter implements CategoriaPort {
     }
 
     @Override
-    public Categoria criarCategoria(Categoria categoria) {
+    public Categoria criarCategoria(Categoria categoriaDominio) {
         logPort.trace("-> CategoriaRepositoryAdapter.criarCategoria");
-        CategoriaORM categoriaORM = categoriaORMMapper.domainToORM(categoria);
-        logPort.debug(categoriaORM.toString());
-        CategoriaORM savedCategoria = categoriaRepository.save(categoriaORM);
+        CategoriaORM categoriaORM = new CategoriaORM();
+
+        try {
+            categoriaORM = categoriaORMMapper.dominioParaOrm(categoriaDominio);
+            logPort.debug(categoriaORM.toString());
+            categoriaORM = categoriaRepository.save(categoriaORM);
+        } catch (Exception e) {
+            logPort.error("Erro ao criar categoria.".concat(e.getMessage()));
+        }
         logPort.info("Categoria inserida na tabela categoria.");
         logPort.debug(categoriaORM.toString());
         logPort.trace("<- CategoriaRepositoryAdapter.saveCategoria");
-        return categoriaORMMapper.ormToDomain(savedCategoria);
+
+        return categoriaDominio;
     }
 
     @Override
-    public void excluirCategoria(UUID id, Categoria categoria) {
+    public void excluirCategoria(UUID id) {
         logPort.trace("-> CategoriaRepositoryAdapter.excluirCategoria");
         try {
             categoriaRepository.deleteById(String.valueOf(id));
-            logPort.info("Categoria excluida da tabela categoria.");
-            logPort.trace("<- CategoriaRepositoryAdapter.excluirCategoria");
         } catch (Exception e) {
             logPort.error("Erro ao deletar categoria.".concat(e.getMessage()));
         }
+
+        logPort.info("Categoria excluida da tabela categoria.");
+        logPort.trace("<- CategoriaRepositoryAdapter.excluirCategoria");
     }
 
 
@@ -59,79 +67,88 @@ public class CategoriaRepositoryAdapter implements CategoriaPort {
     public Categoria buscarCategoria(UUID categoriaId) {
         logPort.trace("-> CategoriaRepositoryAdapter.buscarCategoria()");
 
-        Optional<CategoriaORM> categoriaORMOptional = categoriaRepository.findById(String.valueOf(categoriaId));
+        Optional<CategoriaORM> categoriaORMOpcional = categoriaRepository.findById(String.valueOf(categoriaId));
 
-        if (categoriaORMOptional.isEmpty()) {
+        if (categoriaORMOpcional.isEmpty()) {
             logPort.debug("Categoria não encontrada para o ID: " + categoriaId);
             logPort.trace("<- CategoriaRepositoryAdapter.buscarCategoria()");
             return null;
         }
 
         // Categoria encontrada
-        CategoriaORM categoriaORM = categoriaORMOptional.get();
+        CategoriaORM categoriaORM = categoriaORMOpcional.get();
         logPort.debug("Categoria encontrada: " + categoriaORM.toString());
         logPort.trace("<- CategoriaRepositoryAdapter.buscarCategoria()");
 
         // Converter CategoriaORM
-        return categoriaORMMapper.ormToDomain(categoriaORM);
+        return categoriaORMMapper.ormParaDominio(categoriaORM);
     }
 
     @Override
-    public List<Categoria> buscaSubCategorias(UUID categoriaIdPai) {
+    public List<Categoria> buscaSubCategorias(UUID idCategoriaSuperior) {
         logPort.trace("-> CategoriaRepositoryAdapter.buscaSubCategorias");
-        List<CategoriaORM> categoriasORM = categoriaRepository.findByCategoriaPai(String.valueOf(categoriaIdPai));
+        List<CategoriaORM> categoriasORM = null;
+        try {
+            categoriasORM = categoriaRepository.findByCategoriaSuperior(String.valueOf(idCategoriaSuperior));
+        } catch (Exception e) {
+            logPort.error("Erro ao buscar subCategorias.".concat(e.getMessage()));
+        }
+
         logPort.debug(categoriasORM.toString());
         logPort.trace("<- CategoriaRepositoryAdapter.buscaSubCategorias");
-        return categoriaORMMapper.ormListToDomainList(categoriasORM);
+        return categoriaORMMapper.ormListParaDominioList(categoriasORM);
     }
 
 
 
     @Override
-    public Categoria atualizarCategoria(Categoria categoria) {
-        CategoriaORM savedCategoria;
+    public Categoria atualizarCategoria(Categoria categoriaDominio) {
+        CategoriaORM categoriaORM = new CategoriaORM();
 
         logPort.trace("-> CategoriaRepositoryAdapter.atualizarCategoria");
-        Categoria categoriaBuscada =  buscarCategoria(categoria.getId());
-        logPort.debug(categoria.toString());
-        categoriaBuscada.setNome(categoria.getNome());
-        categoriaBuscada.setDescricao(categoria.getDescricao());
-        categoriaBuscada.setIdCategoriaPai(categoria.getIdCategoriaPai());
-        categoriaBuscada.setUsuario(categoria.getUsuario());
-
-
         try {
-            savedCategoria = categoriaORMMapper.domainToORM(categoriaBuscada);
-            savedCategoria = categoriaRepository.save(savedCategoria);
+            categoriaORM = categoriaORMMapper.dominioParaOrm(categoriaDominio);
+            categoriaORM = categoriaRepository.save(categoriaORM);
         } catch (Exception e) {
             logPort.error("Erro ao atualizar a categoria.".concat(e.getMessage()));
+
         }
 
 
-        logPort.debug("Categoria atualizada: " + categoria.toString());
+        logPort.debug("Categoria atualizada: " + categoriaORMMapper.ormParaDominio(categoriaORM));
         logPort.info("Categoria atualizada na tabela categoria.");
         logPort.trace("<- CategoriaRepositoryAdapter.atualizarCategoria");
 
-        return categoriaBuscada;
+        return categoriaDominio;
     }
 
 
     @Override
     public List<Categoria> buscaCategoriasPorNome(Nome nomeCategoria) {
         logPort.trace("-> CategoriaRepositoryAdapter.buscaCategoriasPorNome");
-        List<CategoriaORM> categoriasORM = categoriaRepository.findByNome(nomeCategoria.toString());
+        List<CategoriaORM> categoriasORM = null;
+        try {
+            categoriasORM = categoriaRepository.findByNome(nomeCategoria.toString());
+        } catch (Exception e) {
+            logPort.error("Erro ao erro ao buscar categorias por nome.".concat(e.getMessage()));
+        }
         logPort.debug(categoriasORM.toString());
         logPort.trace("<- CategoriaRepositoryAdapter.buscaCategoriasPorNome");
-        return categoriaORMMapper.ormListToDomainList(categoriasORM);
+        return categoriaORMMapper.ormListParaDominioList(categoriasORM);
     }
 
     @Override
     public List<Categoria> buscaCategoriasPorUsuario(UUID usuarioId) {
         logPort.trace("-> CategoriaRepositoryAdapter.buscaCategoriasPorUsuario");
-        List<CategoriaORM> categoriasORM = categoriaRepository.findByUsuario(String.valueOf(usuarioId));
+        List<CategoriaORM> categoriasORM = null;
+        try {
+            categoriasORM = categoriaRepository.findByUsuario(String.valueOf(usuarioId));
+        } catch (Exception e) {
+            logPort.error("Erro ao erro ao buscar categorias por usuario.".concat(e.getMessage()));
+        }
         logPort.debug(categoriasORM.toString());
         logPort.trace("<- CategoriaRepositoryAdapter.buscaCategoriasPorUsuario");
-        return categoriaORMMapper.ormListToDomainList(categoriasORM);
+        return categoriaORMMapper.ormListParaDominioList(categoriasORM);
     }
 
 }

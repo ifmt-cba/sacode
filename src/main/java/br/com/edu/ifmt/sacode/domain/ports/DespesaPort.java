@@ -17,8 +17,10 @@ public interface DespesaPort {
 
     int excluirParcelas(UUID usuario, UUID correlacaoParcleas);
 
+    List<Despesa> buscarDespesaPorID(UUID usuario);
     List<Despesa> buscarDespesaPorPeriodo(UUID usuario, LocalDate primeiroDia, LocalDate ultimoDia);
     List<Despesa> buscarDespesaPorAutor(UUID usuario, String autor);
     List<Despesa> buscarDespesaPorFinanciador(UUID usuario, String financiador);
+    List<Despesa> buscarDespesaPorUsuario(UUID usuario);
 
 }

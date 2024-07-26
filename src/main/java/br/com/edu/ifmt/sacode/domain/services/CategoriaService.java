@@ -1,4 +1,4 @@
-package br.com.edu.ifmt.sacode.domain.services.CategoriaService;
+package br.com.edu.ifmt.sacode.domain.services;
 
 import br.com.edu.ifmt.sacode.domain.entities.Categoria;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
@@ -11,6 +11,9 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class CategoriaService {
 
     private ResourceBundle excRB;

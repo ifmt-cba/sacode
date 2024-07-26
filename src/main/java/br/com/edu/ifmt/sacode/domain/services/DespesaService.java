@@ -6,16 +6,21 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import br.com.edu.ifmt.sacode.domain.entities.Despesa;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
 import br.com.edu.ifmt.sacode.domain.ports.DespesaPort;
 import br.com.edu.ifmt.sacode.domain.services.exception.DespesaException;
 
+@Service
 public class DespesaService {
     private ResourceBundle excRB;
     private final LogPort logPort;
     private final DespesaPort despesaPort;
 
+    @Autowired
     public DespesaService(DespesaPort createDespesa, LogPort logPort) {
         this.despesaPort = createDespesa;
         this.logPort = logPort;
@@ -40,7 +45,7 @@ public class DespesaService {
             }
             despesaResponse = despesaPort.criarDespesa(despesa);
         } catch (Exception e) {
-            throw new DespesaException(exc.toString());
+            throw new DespesaException("{\n"+exc.toString()+"\nDetalhe: "+e.getMessage()+"\nCausa: "+e.getCause()+"\n}");
         }
         logPort.info("Despesa criada com sucesso.");
         logPort.debug(despesa.toString());
@@ -48,7 +53,8 @@ public class DespesaService {
         return despesaResponse;
     }
 
-    public boolean verificarCampos(Despesa despesa) throws DespesaException {
+    
+    private boolean verificarCampos(Despesa despesa) throws DespesaException {
         logPort.trace("-> DespesaService.verificarCampos()");
 
         StringBuilder exc = new StringBuilder();
@@ -205,22 +211,40 @@ public class DespesaService {
         logPort.trace("<- DespesaService.porAutor()");
         return despesaResponse;
     }
-    public List<Despesa> porFinanciador(UUID usuario, String autorDespesa) throws DespesaException {
+    
+    public List<Despesa> porFinanciador(UUID usuario, String financiadorDespesa) throws DespesaException {
         logPort.trace("-> DespesaService.porFinanciador()");
         StringBuilder exc = new StringBuilder();
 
         
         if (usuario.toString() == null)
             exc.append(excRB.getString("despesa.porFinanciador().userInvalid").concat(" "));
-        if (autorDespesa.toString() == null)
+        if (financiadorDespesa.toString() == null)
             exc.append(excRB.getString("despesa.porFinanciador().financiadorInvalid").concat(" "));
         
         if (!exc.isEmpty()) {
             logPort.warn(exc.toString());
             throw new DespesaException(exc.toString());
         }
-        List<Despesa> despesaResponse = despesaPort.buscarDespesaPorFinanciador(usuario, autorDespesa);
+        List<Despesa> despesaResponse = despesaPort.buscarDespesaPorFinanciador(usuario, financiadorDespesa);
         logPort.trace("<- DespesaService.porFinanciador()");
+        return despesaResponse;
+    }
+    
+    public List<Despesa> porUsuario(UUID usuario)  throws DespesaException {
+        logPort.trace("-> DespesaService.DespesaPorUsuario()");
+        StringBuilder exc = new StringBuilder();
+
+        
+        if (usuario.toString() == null)
+            exc.append(excRB.getString("despesa.DespesaPorUsuario().userInvalid").concat(" "));
+        
+        if (!exc.isEmpty()) {
+            logPort.warn(exc.toString());
+            throw new DespesaException(exc.toString());
+        }
+        List<Despesa> despesaResponse = despesaPort.buscarDespesaPorUsuario(usuario);
+        logPort.trace("<- DespesaService.DespesaPorUsuario()");
         return despesaResponse;
     }
 }

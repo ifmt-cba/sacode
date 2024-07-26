@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import br.com.edu.ifmt.sacode.domain.entities.Despesa;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
@@ -13,6 +14,7 @@ import br.com.edu.ifmt.sacode.infrastructure.mappers.DespesaORMMapper;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.DespesaORM;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.DespesaRepository;
 
+@Component
 public class DespesaRepositoryAdapter implements DespesaPort {
   private final DespesaRepository despesaRepository;
   private final DespesaORMMapper despesaORMMapper;
@@ -75,26 +77,40 @@ public class DespesaRepositoryAdapter implements DespesaPort {
 
   @Override
   public List<Despesa> buscarDespesaPorPeriodo(UUID usuario, LocalDate comeco, LocalDate fim) {
-    logPort.trace("-> DespesaRepositoryAdapter.excluirParcelas");
+    logPort.trace("-> DespesaRepositoryAdapter.buscarDespesaPorPeriodo");
     List<DespesaORM> retorno = despesaRepository.findByUsuarioAndDataBetween(usuario.toString(), comeco, fim);
-    logPort.trace("<- DespesaRepositoryAdapter.excluirParcelas");
+    logPort.trace("<- DespesaRepositoryAdapter.buscarDespesaPorPeriodo");
     return despesaORMMapper.toDomainList(retorno);
   }
 
   @Override
   public List<Despesa> buscarDespesaPorAutor(UUID usuario, String autor) {
-    logPort.trace("-> DespesaRepositoryAdapter.excluirParcelas");
+    logPort.trace("-> DespesaRepositoryAdapter.buscarDespesaPorAutor");
     List<DespesaORM> retorno = despesaRepository.findByUsuarioAndAutor(usuario.toString(), autor);
-    logPort.trace("<- DespesaRepositoryAdapter.excluirParcelas");
+    logPort.trace("<- DespesaRepositoryAdapter.buscarDespesaPorAutor");
     return despesaORMMapper.toDomainList(retorno);
   }
 
   @Override
   public List<Despesa> buscarDespesaPorFinanciador(UUID usuario, String financiador) {
-    logPort.trace("-> DespesaRepositoryAdapter.excluirParcelas");
+    logPort.trace("-> DespesaRepositoryAdapter.buscarDespesaPorFinanciador");
     List<DespesaORM> retorno = despesaRepository.findByUsuarioAndFinanciador(usuario.toString(), financiador);
-    logPort.trace("<- DespesaRepositoryAdapter.excluirParcelas");
+    logPort.trace("<- DespesaRepositoryAdapter.buscarDespesaPorFinanciador");
     return despesaORMMapper.toDomainList(retorno);
+  }
+
+  @Override
+  public List<Despesa> buscarDespesaPorUsuario(UUID usuario) {
+    logPort.trace("-> DespesaRepositoryAdapter.buscarDespesaPorID");
+    List<DespesaORM> retorno = despesaRepository.findByUsuario(usuario.toString());
+    logPort.trace("- DespesaRepositoryAdapter.buscarDespesaPorID");
+    return despesaORMMapper.toDomainList(retorno);
+  }
+
+  @Override
+  public List<Despesa> buscarDespesaPorID(UUID usuario) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'buscarDespesaPorID'");
   }
 
 }

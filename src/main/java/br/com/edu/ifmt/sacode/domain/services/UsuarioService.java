@@ -1,6 +1,9 @@
 package br.com.edu.ifmt.sacode.domain.services;
 
 import br.com.edu.ifmt.sacode.domain.entities.Usuario;
+import br.com.edu.ifmt.sacode.domain.entities.vo.Email;
+import br.com.edu.ifmt.sacode.domain.entities.vo.Password;
+import br.com.edu.ifmt.sacode.domain.entities.vo.Username;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
 import br.com.edu.ifmt.sacode.domain.ports.UsuarioPort;
 import br.com.edu.ifmt.sacode.domain.services.exception.UsuarioException;
@@ -9,13 +12,26 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
+import org.springframework.stereotype.Service;
+
 import static java.util.Objects.isNull;
 
+@Service
 public class UsuarioService {
 
     private ResourceBundle excRB;
     private final UsuarioPort usuarioPort;
     private final LogPort logPort;
+
+    public void autenticarNome(Username username, Password password)
+    {
+        // TODO: método de autenticação com o username
+    }
+
+    public void autenticarEmail(Email email, Password password)
+    {
+        // TODO: método de autenticação com o email
+    }
 
     public UsuarioService(UsuarioPort createUsuario, LogPort logPort) {
         this.usuarioPort = createUsuario;

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
+
 import br.com.edu.ifmt.sacode.domain.entities.Usuario;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Email;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
@@ -12,6 +14,7 @@ import br.com.edu.ifmt.sacode.domain.entities.vo.Password;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Username;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.UsuarioORM;
 
+@Component
 public class UsuarioORMMapper {
 
     public static UsuarioORM toORM(Usuario user) {

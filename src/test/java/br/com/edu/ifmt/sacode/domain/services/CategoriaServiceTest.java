@@ -5,7 +5,6 @@ import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import br.com.edu.ifmt.sacode.domain.ports.CategoriaPort;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
-import br.com.edu.ifmt.sacode.domain.services.CategoriaService.CategoriaService;
 import br.com.edu.ifmt.sacode.domain.services.exception.CategoriaException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

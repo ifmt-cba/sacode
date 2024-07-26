@@ -13,32 +13,32 @@ import java.util.UUID;
 @Component
 public class CategoriaORMMapper {
     
-    public CategoriaORM domainToORM(Categoria categoriaDomain) {
+    public CategoriaORM dominioParaOrm(Categoria categoriaDomain) {
         CategoriaORM categoriaORM = new CategoriaORM();
-        
-        categoriaORM.setDescricao(categoriaDomain.getDescricao().getDescricao());
+
         categoriaORM.setIdCategoria(categoriaDomain.getId().toString());
+        categoriaORM.setDescricao(categoriaDomain.getDescricao().toString());
         categoriaORM.setNome(categoriaDomain.getNome().toString());
-        categoriaORM.setCategoriaPai(categoriaDomain.getIdCategoriaPai().toString());
+        categoriaORM.setCategoriaSuperior(categoriaDomain.getIdCategoriaSuperior().toString());
         return categoriaORM;
     
     }
 
-    public Categoria ormToDomain(CategoriaORM categoriaORM) {
-        Categoria categoriaDomain = new Categoria();
-         
-        categoriaDomain.setId(UUID.fromString(categoriaORM.getIdCategoria()));
-        categoriaDomain.setNome( new Nome(categoriaORM.getNome()));
-        categoriaDomain.setDescricao(new Descricao(categoriaORM.getDescricao()));
-        categoriaDomain.setIdCategoriaPai(UUID.fromString(categoriaORM.getCategoriaPai()));
+    public Categoria ormParaDominio(CategoriaORM categoriaORM) {
+        Categoria categoriaDominio = new Categoria();
+
+        categoriaDominio.setId(UUID.fromString(categoriaORM.getIdCategoria()));
+        categoriaDominio.setNome( new Nome(categoriaORM.getNome()));
+        categoriaDominio.setDescricao(new Descricao(categoriaORM.getDescricao()));
+        categoriaDominio.setIdCategoriaSuperior(UUID.fromString(categoriaORM.getCategoriaSuperior()));
         
-        return categoriaDomain;
+        return categoriaDominio;
     }
 
-    public List<Categoria> ormListToDomainList(List<CategoriaORM> categoriasORM) {
+    public List<Categoria> ormListParaDominioList(List<CategoriaORM> categoriasORM) {
         List<Categoria> categoriasDomain = new ArrayList<>();
         for (CategoriaORM categoriaORM : categoriasORM) {
-            categoriasDomain.add(ormToDomain(categoriaORM));
+            categoriasDomain.add(ormParaDominio(categoriaORM));
         }
 
         return categoriasDomain;

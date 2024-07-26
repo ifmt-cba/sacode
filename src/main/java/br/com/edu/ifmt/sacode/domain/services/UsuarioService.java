@@ -9,14 +9,19 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import static java.util.Objects.isNull;
 
+@Service
 public class UsuarioService {
 
     private ResourceBundle excRB;
     private final UsuarioPort usuarioPort;
     private final LogPort logPort;
 
+    @Autowired
     public UsuarioService(UsuarioPort createUsuario, LogPort logPort) {
         this.usuarioPort = createUsuario;
         this.logPort = logPort;
@@ -79,4 +84,5 @@ public class UsuarioService {
         return usuarioResponse;
 
     }
+
 }

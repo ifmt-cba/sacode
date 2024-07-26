@@ -3,6 +3,7 @@ package br.com.edu.ifmt.sacode.infrastructure.adapters;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import br.com.edu.ifmt.sacode.domain.entities.Usuario;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
@@ -11,6 +12,7 @@ import br.com.edu.ifmt.sacode.infrastructure.mappers.UsuarioORMMapper;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.UsuarioORM;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.UsuarioRepository;
 
+@Component
 public class UsuarioRepositoryAdapter implements UsuarioPort{
     
     private final UsuarioRepository usuarioRepository;
@@ -18,7 +20,7 @@ public class UsuarioRepositoryAdapter implements UsuarioPort{
 
     private final LogPort logPort;
 
-    
+    @Autowired
     public UsuarioRepositoryAdapter(UsuarioRepository usuarioRepository, UsuarioORMMapper usuarioORMMapper, LogPort logPort) {
         this.usuarioRepository = usuarioRepository;
         this.usuarioORMMapper = usuarioORMMapper;

@@ -4,6 +4,9 @@ import br.com.edu.ifmt.sacode.domain.entities.Usuario;
 
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public interface UsuarioPort {
     Usuario salvarUsuario(Usuario user);
 

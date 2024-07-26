@@ -6,16 +6,21 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import br.com.edu.ifmt.sacode.domain.entities.Despesa;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
 import br.com.edu.ifmt.sacode.domain.ports.DespesaPort;
 import br.com.edu.ifmt.sacode.domain.services.exception.DespesaException;
 
+@Service
 public class DespesaService {
     private ResourceBundle excRB;
     private final LogPort logPort;
     private final DespesaPort despesaPort;
 
+    @Autowired
     public DespesaService(DespesaPort createDespesa, LogPort logPort) {
         this.despesaPort = createDespesa;
         this.logPort = logPort;
@@ -28,13 +33,14 @@ public class DespesaService {
         StringBuilder exc = new StringBuilder();
         Despesa despesaResponse;
         try {
-            if (despesa == null)
+            if (despesa == null){
                 exc.append(excRB.getString("despesa.isNull").concat(" "));
-
-            if (verificarCampos(despesa))
+                logPort.warn(exc.toString());
+                throw new DespesaException(exc.toString());
+            }
+            
+            if (verificarCampos(despesa)){
                 exc.append(excRB.getString("despesa.verificarCampos").concat(" "));
-
-            if (!exc.isEmpty()) {
                 logPort.warn(exc.toString());
                 throw new DespesaException(exc.toString());
             }
@@ -141,24 +147,27 @@ public class DespesaService {
      * GETTERS
      * porAnos
      */
-    public List<Despesa> porMes(UUID user, int ano, int mes) throws DespesaException {
+    public List<Despesa> buscarDespesasPorMes(UUID user, int ano, int mes) throws DespesaException {
         logPort.trace("-> DespesaService.porMes");
         StringBuilder exc = new StringBuilder();
+        String x = new String();
         List<Despesa> despesaResponse;
         
         if (user == null)
-            exc.append(excRB.getString("despesa.porMes.userinvalid").concat(" "));
+            x+= "despesa.porMes.userinvalid"; //exc.append(excRB.getString("despesa.porMes.userinvalid").concat(" "));
         if(mes>12||mes<1)
-            exc.append(excRB.getString("despesa.porMes.mesExcedido").concat(" "));
+            x+="despesa.porMes.userinvalid";  //exc.append(excRB.getString("despesa.porMes.userinvalid").concat(" "));
         if(ano<=0)
-            exc.append(excRB.getString("despesa.porMes.anoNegativo").concat(" "));
+            x+="despesa.porMes.userinvalid";  //exc.append(excRB.getString("despesa.porMes.userinvalid").concat(" "));
 
-        if (!exc.isEmpty()) {
-            logPort.warn(exc.toString());
-            throw new DespesaException(exc.toString());
+        if (!x.isEmpty()){//(!exc.isEmpty()) {
+            logPort.warn(x.toString());
+            //logPort.warn(exc.toString());
+            throw new DespesaException(x.toString());
+            //throw new DespesaException(exc.toString());
         }
         
-        despesaResponse = despesaPort.buscarDespesaPorPeriodo(user,
+        despesaResponse = despesaPort.buscarDespesasPorPeriodo(user,
             LocalDate.of(ano,mes,1),
             LocalDate.of(ano, mes, 1).plusMonths(1).minusDays(1)
         );
@@ -166,7 +175,7 @@ public class DespesaService {
         return despesaResponse;
     }
 
-    public List<Despesa> porPeriodo(UUID user, LocalDate comeco, LocalDate fim) throws DespesaException {
+    public List<Despesa> buscarDespesasPorPeriodo(UUID user, LocalDate comeco, LocalDate fim) throws DespesaException {
         logPort.trace("-> DespesaService.porPeriodo()");
         StringBuilder exc = new StringBuilder();
 
@@ -182,12 +191,12 @@ public class DespesaService {
             logPort.warn(exc.toString());
             throw new DespesaException(exc.toString());
         }
-        List<Despesa> despesaResponse = despesaPort.buscarDespesaPorPeriodo(user, comeco, fim);
+        List<Despesa> despesaResponse = despesaPort.buscarDespesasPorPeriodo(user, comeco, fim);
         logPort.trace("<- DespesaService.porPeriodo()");
         return despesaResponse;
     }
 
-    public List<Despesa> porAutor(UUID usuario, String autorDespesa)  throws DespesaException {
+    public List<Despesa> buscarDespesasPorAutor(UUID usuario, String autorDespesa)  throws DespesaException {
         logPort.trace("-> DespesaService.porAutor()");
         StringBuilder exc = new StringBuilder();
 
@@ -201,11 +210,11 @@ public class DespesaService {
             logPort.warn(exc.toString());
             throw new DespesaException(exc.toString());
         }
-        List<Despesa> despesaResponse = despesaPort.buscarDespesaPorAutor(usuario, autorDespesa);
+        List<Despesa> despesaResponse = despesaPort.buscarDespesasPorAutor(usuario, autorDespesa);
         logPort.trace("<- DespesaService.porAutor()");
         return despesaResponse;
     }
-    public List<Despesa> porFinanciador(UUID usuario, String autorDespesa) throws DespesaException {
+    public List<Despesa> buscarDespesasPorFinanciador(UUID usuario, String autorDespesa) throws DespesaException {
         logPort.trace("-> DespesaService.porFinanciador()");
         StringBuilder exc = new StringBuilder();
 
@@ -219,8 +228,26 @@ public class DespesaService {
             logPort.warn(exc.toString());
             throw new DespesaException(exc.toString());
         }
-        List<Despesa> despesaResponse = despesaPort.buscarDespesaPorFinanciador(usuario, autorDespesa);
+        List<Despesa> despesaResponse = despesaPort.buscarDespesasPorFinanciador(usuario, autorDespesa);
         logPort.trace("<- DespesaService.porFinanciador()");
         return despesaResponse;
     }
+    
+    public List<Despesa> buscarDespesasPorUsuario(UUID usuario)  throws DespesaException {
+        logPort.trace("-> DespesaService.DespesaPorUsuario()");
+        StringBuilder exc = new StringBuilder();
+
+        
+        if (usuario.toString() == null)
+            exc.append(excRB.getString("despesa.DespesaPorUsuario().userInvalid").concat(" "));
+        
+        if (!exc.isEmpty()) {
+            logPort.warn(exc.toString());
+            throw new DespesaException(exc.toString());
+        }
+        List<Despesa> despesaResponse = despesaPort.buscarDespesasPorUsuario(usuario);
+        logPort.trace("<- DespesaService.DespesaPorUsuario()");
+        return despesaResponse;
+    }
+
 }

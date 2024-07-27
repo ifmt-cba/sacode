@@ -9,7 +9,6 @@ import br.com.edu.ifmt.sacode.infrastructure.persistence.CategoriaORM;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -143,7 +142,7 @@ public class CategoriaRepositoryAdapter implements CategoriaPort {
         logPort.trace("-> CategoriaRepositoryAdapter.buscaCategoriasPorUsuario");
         List<CategoriaORM> categoriasORM = null;
         try {
-            categoriasORM = categoriaRepository.findByUsuario(String.valueOf(usuarioId));
+            categoriasORM = categoriaRepository.findByUsuario_IdUsuario(String.valueOf(usuarioId));
         } catch (Exception e) {
             logPort.error("Erro ao erro ao buscar categorias por usuario.".concat(e.getMessage()));
         }

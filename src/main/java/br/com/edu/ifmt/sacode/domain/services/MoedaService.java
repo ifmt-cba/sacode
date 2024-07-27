@@ -1,4 +1,4 @@
-package br.com.edu.ifmt.sacode.domain.services.MoedaService;
+package br.com.edu.ifmt.sacode.domain.services;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
+
 import br.com.edu.ifmt.sacode.domain.entities.Despesa;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Moeda;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.DespesaORM;
 
+@Component
 public class DespesaORMMapper {
   public DespesaORM toORM(Despesa despesaDomainObj) {
     return new DespesaORM(

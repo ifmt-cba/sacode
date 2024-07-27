@@ -8,13 +8,14 @@ import br.com.edu.ifmt.sacode.infrastructure.mappers.CategoriaORMMapper;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.CategoriaORM;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Service
+@Component
 public class CategoriaRepositoryAdapter implements CategoriaPort {
     private final CategoriaRepository categoriaRepository;
     private final CategoriaORMMapper categoriaORMMapper;

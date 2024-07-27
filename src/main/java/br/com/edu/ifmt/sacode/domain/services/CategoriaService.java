@@ -1,4 +1,4 @@
-package br.com.edu.ifmt.sacode.domain.services.CategoriaService;
+package br.com.edu.ifmt.sacode.domain.services;
 
 import br.com.edu.ifmt.sacode.domain.entities.Categoria;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
@@ -11,12 +11,17 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class CategoriaService {
 
     private ResourceBundle excRB;
     private final CategoriaPort categoriaPort;
     private final LogPort logPort;
 
+    @Autowired
     public CategoriaService(CategoriaPort categoriaPort, LogPort logPort) {
         this.categoriaPort = categoriaPort;
         this.logPort = logPort;
@@ -30,7 +35,7 @@ public class CategoriaService {
         Categoria categoriaResposta;
 
         try {
-            veririficaSubCategorias(categoria);
+            verificarSubCategorias(categoria);
 
             if (!validarCamposObrigatorios(categoria)) {
                 exc.append(excRB.getString("categoria.campoObrigatorio.validacao").concat(" "));
@@ -141,7 +146,7 @@ public class CategoriaService {
         return categoriaSalva;
     }
 
-    public void veririficaSubCategorias(Categoria categoriaSuperior) throws CategoriaException {
+    public void verificarSubCategorias(Categoria categoriaSuperior) throws CategoriaException {
         logPort.trace("-> CategoriaService.veririficaSubCategorias()");
         StringBuilder exc = new StringBuilder();
 
@@ -162,7 +167,7 @@ public class CategoriaService {
 
     }
 
-    public List<Categoria> buscaCategoriasPorNome(Nome nomeCategoria) throws CategoriaException {
+    public List<Categoria> buscarCategoriasPorNome(Nome nomeCategoria) throws CategoriaException {
         logPort.trace("-> CategoriaService.buscaCategoriasPorNome()");
         StringBuilder exc = new StringBuilder();
         List<Categoria> categoriaResposta;
@@ -188,7 +193,7 @@ public class CategoriaService {
         return categoriaResposta;
     }
 
-    public List<Categoria> buscaSubCategorias(UUID categoriaSuperior) throws CategoriaException {
+    public List<Categoria> buscarSubCategorias(UUID categoriaSuperior) throws CategoriaException {
         logPort.trace("-> CategoriaService.buscaSubCategorias()");
         StringBuilder exc = new StringBuilder();
         List<Categoria> categoriaResposta;
@@ -214,7 +219,7 @@ public class CategoriaService {
         return categoriaResposta;
     }
 
-    public List<Categoria> buscaCategoriasPorUsuario(UUID usuarioId) throws CategoriaException {
+    public List<Categoria> buscarCategoriasPorUsuario(UUID usuarioId) throws CategoriaException {
         logPort.trace("-> CategoriaService.buscaCategoriasPorUsuario()");
         StringBuilder exc = new StringBuilder();
         List<Categoria> categoriaResposta;

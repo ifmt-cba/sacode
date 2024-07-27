@@ -7,6 +7,9 @@ import br.com.edu.ifmt.sacode.domain.services.exception.CategoriaException;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public interface CategoriaPort {
     Categoria criarCategoria(Categoria categoria) throws CategoriaException;
 

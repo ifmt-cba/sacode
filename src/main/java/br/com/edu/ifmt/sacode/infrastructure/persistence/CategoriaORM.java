@@ -2,9 +2,7 @@ package br.com.edu.ifmt.sacode.infrastructure.persistence;
 
 import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
@@ -13,18 +11,21 @@ import java.util.UUID;
 public class CategoriaORM {
 
     @Id
-    private String id;
+    private String idCategoria;
     private String nome;
     private String descricao;
     private String categoriaSuperior;
-    private String usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private UsuarioORM usuario;
 
     public CategoriaORM() {
     }
 
-    public CategoriaORM(UUID id, Nome nomeCategoria, Descricao descricao,
-                        UUID categoriaSuperior, String usuario) {
-        this.id = id.toString();
+    public CategoriaORM(UUID idCategoria, Nome nomeCategoria, Descricao descricao,
+                        UUID categoriaSuperior, UsuarioORM usuario) {
+        this.idCategoria = idCategoria.toString();
         this.nome = nomeCategoria.toString();
         this.descricao = descricao.toString();
         this.categoriaSuperior = categoriaSuperior.toString();
@@ -32,11 +33,11 @@ public class CategoriaORM {
     }
 
     public String getIdCategoria() {
-        return id;
+        return idCategoria;
     }
 
     public void setIdCategoria(String idCategoria) {
-        this.id = idCategoria;
+        this.idCategoria = idCategoria;
     }
 
     public String getNome() {
@@ -55,28 +56,20 @@ public class CategoriaORM {
         this.descricao = descricao;
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getCategoriaSuperior() {
         return categoriaSuperior;
     }
 
     public void setCategoriaSuperior(String categoriaSuperior) {
         this.categoriaSuperior = categoriaSuperior;
+    }
+
+    public UsuarioORM getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioORM usuario) {
+        this.usuario = usuario;
     }
 
     @Override
@@ -90,10 +83,10 @@ public class CategoriaORM {
                             "idCategoriaSuperior":"%s"
                         }
                         """,
-                id != null ? id : "null",
+                idCategoria != null ? idCategoria : "null",
                 nome != null ? nome : "null",
                 descricao != null ? descricao : "null",
-                usuario != null ? usuario : "null",
+                usuario != null ? usuario.getNome() : "null",
                 categoriaSuperior != null ? categoriaSuperior : "null");
     }
 }

@@ -13,13 +13,13 @@ public class Despesa {
     private Descricao descricao;
     private Moeda valor;
     private LocalDate data;
-//    private Usuario usuario;
     private UUID usuario;
     private Nome autorDespesa;
     private Boolean fixa;
     private Nome financiadorDespesa;
     private UUID correlacaoParcelas;
     private Integer numParcela;
+    private  Categoria categoria;
 
     // criação do obe
     public Despesa() {
@@ -33,6 +33,7 @@ public class Despesa {
         this.financiadorDespesa = new Nome();
         this.correlacaoParcelas = null;
         this.numParcela = null;
+        this.categoria = null;
     }
 
     // getters e setters padrão
@@ -52,10 +53,6 @@ public class Despesa {
 
     public void setData( LocalDate data) {this.data = data;}
 
-    public UUID getUsuario() {return usuario;}
-
-    public void setUsuario(UUID usuario) {this.usuario = usuario; }
-
     public Nome getAutorDespesa() {return autorDespesa;}
 
     public void setAutorDespesa(Nome autorDespesa) {this.autorDespesa = autorDespesa;}
@@ -74,9 +71,24 @@ public class Despesa {
 
     public Integer getNumParcela() {return numParcela;}
 
-    public void setNumParcela(Integer numParcela) {this.numParcela = numParcela;}   
+    public void setNumParcela(Integer numParcela) {this.numParcela = numParcela;}
 
-    
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public UUID getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UUID usuario) {
+        this.usuario = usuario;
+    }
+
     @Override
     public String toString() {
         return String.format( """

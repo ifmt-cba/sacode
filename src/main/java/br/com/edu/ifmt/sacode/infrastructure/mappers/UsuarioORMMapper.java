@@ -1,18 +1,17 @@
 package br.com.edu.ifmt.sacode.infrastructure.mappers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
-import org.springframework.stereotype.Component;
-
 import br.com.edu.ifmt.sacode.domain.entities.Usuario;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Email;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Password;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Username;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.UsuarioORM;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class UsuarioORMMapper {
@@ -31,7 +30,7 @@ public class UsuarioORMMapper {
 
     public static Usuario toDomainObj(UsuarioORM userORM) {
         Usuario user = new Usuario();
-        user.setIdUsuario(UUID.fromString(userORM.getId()));
+        user.setIdUsuario(UUID.fromString(userORM.getIdUsuario()));
         user.setEmail(new Email(userORM.getEmail()));
         user.setNomeUsuario(new Username(userORM.getUsername()));
         user.setSenha(new Password(userORM.getPassword()));

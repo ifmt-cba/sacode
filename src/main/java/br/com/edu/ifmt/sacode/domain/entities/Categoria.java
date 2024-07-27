@@ -23,8 +23,6 @@ public class Categoria {
 
     public UUID getId() {return id;}
     public void setId(UUID id) {this.id = id;}
-    public UUID getUsuario() {return usuario;}
-    public void setUsuario(UUID usuario) {this.usuario = usuario;}
 
     public Nome getNome() {
         return nome;
@@ -48,6 +46,14 @@ public class Categoria {
 
     public void setIdCategoriaSuperior(UUID idCategoriaSuperior) {
         this.idCategoriaSuperior = idCategoriaSuperior;
+    }
+
+    public UUID getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UUID usuario) {
+        this.usuario = usuario;
     }
 
     @Override

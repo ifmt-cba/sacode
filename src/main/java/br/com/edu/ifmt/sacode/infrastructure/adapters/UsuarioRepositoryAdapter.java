@@ -1,16 +1,15 @@
 package br.com.edu.ifmt.sacode.infrastructure.adapters;
 
-import java.util.UUID;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import br.com.edu.ifmt.sacode.domain.entities.Usuario;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
 import br.com.edu.ifmt.sacode.domain.ports.UsuarioPort;
 import br.com.edu.ifmt.sacode.infrastructure.mappers.UsuarioORMMapper;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.UsuarioORM;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class UsuarioRepositoryAdapter implements UsuarioPort{
@@ -31,7 +30,7 @@ public class UsuarioRepositoryAdapter implements UsuarioPort{
     public Usuario buscaPorIdUsuario(UUID id)
     {
         logPort.trace("-> UsuarioRepositoryAdapter.buscarPorIdUsuario");
-        UsuarioORM usuarioEncontrado = usuarioRepository.findById(id.toString());
+        UsuarioORM usuarioEncontrado = usuarioRepository.findByIdUsuario(id.toString());
         logPort.trace("<- UsuarioRepositoryAdapter.buscarPorIdUsuario");
         return usuarioORMMapper.toDomainObj(usuarioEncontrado);
     }

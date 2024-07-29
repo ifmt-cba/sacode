@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface DespesaRepository extends CrudRepository<DespesaORM, Long> {
+public interface DespesaRepository extends CrudRepository<DespesaORM, String> {
 
     DespesaORM findByIdDespesa(String idDespesa);
 

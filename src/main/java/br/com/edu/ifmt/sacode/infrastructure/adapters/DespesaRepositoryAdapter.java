@@ -18,12 +18,13 @@ public class DespesaRepositoryAdapter implements DespesaPort {
   private final DespesaRepository despesaRepository;
   private final DespesaORMMapper despesaORMMapper;
 
-  private final LogPort logPort = null;
-  
-  @Autowired
-  public DespesaRepositoryAdapter(DespesaRepository despesaRepository, DespesaORMMapper despesaORMMapper) {
+  private final LogPort logPort;
+
+  public DespesaRepositoryAdapter(DespesaRepository despesaRepository, DespesaORMMapper despesaORMMapper,
+      LogPort logPort) {
     this.despesaRepository = despesaRepository;
     this.despesaORMMapper = despesaORMMapper;
+    this.logPort = logPort;
   }
 
   @Override
@@ -49,7 +50,7 @@ public class DespesaRepositoryAdapter implements DespesaPort {
     logPort.trace("<- DespesaRepositoryAdapter.atualizarDespesa");
     return despesaORMMapper.toDomainObj(savedDespesa);
   }
-  
+
   @Override
   public int excluirDespesa(UUID idDespesa, UUID usuario) {
     logPort.trace("-> DespesaRepositoryAdapter.excluirDespesa");
@@ -57,7 +58,7 @@ public class DespesaRepositoryAdapter implements DespesaPort {
     logPort.trace("<- DespesaRepositoryAdapter.escluirDespesa");
     return retorno;
   }
-  
+
   @Override
   public Despesa buscarDespesa(UUID idDespesa) {
     logPort.trace("-> DespesaRepositoryAdapter.buscarDespesa");
@@ -65,11 +66,12 @@ public class DespesaRepositoryAdapter implements DespesaPort {
     logPort.trace("<- DespesaRepositoryAdapter.buscarDespesa");
     return despesaORMMapper.toDomainObj(savedDespesa);
   }
-  
+
   @Override
   public int excluirParcelas(UUID usuario, UUID correlacaoParcleas) {
     logPort.trace("-> DespesaRepositoryAdapter.excluirParcelas");
-    int retorno = despesaRepository.deleteByUsuario_IdUsuarioAndCorrelacaoParcelas(usuario.toString(), correlacaoParcleas.toString());
+    int retorno = despesaRepository.deleteByUsuario_IdUsuarioAndCorrelacaoParcelas(usuario.toString(),
+        correlacaoParcleas.toString());
     logPort.trace("<- DespesaRepositoryAdapter.excluirParcelas");
     return retorno;
   }

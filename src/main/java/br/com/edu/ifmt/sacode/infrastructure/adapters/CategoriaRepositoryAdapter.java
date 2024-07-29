@@ -19,11 +19,11 @@ public class CategoriaRepositoryAdapter implements CategoriaPort {
     private final CategoriaRepository categoriaRepository;
     private final CategoriaORMMapper categoriaORMMapper;
 
-
     private final LogPort logPort;
 
     @Autowired
-    public CategoriaRepositoryAdapter(CategoriaRepository categoriaRepository, CategoriaORMMapper categoriaORMMapper, LogPort logPort) {
+    public CategoriaRepositoryAdapter(CategoriaRepository categoriaRepository, CategoriaORMMapper categoriaORMMapper,
+            LogPort logPort) {
         this.categoriaRepository = categoriaRepository;
         this.categoriaORMMapper = categoriaORMMapper;
         this.logPort = logPort;
@@ -62,7 +62,6 @@ public class CategoriaRepositoryAdapter implements CategoriaPort {
         logPort.trace("<- CategoriaRepositoryAdapter.excluirCategoria");
     }
 
-
     @Override
     public Categoria buscarCategoria(UUID categoriaId) {
         logPort.trace("-> CategoriaRepositoryAdapter.buscarCategoria()");
@@ -85,7 +84,7 @@ public class CategoriaRepositoryAdapter implements CategoriaPort {
     }
 
     @Override
-    public List<Categoria> buscaSubCategorias(UUID idCategoriaSuperior) {
+    public List<Categoria> buscarSubCategorias(UUID idCategoriaSuperior) {
         logPort.trace("-> CategoriaRepositoryAdapter.buscaSubCategorias");
         List<CategoriaORM> categoriasORM = null;
         try {
@@ -98,8 +97,6 @@ public class CategoriaRepositoryAdapter implements CategoriaPort {
         logPort.trace("<- CategoriaRepositoryAdapter.buscaSubCategorias");
         return categoriaORMMapper.ormListParaDominioList(categoriasORM);
     }
-
-
 
     @Override
     public Categoria atualizarCategoria(Categoria categoriaDominio) {
@@ -114,7 +111,6 @@ public class CategoriaRepositoryAdapter implements CategoriaPort {
 
         }
 
-
         logPort.debug("Categoria atualizada: " + categoriaORMMapper.ormParaDominio(categoriaORM));
         logPort.info("Categoria atualizada na tabela categoria.");
         logPort.trace("<- CategoriaRepositoryAdapter.atualizarCategoria");
@@ -122,9 +118,8 @@ public class CategoriaRepositoryAdapter implements CategoriaPort {
         return categoriaDominio;
     }
 
-
     @Override
-    public List<Categoria> buscaCategoriasPorNome(Nome nomeCategoria) {
+    public List<Categoria> buscarCategoriasPorNome(Nome nomeCategoria) {
         logPort.trace("-> CategoriaRepositoryAdapter.buscaCategoriasPorNome");
         List<CategoriaORM> categoriasORM = null;
         try {
@@ -138,7 +133,7 @@ public class CategoriaRepositoryAdapter implements CategoriaPort {
     }
 
     @Override
-    public List<Categoria> buscaCategoriasPorUsuario(UUID usuarioId) {
+    public List<Categoria> buscarCategoriasPorUsuario(UUID usuarioId) {
         logPort.trace("-> CategoriaRepositoryAdapter.buscaCategoriasPorUsuario");
         List<CategoriaORM> categoriasORM = null;
         try {

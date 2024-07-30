@@ -147,6 +147,7 @@ public class DespesaService {
      * GETTERS
      * porAnos
      */
+    
     public List<Despesa> buscarDespesasPorMes(UUID user, int ano, int mes) throws DespesaException {
         logPort.trace("-> DespesaService.porMes");
         StringBuilder exc = new StringBuilder();

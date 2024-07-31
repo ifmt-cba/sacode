@@ -92,12 +92,9 @@ public class DespesaController {
     }
     
     @GetMapping("/{id}/{ano}-{mes}")
-    public List<Despesa> buscarDespesasPorMes(@PathVariable Long id, @PathVariable int ano, @PathVariable int mes)  {
-        try {
-            return despesaService.buscarDespesasPorMes( UUID.fromString(String.valueOf(id)), ano, mes);
-        } catch (Exception e) {
-            return null;
-        }
+    public List<Despesa> buscarDespesasPorMes(@PathVariable Long id, @PathVariable int ano, @PathVariable int mes)  throws Exception{
+        return despesaService.buscarDespesasPorMes( UUID.fromString(String.valueOf(id)), ano, mes);
+        
     }
 
     @GetMapping("/{id}/{ano1}-{mes1}-{dia1}/{ano2}-{mes2}-{dia2}")//

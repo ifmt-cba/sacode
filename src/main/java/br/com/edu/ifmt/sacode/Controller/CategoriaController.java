@@ -21,7 +21,7 @@ import br.com.edu.ifmt.sacode.domain.services.CategoriaService;
 import br.com.edu.ifmt.sacode.domain.services.exception.CategoriaException;
 
 @RestController
-@RequestMapping("api/categoria")
+@RequestMapping("/categoria")
 public class CategoriaController {
     private final CategoriaService categoriaService;
 

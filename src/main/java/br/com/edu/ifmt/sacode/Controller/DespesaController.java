@@ -35,38 +35,41 @@ public class DespesaController {
     @PostMapping("/")
     public ResponseEntity<String> criarDespesa(@RequestBody Despesa despesa) {
         try {
+            if(despesa == null) throw new DespesaException("Objeto nulo");
             despesaService.criarDespesa(despesa);
             return new ResponseEntity<>("Despesa criada com sucesso!", HttpStatus.CREATED);
         } catch (DespesaException e) {
             return new ResponseEntity<>("Despesa rejeitada:{\n"+e.toString()+"\nDetalhe: "+e.getMessage()+"\nCausa: "+e.getCause()+"\n}", HttpStatus.CONFLICT);
             //} catch (ExceptionLog e) {
-        //    return  new ResponseEntity<>(e.toString(), HttpStatus.CONFLICT);
-    } catch (Exception e){
-            return new ResponseEntity<>(e.toString() ,HttpStatus.BAD_REQUEST);
+                //return  new ResponseEntity<>(e.toString(), HttpStatus.CONFLICT);
+            } catch (Exception e){
+                return new ResponseEntity<>(e.toString() ,HttpStatus.CONFLICT);
+            }
         }
-    }
-    
-    @PutMapping("/")
-    public ResponseEntity<String> atualizarDespesa(@RequestBody Despesa despesa) {
+        
+        @PutMapping("/")
+        public ResponseEntity<String> atualizarDespesa(@RequestBody Despesa despesa) {
         try {
+            if(despesa == null) throw new DespesaException("Objeto nulo");
             despesaService.atualizarDespesa(despesa);
             return new ResponseEntity<>("Despesa atualizada com sucesso!", HttpStatus.OK);
         } catch (DespesaException e) {
             return new ResponseEntity<>("Despesa rejeitada:{\n"+e.toString()+"\nDetalhe: "+e.getMessage()+"\nCausa: "+e.getCause()+"\n}", HttpStatus.CONFLICT);
         } catch (Exception e){
-            return new ResponseEntity<>(e.toString() ,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.toString() ,HttpStatus.CONFLICT);
         }
     }
     
     @DeleteMapping("/")
     public ResponseEntity<String> excluirDespesa(@RequestBody Despesa despesa) {
         try {
+            if(despesa == null) throw new DespesaException("Objeto nulo");
             despesaService.excluirDespesa(despesa.getIdDespesa(), despesa.getUsuario());
             return new ResponseEntity<>("Despesa excluida com sucesso!", HttpStatus.OK);
         } catch (DespesaException e) {
             return new ResponseEntity<>("Despesa rejeitada:{\n"+e.toString()+"\nDetalhe: "+e.getMessage()+"\nCausa: "+e.getCause()+"\n}", HttpStatus.CONFLICT);
         } catch (Exception e){
-            return new ResponseEntity<>(e.toString() ,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.toString() ,HttpStatus.CONFLICT);
         }
     }
     

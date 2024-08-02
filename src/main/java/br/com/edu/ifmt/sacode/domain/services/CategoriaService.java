@@ -1,10 +1,15 @@
 package br.com.edu.ifmt.sacode.domain.services;
 
 import br.com.edu.ifmt.sacode.domain.entities.Categoria;
+import br.com.edu.ifmt.sacode.domain.entities.Usuario;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import br.com.edu.ifmt.sacode.domain.ports.CategoriaPort;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
+import br.com.edu.ifmt.sacode.domain.ports.UsuarioPort;
 import br.com.edu.ifmt.sacode.domain.services.exception.CategoriaException;
+import br.com.edu.ifmt.sacode.domain.services.exception.UsuarioException;
+
+import static java.util.Objects.isNull;
 
 import java.util.List;
 import java.util.Locale;
@@ -19,11 +24,13 @@ public class CategoriaService {
 
     private ResourceBundle excRB;
     private final CategoriaPort categoriaPort;
+    private final UsuarioPort usuarioPort;
     private final LogPort logPort;
 
-    public CategoriaService(CategoriaPort categoriaPort, LogPort logPort) {
+    public CategoriaService(CategoriaPort categoriaPort, LogPort logPort, UsuarioPort usuarioPort) {
         this.categoriaPort = categoriaPort;
         this.logPort = logPort;
+        this.usuarioPort = usuarioPort;
         this.excRB = ResourceBundle.getBundle("exceptions", new Locale("pt", "BR"));
     }
 
@@ -32,6 +39,13 @@ public class CategoriaService {
         StringBuilder exc = new StringBuilder();
 
         Categoria categoriaResposta;
+
+        Usuario usuarioResponse = usuarioPort.buscaPorIdUsuario(categoria.getUsuario());
+
+        if (isNull(usuarioResponse)) {
+            logPort.info(excRB.getString("usuario.not.found").concat(" "));
+            throw new CategoriaException(exc.toString());
+        }
 
         try {
             verificarSubCategorias(categoria);

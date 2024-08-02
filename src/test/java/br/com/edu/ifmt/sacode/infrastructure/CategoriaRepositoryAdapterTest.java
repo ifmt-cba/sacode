@@ -30,7 +30,6 @@ import br.com.edu.ifmt.sacode.infrastructure.persistence.UsuarioRepository;
 @DataJpaTest(showSql = false)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
-// @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CategoriaRepositoryAdapterTest {
 
     CategoriaRepositoryAdapter categoriaRepositoryAdapter;

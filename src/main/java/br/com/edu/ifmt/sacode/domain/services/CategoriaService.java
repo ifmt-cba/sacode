@@ -4,15 +4,15 @@ import br.com.edu.ifmt.sacode.domain.entities.Categoria;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import br.com.edu.ifmt.sacode.domain.ports.CategoriaPort;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
+import br.com.edu.ifmt.sacode.domain.ports.UsuarioPort;
 import br.com.edu.ifmt.sacode.domain.services.exception.CategoriaException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.UUID;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class CategoriaService {
@@ -20,11 +20,13 @@ public class CategoriaService {
     private ResourceBundle excRB;
     private final CategoriaPort categoriaPort;
     private final LogPort logPort;
+    private final UsuarioPort usuarioPort;
 
     @Autowired
-    public CategoriaService(CategoriaPort categoriaPort, LogPort logPort) {
+    public CategoriaService(CategoriaPort categoriaPort, LogPort logPort,UsuarioPort usuarioPort) {
         this.categoriaPort = categoriaPort;
         this.logPort = logPort;
+        this.usuarioPort = usuarioPort;
         this.excRB = ResourceBundle.getBundle("exceptions", new Locale("pt", "BR"));
     }
 
@@ -35,8 +37,6 @@ public class CategoriaService {
         Categoria categoriaResposta;
 
         try {
-            verificarSubCategorias(categoria);
-
             if (!validarCamposObrigatorios(categoria)) {
                 exc.append(excRB.getString("categoria.campoObrigatorio.validacao").concat(" "));
             }
@@ -101,6 +101,17 @@ public class CategoriaService {
         if (categoria.getDescricao() == null) {
             exc.append(excRB.getString("categoria.descricao.nula").concat(" "));
         }
+
+        if (categoria.getUsuario() == null) {
+            exc.append(excRB.getString("usuario.not.found").concat(" "));
+            exc.append(excRB.getString("usuario.id.nulo").concat(" "));
+        } else if (categoria.getUsuario().toString().isEmpty()) {
+            exc.append(excRB.getString("usuario.not.found").concat(" "));
+            exc.append(excRB.getString("usuario.id.nulo").concat(" "));
+        } else if (!usuarioPort.checarUsuarioExistente(categoria.getUsuario().toString())) {
+            exc.append(excRB.getString("usuario.not.found").concat(" "));
+        }
+
 
         if (!exc.isEmpty()) {
             logPort.warn(exc.toString());
@@ -226,7 +237,13 @@ public class CategoriaService {
 
         try {
             if (usuarioId == null) {
-                exc.append(excRB.getString("categoria.idUsuario.nulo").concat(" "));
+                exc.append(excRB.getString("usuario.not.found").concat(" "));
+                exc.append(excRB.getString("usuario.id.nulo").concat(" "));
+            } else if (usuarioId.toString().isEmpty()) {
+                exc.append(excRB.getString("usuario.not.found").concat(" "));
+                exc.append(excRB.getString("usuario.id.nulo").concat(" "));
+            } else if (!usuarioPort.checarUsuarioExistente(usuarioId.toString())) {
+                exc.append(excRB.getString("usuario.not.found").concat(" "));
             }
             if (!exc.isEmpty()) {
                 logPort.warn(exc.toString());

@@ -1,3 +1,39 @@
-@url = http://localhost:8080/categorias
+@url = http://localhost:8080/categoria
 
-POST {{url}} HTTP/1.1
+# Cria categoria
+POST {{url}}/ HTTP/1.1
+content-type: application/json
+
+{
+    "nome": "categoria teste 2",
+    "descricao": "descricao teste"
+}
+
+###
+
+# Busca categoria por id
+GET {{url}}/1 HTTP/1.1
+
+###
+
+# Atualiza categoria
+PUT {{url}}/ HTTP/1.1
+content-type: application/json
+
+{
+    "id": "qqq",
+    "nome": "categoria teste",
+    "descricao": "descricao teste",
+    "usuario": "samuel",
+    "idCategoriaSuperior": ""
+}
+
+###
+
+# Busca categoria por nome
+GET {{url}}/buscapornome/categoria teste HTTP/1.1
+
+###
+
+# Busca subcategorias
+GET {{url}}/subcategorias/1 HTTP/1.1

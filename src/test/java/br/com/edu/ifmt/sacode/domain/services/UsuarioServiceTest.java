@@ -1,12 +1,5 @@
 package br.com.edu.ifmt.sacode.domain.services;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
-
-import java.util.List;
-import java.util.UUID;
-
 import br.com.edu.ifmt.sacode.domain.entities.Usuario;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Email;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
@@ -19,6 +12,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.List;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 public class UsuarioServiceTest {
 
@@ -81,7 +81,7 @@ public class UsuarioServiceTest {
     void DeveRetornarUsuarioQuandoBuscarPorId() throws UsuarioException {
         Usuario usuarioExistente = new Usuario();
 
-        when(userPort.buscaPorIdUsuario(ID)).thenReturn(usuarioExistente);
+        when(userPort.buscarPorIdUsuario(ID)).thenReturn(usuarioExistente);
 
         Usuario resultado = userService.buscaPorIdUsuario(ID);
 
@@ -93,7 +93,7 @@ public class UsuarioServiceTest {
     @Test
     void deveLancarExcecaoQuandoBuscarUsuarioNaoExistente() {
 
-        when(userPort.buscaPorIdUsuario(ID)).thenReturn(null);
+        when(userPort.buscarPorIdUsuario(ID)).thenReturn(null);
 
         assertThrows(UsuarioException.class, () -> {
             userService.buscaPorIdUsuario(ID);

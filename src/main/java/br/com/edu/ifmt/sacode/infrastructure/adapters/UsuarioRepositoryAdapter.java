@@ -27,12 +27,26 @@ public class UsuarioRepositoryAdapter implements UsuarioPort{
     }
 
     @Override
-    public Usuario buscaPorIdUsuario(UUID id)
+    public Usuario buscarPorIdUsuario(UUID id)
     {
         logPort.trace("-> UsuarioRepositoryAdapter.buscarPorIdUsuario");
         UsuarioORM usuarioEncontrado = usuarioRepository.findByIdUsuario(id.toString());
         logPort.trace("<- UsuarioRepositoryAdapter.buscarPorIdUsuario");
         return usuarioORMMapper.toDomainObj(usuarioEncontrado);
+    }
+
+    @Override
+    public Boolean checarUsuarioExistente(String idUsuario) {
+        logPort.trace(" -> UsuarioRepositoryAdapter.checarUsuarioExistente");
+        if (idUsuario == null) {
+           return false;
+        } else if (idUsuario.isEmpty()) {
+            return false;
+        }
+
+        logPort.trace("<- UsuarioRepositoryAdapter.checarUsuarioExistente");
+        return usuarioRepository.existsById(idUsuario);
+
     }
 
     @Override

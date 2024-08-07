@@ -1,10 +1,9 @@
 package br.com.edu.ifmt.sacode.domain.ports;
 
 import br.com.edu.ifmt.sacode.domain.entities.Usuario;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
-
-import org.springframework.stereotype.Component;
 
 @Component
 public interface UsuarioPort {
@@ -12,5 +11,7 @@ public interface UsuarioPort {
 
     void deletarUsuario(UUID id, Usuario user);
 
-    Usuario buscaPorIdUsuario(UUID userId);
+    Usuario buscarPorIdUsuario(UUID userId);
+
+    Boolean checarUsuarioExistente(String idUsuario);
 }

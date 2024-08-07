@@ -3,6 +3,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UsuarioRepository extends CrudRepository<UsuarioORM, Long> {
+public interface UsuarioRepository extends CrudRepository<UsuarioORM, String> {
     UsuarioORM findByIdUsuario(String id);
+
+
 }

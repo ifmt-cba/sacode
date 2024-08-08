@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UsuarioRepository extends CrudRepository<UsuarioORM, String> {
     UsuarioORM findByIdUsuario(String id);
+
+
 }

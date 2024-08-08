@@ -48,6 +48,10 @@ public class CategoriaRepositoryAdapterTest {
 
     UUID categoriaSuperior;
 
+    CategoriaORM categoria1 = new CategoriaORM();
+    CategoriaORM categoria2 = new CategoriaORM();
+    CategoriaORM categoria3 = new CategoriaORM();
+
     @BeforeEach
     void setUp() {
         categoriaRepositoryAdapter = new CategoriaRepositoryAdapter(categoriaRepository, new CategoriaORMMapper(),
@@ -67,6 +71,24 @@ public class CategoriaRepositoryAdapterTest {
         categoriaId = UUID.randomUUID();
         categoriaSuperior = UUID.randomUUID();
 
+        categoria1.setIdCategoria(categoriaId.toString());
+        categoria1.setNome("Despesas Semanal");
+        categoria1.setDescricao("Grupo de despesas semanal");
+        categoria1.setCategoriaSuperior(categoriaSuperior.toString());
+        categoria1.setUsuario(usuario);
+
+        categoria2.setIdCategoria(UUID.randomUUID().toString());
+        categoria2.setNome("Despesas Casa");
+        categoria2.setDescricao("Grupo de despesas casa");
+        categoria2.setCategoriaSuperior(categoriaSuperior.toString());
+        categoria2.setUsuario(usuario);
+
+        categoria3.setIdCategoria(UUID.randomUUID().toString());
+        categoria3.setNome("Despesas Mensal");
+        categoria3.setDescricao("Grupo de despesas mensal");
+        categoria3.setCategoriaSuperior(categoriaSuperior.toString());
+        categoria3.setUsuario(usuario);
+
     }
 
     @AfterEach
@@ -77,7 +99,7 @@ public class CategoriaRepositoryAdapterTest {
     }
 
     @Test
-    void test1() {
+    void criarCategoria() {
         categoria.setIdCategoria(categoriaId.toString());
         categoria.setNome("Despesas Mensal");
         categoria.setDescricao("Grupo de despesas mensais recorrente");
@@ -91,7 +113,7 @@ public class CategoriaRepositoryAdapterTest {
     }
 
     @Test
-    void test2() {
+    void atualizarCategoria() {
 
         categoria.setIdCategoria(categoriaId.toString());
         categoria.setNome("Despesas Anual");
@@ -108,7 +130,7 @@ public class CategoriaRepositoryAdapterTest {
     }
 
     @Test
-    void test3() {
+    void buscarCategoria() {
 
         categoria.setIdCategoria(categoriaId.toString());
         categoria.setNome("Despesas Semanal");
@@ -128,47 +150,12 @@ public class CategoriaRepositoryAdapterTest {
                 .anyMatch(c -> categoria.getNome().equals(c.getNome().toString()));
         Assertions.assertTrue(categoriaComNomeEsperado);
 
-        // var subCategoriaEncontrada =
-        // categoriaRepositoryAdapter.buscarSubCategorias(categoriaSuperior);
-        // boolean subCategoriaEsperada = subCategoriaEncontrada.stream()
-        // .anyMatch(c ->
-        // categoria.getCategoriaSuperior().equals(c.getIdCategoriaSuperior().toString()));
-        // Assertions.assertTrue(subCategoriaEsperada);
-
-        // var UsuarioEncontrado =
-        // categoriaRepository.findByUsuario_IdUsuario(categoria.getUsuario().getIdUsuario());
-
-        var usuarioDomain = converteCategoria.ormParaDominio(categoria);
-
-        categoriaRepository.delete(categoria);
-
     }
 
     @Test
-    void test4() {
-        categoria.setIdCategoria(categoriaId.toString());
-        categoria.setNome("Despesas Semanal");
-        categoria.setDescricao("Grupo de despesas semanal");
-        categoria.setCategoriaSuperior(categoriaSuperior.toString());
-        categoria.setUsuario(usuario);
+    void buscarCategoriasPorUsuario() {
 
-        var categoria2 = new CategoriaORM();
-
-        categoria2.setIdCategoria(UUID.randomUUID().toString());
-        categoria2.setNome("Despesas Casa");
-        categoria2.setDescricao("Grupo de despesas casa");
-        categoria2.setCategoriaSuperior(categoriaSuperior.toString());
-        categoria2.setUsuario(usuario);
-
-        var categoria3 = new CategoriaORM();
-
-        categoria3.setIdCategoria(UUID.randomUUID().toString());
-        categoria3.setNome("Despesas Mensal");
-        categoria3.setDescricao("Grupo de despesas mensal");
-        categoria3.setCategoriaSuperior(categoriaSuperior.toString());
-        categoria3.setUsuario(usuario);
-
-        categoriaRepository.saveAll(List.of(categoria, categoria2, categoria3));
+        categoriaRepository.saveAll(List.of(categoria1, categoria2, categoria3));
 
         var categoriasEncontradas = categoriaRepositoryAdapter
                 .buscarCategoriasPorUsuario(UUID.fromString(usuario.getIdUsuario()));
@@ -179,13 +166,13 @@ public class CategoriaRepositoryAdapterTest {
     }
 
     @Test
-    void test5() {
+    void buscarCategoriasPorNome() {
+        categoriaRepository.saveAll(List.of(categoria1, categoria2, categoria3));
 
-        var categoriasEncontradas = categoriaRepositoryAdapter
-                .buscarCategoriasPorUsuario(UUID.fromString(usuario.getIdUsuario()));
-        boolean possuiCategoriaRelacionada = categoriasEncontradas.stream()
-                .noneMatch(c -> usuario.getIdUsuario().equals(c.getUsuario().toString()));
-        Assertions.assertTrue(possuiCategoriaRelacionada);
+        var converteCategoria = new CategoriaORMMapper();
+        var categoria = converteCategoria.ormParaDominio(categoria1);
+
+        var categoriaEncontrada = categoriaRepositoryAdapter.buscarCategoriasPorNome(categoria.getNome());
 
     }
 

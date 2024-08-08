@@ -33,13 +33,13 @@ public class DespesaService {
         StringBuilder exc = new StringBuilder();
         Despesa despesaResponse;
         try {
-            if (despesa == null){
+            if (despesa == null) {
                 exc.append(excRB.getString("despesa.isNull").concat(" "));
                 logPort.warn(exc.toString());
                 throw new DespesaException(exc.toString());
             }
-            
-            if (verificarCampos(despesa)){
+
+            if (verificarCampos(despesa)) {
                 exc.append(excRB.getString("despesa.verificarCampos").concat(" "));
                 logPort.warn(exc.toString());
                 throw new DespesaException(exc.toString());
@@ -112,6 +112,7 @@ public class DespesaService {
         logPort.trace("<- DespesaService.excluirDespesa()");
         return resposta;
     }
+
     public int excluirParcelas(UUID usuario, UUID correlacaoParcelas) throws DespesaException {
 
         logPort.trace("-> DespesaService.excluirParcelas()");
@@ -147,30 +148,30 @@ public class DespesaService {
      * GETTERS
      * porAnos
      */
+
     public List<Despesa> buscarDespesasPorMes(UUID user, int ano, int mes) throws DespesaException {
         logPort.trace("-> DespesaService.porMes");
         StringBuilder exc = new StringBuilder();
         String x = new String();
         List<Despesa> despesaResponse;
-        
-        if (user == null)
-            x+= "despesa.porMes.userinvalid"; //exc.append(excRB.getString("despesa.porMes.userinvalid").concat(" "));
-        if(mes>12||mes<1)
-            x+="despesa.porMes.userinvalid";  //exc.append(excRB.getString("despesa.porMes.userinvalid").concat(" "));
-        if(ano<=0)
-            x+="despesa.porMes.userinvalid";  //exc.append(excRB.getString("despesa.porMes.userinvalid").concat(" "));
 
-        if (!x.isEmpty()){//(!exc.isEmpty()) {
+        if (user == null)
+            x += "despesa.porMes.userinvalid"; // exc.append(excRB.getString("despesa.porMes.userinvalid").concat(" "));
+        if (mes > 12 || mes < 1)
+            x += "despesa.porMes.userinvalid"; // exc.append(excRB.getString("despesa.porMes.userinvalid").concat(" "));
+        if (ano <= 0)
+            x += "despesa.porMes.userinvalid"; // exc.append(excRB.getString("despesa.porMes.userinvalid").concat(" "));
+
+        if (!x.isEmpty()) {// (!exc.isEmpty()) {
             logPort.warn(x.toString());
-            //logPort.warn(exc.toString());
+            // logPort.warn(exc.toString());
             throw new DespesaException(x.toString());
-            //throw new DespesaException(exc.toString());
+            // throw new DespesaException(exc.toString());
         }
-        
+
         despesaResponse = despesaPort.buscarDespesasPorPeriodo(user,
-            LocalDate.of(ano,mes,1),
-            LocalDate.of(ano, mes, 1).plusMonths(1).minusDays(1)
-        );
+                LocalDate.of(ano, mes, 1),
+                LocalDate.of(ano, mes, 1).plusMonths(1).minusDays(1));
         logPort.trace("<- DespesaService.porMes");
         return despesaResponse;
     }
@@ -179,7 +180,6 @@ public class DespesaService {
         logPort.trace("-> DespesaService.porPeriodo()");
         StringBuilder exc = new StringBuilder();
 
-        
         if (user.toString() == null)
             exc.append(excRB.getString("despesa.porPeriodo().userInvalid").concat(" "));
         if (comeco.toString() == null)
@@ -196,16 +196,15 @@ public class DespesaService {
         return despesaResponse;
     }
 
-    public List<Despesa> buscarDespesasPorAutor(UUID usuario, String autorDespesa)  throws DespesaException {
+    public List<Despesa> buscarDespesasPorAutor(UUID usuario, String autorDespesa) throws DespesaException {
         logPort.trace("-> DespesaService.porAutor()");
         StringBuilder exc = new StringBuilder();
 
-        
         if (usuario.toString() == null)
             exc.append(excRB.getString("despesa.porAutor().userInvalid").concat(" "));
         if (autorDespesa.toString() == null)
             exc.append(excRB.getString("despesa.porAutor().autorInvalid").concat(" "));
-        
+
         if (!exc.isEmpty()) {
             logPort.warn(exc.toString());
             throw new DespesaException(exc.toString());
@@ -214,16 +213,16 @@ public class DespesaService {
         logPort.trace("<- DespesaService.porAutor()");
         return despesaResponse;
     }
+
     public List<Despesa> buscarDespesasPorFinanciador(UUID usuario, String autorDespesa) throws DespesaException {
         logPort.trace("-> DespesaService.porFinanciador()");
         StringBuilder exc = new StringBuilder();
 
-        
         if (usuario.toString() == null)
             exc.append(excRB.getString("despesa.porFinanciador().userInvalid").concat(" "));
         if (autorDespesa.toString() == null)
             exc.append(excRB.getString("despesa.porFinanciador().financiadorInvalid").concat(" "));
-        
+
         if (!exc.isEmpty()) {
             logPort.warn(exc.toString());
             throw new DespesaException(exc.toString());
@@ -232,15 +231,14 @@ public class DespesaService {
         logPort.trace("<- DespesaService.porFinanciador()");
         return despesaResponse;
     }
-    
-    public List<Despesa> buscarDespesasPorUsuario(UUID usuario)  throws DespesaException {
+
+    public List<Despesa> buscarDespesasPorUsuario(UUID usuario) throws DespesaException {
         logPort.trace("-> DespesaService.DespesaPorUsuario()");
         StringBuilder exc = new StringBuilder();
 
-        
         if (usuario.toString() == null)
             exc.append(excRB.getString("despesa.DespesaPorUsuario().userInvalid").concat(" "));
-        
+
         if (!exc.isEmpty()) {
             logPort.warn(exc.toString());
             throw new DespesaException(exc.toString());

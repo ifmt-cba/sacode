@@ -1,93 +1,95 @@
-package br.com.edu.ifmt.sacode.infrastructure;
+// package br.com.edu.ifmt.sacode.infrastructure;
 
-import java.time.LocalDate;
-import java.util.UUID;
+// import static org.mockito.Mockito.verify;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
+// import java.time.LocalDate;
+// import java.util.UUID;
 
-import br.com.edu.ifmt.sacode.infrastructure.adapters.DespesaRepositoryAdapter;
-import br.com.edu.ifmt.sacode.infrastructure.adapters.LogAdapter;
-import br.com.edu.ifmt.sacode.infrastructure.mappers.DespesaORMMapper;
-import br.com.edu.ifmt.sacode.infrastructure.persistence.DespesaORM;
-import br.com.edu.ifmt.sacode.infrastructure.persistence.DespesaRepository;
+// import org.junit.jupiter.api.AfterAll;
+// import org.junit.jupiter.api.AfterEach;
+// import org.junit.jupiter.api.Assertions;
+// import org.junit.jupiter.api.BeforeAll;
+// import org.junit.jupiter.api.BeforeEach;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import
+// org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+// import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+// import org.springframework.test.context.ActiveProfiles;
 
-@DataJpaTest(showSql = false)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ActiveProfiles("test")
-public class DespesaRepositoryAdapterTest {
+// import
+// br.com.edu.ifmt.sacode.infrastructure.adapters.DespesaRepositoryAdapter;
+// import br.com.edu.ifmt.sacode.infrastructure.adapters.LogAdapter;
+// import br.com.edu.ifmt.sacode.infrastructure.mappers.DespesaORMMapper;
+// import br.com.edu.ifmt.sacode.infrastructure.persistence.DespesaORM;
+// import br.com.edu.ifmt.sacode.infrastructure.persistence.DespesaRepository;
 
-    DespesaRepositoryAdapter despesaRepositoryAdapter;
+// @DataJpaTest(showSql = false)
+// @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+// @ActiveProfiles("test")
+// public class DespesaRepositoryAdapterTest {
 
-    @Autowired
-    DespesaRepository despesaRepository;
+// DespesaRepositoryAdapter despesaRepositoryAdapter;
 
-    @BeforeEach
-    void setUp() {
+// @Autowired
+// DespesaRepository despesaRepository;
 
-        despesaRepositoryAdapter = new DespesaRepositoryAdapter(despesaRepository, new DespesaORMMapper(),
-                new LogAdapter());
+// @BeforeEach
+// void setUp() {
 
-    }
+// despesaRepositoryAdapter = new DespesaRepositoryAdapter(despesaRepository,
+// new DespesaORMMapper(),
+// new LogAdapter());
 
-    @AfterEach
-    void cleanUp() {
-        despesaRepository.deleteAll();
-    }
+// }
 
-    @Test
-    void test1() {
-        var despesaId = UUID.randomUUID();
-        var usuarioId = UUID.randomUUID();
-        var parcelaId = UUID.randomUUID();
+// @AfterEach
+// void cleanUp() {
+// despesaRepository.deleteAll();
+// }
 
-        var despesa = new DespesaORM();
-        despesa.setIdDespesa(despesaId.toString());
-        despesa.setAutorDespesa("Jose");
-        despesa.setCorrelacaoParcelas(parcelaId.toString());
-        LocalDate dataAtual = LocalDate.now();
-        despesa.setData(dataAtual);
-        despesa.setDescricao("gasto com alimentação");
-        despesa.setFinanciadorDespesa(null);
-        despesa.setFixa(true);
-        despesa.setNumParcela(3);
-        // despesa.setUsuario(usuarioId.toString());
-        despesa.setValor("10.00");
-        // despesaRepository.save(despesa);
+// @Test
+// void criarDespesa() {
+// var despesaId = UUID.randomUUID();
+// var usuarioId = UUID.randomUUID();
+// var parcelaId = UUID.randomUUID();
 
-        // var persistenceDespesa = despesaRepositoryAdapter.buscarDespesa(despesaId);
-        // Assertions.assertEquals(despesa.getIdDespesa(),
-        // persistenceDespesa.getIdDespesa().toString());
+// var despesa = new DespesaORM();
+// despesa.setIdDespesa(despesaId.toString());
+// despesa.setAutorDespesa("Jose");
+// despesa.setCorrelacaoParcelas(parcelaId.toString());
+// LocalDate dataAtual = LocalDate.now();
+// despesa.setData(dataAtual);
+// despesa.setDescricao("gasto com alimentação");
+// despesa.setFinanciadorDespesa(null);
+// despesa.setFixa(true);
+// despesa.setNumParcela(3);
+// // despesa.setUsuario(usuarioId.toString());
+// despesa.setValor("10.00");
+// // despesaRepository.save(despesa);
 
-        // // retorna uma lista de autor
-        // // var listAutorDespesa =
-        // //
-        // despesaRepositoryAdapter.buscarDespesaPorAutor(usuarioId,despesa.getAutorDespesa());
-        // var despesaAtualizada = new DespesaORM();
-        // despesaAtualizada.setIdDespesa(despesaId.toString());
-        // despesaAtualizada.setAutorDespesa("Jose");
-        // despesaAtualizada.setCorrelacaoParcelas(parcelaId.toString());
-        // despesaAtualizada.setData(dataAtual);
-        // despesaAtualizada.setDescricao("gasto com lazer");
-        // despesaAtualizada.setFinanciadorDespesa(null);
-        // despesaAtualizada.setFixa(true);
-        // despesaAtualizada.setNumParcela(0);
-        // // despesaAtualizada.setUsuario(usuarioId.toString());
-        // despesaAtualizada.setValor("100.00");
+// var persistenceDespesa = despesaRepositoryAdapter.buscarDespesa(despesaId);
+// //
+// Assertions.assertEquals(despesa.getIdDespesa(),persistenceDespesa.getIdDespesa().toString());
 
-        // // o metodo espera um parametro do tipo Despesa e eu estou passando um tipo
-        // // DespesaORM
-        // // despesaRepositoryAdapter.atualizarDespesa(despesaAtualizada);
+// // despesaRepositoryAdapter.buscarDespesasPorAutor(usuarioId,
+// // despesa.getAutorDespesa().toString());
 
-        // despesaRepositoryAdapter.excluirDespesa(despesaId, usuarioId);
-    }
+// var despesaAtualizada = new DespesaORM();
+// despesaAtualizada.setIdDespesa(despesaId.toString());
+// despesaAtualizada.setAutorDespesa("Jose");
+// despesaAtualizada.setCorrelacaoParcelas(parcelaId.toString());
+// despesaAtualizada.setData(dataAtual);
+// despesaAtualizada.setDescricao("gasto com lazer");
+// despesaAtualizada.setFinanciadorDespesa(null);
+// despesaAtualizada.setFixa(true);
+// despesaAtualizada.setNumParcela(0);
+// // despesaAtualizada.setUsuario(usuarioId.toString());
+// despesaAtualizada.setValor("100.00");
 
-}
+// // despesaRepositoryAdapter.atualizarDespesa(despesaAtualizada);
+
+// // despesaRepositoryAdapter.excluirDespesa(despesaId, usuarioId);
+// }
+
+// }

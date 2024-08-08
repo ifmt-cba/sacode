@@ -9,16 +9,16 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+@ComponentScan(basePackages = "br.com.edu.ifmt.sacode")
 @SpringBootApplication
 public class SacodeApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SacodeApplication.class, args);
 	}
-	
-	
+
 	// CLI para iniciar o web-service: ./mvnw spring-boot:run
-		@Bean
+	@Bean
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {
 

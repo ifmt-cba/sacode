@@ -29,7 +29,8 @@ public class CategoriaRestAdapter {
     public CategoriaRestAdapter(CategoriaService categoriaService) {this.categoriaService = categoriaService;}
 
     @PostMapping("/")
-    public ResponseEntity<String> criarCategoria(@RequestBody Categoria categoria) {
+    public ResponseEntity<String> criarCategoria(@RequestBody Categoria categoria) 
+    {
         try {
             categoriaService.criarCategoria(categoria);
             return new ResponseEntity<>("Categoria criada com sucesso", HttpStatus.CREATED);
@@ -82,7 +83,7 @@ public class CategoriaRestAdapter {
         }
     }
 
-    @GetMapping("/{nome}")
+    @GetMapping("/bucapornome/{nome}")
     public ResponseEntity<List<Categoria>> buscarCategoriaPorNome(@PathVariable String nome){
         try {
             return new ResponseEntity<>(categoriaService.buscarCategoriasPorNome(new Nome(nome)), HttpStatus.OK);
@@ -100,7 +101,7 @@ public class CategoriaRestAdapter {
         }
     }
 
-    @PostMapping("/{idcategoriasuperior}/{idcategoriainferior}")
+    @PostMapping("/adicionacategoriasuperior/{idcategoriasuperior}/{idcategoriainferior}")
     public ResponseEntity<String> adicionarCategoriaSuperior(@PathVariable Long idcategoriasuperior, @PathVariable Long idcategoriainferior){
         try {
             categoriaService.adicionarCategoriaSuperior(UUID.fromString(String.valueOf(idcategoriasuperior)), UUID.fromString(String.valueOf(idcategoriainferior)));

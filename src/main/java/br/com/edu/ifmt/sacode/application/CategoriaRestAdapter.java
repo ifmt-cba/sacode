@@ -1,4 +1,4 @@
-package br.com.edu.ifmt.sacode.Controller;
+package br.com.edu.ifmt.sacode.application;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,11 +22,11 @@ import br.com.edu.ifmt.sacode.domain.services.exception.CategoriaException;
 
 @RestController
 @RequestMapping("/categoria")
-public class CategoriaController {
+public class CategoriaRestAdapter {
     private final CategoriaService categoriaService;
 
     @Autowired
-    public CategoriaController(CategoriaService categoriaService) {this.categoriaService = categoriaService;}
+    public CategoriaRestAdapter(CategoriaService categoriaService) {this.categoriaService = categoriaService;}
 
     @PostMapping("/")
     public ResponseEntity<String> criarCategoria(@RequestBody Categoria categoria) {

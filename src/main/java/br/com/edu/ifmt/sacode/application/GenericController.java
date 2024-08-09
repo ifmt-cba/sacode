@@ -1,4 +1,4 @@
-package br.com.edu.ifmt.sacode.Controller;
+package br.com.edu.ifmt.sacode.application;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

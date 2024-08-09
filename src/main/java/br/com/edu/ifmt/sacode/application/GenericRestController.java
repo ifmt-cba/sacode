@@ -1,4 +1,4 @@
-package br.com.edu.ifmt.sacode.Controller;
+package br.com.edu.ifmt.sacode.application;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

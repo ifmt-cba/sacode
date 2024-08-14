@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class CategoriaServiceTest {
+class CategoriaServiceTest {
 
     static CategoriaService categoriaService;
 

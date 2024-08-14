@@ -36,7 +36,7 @@ public class CategoriaRepositoryAdapter implements CategoriaPort {
         CategoriaORM categoriaORM = new CategoriaORM();
 
         try {
-            categoriaORM = categoriaORMMapper.dominioParaOrm(categoriaDominio);
+            categoriaORM = CategoriaORMMapper.dominioParaOrm(categoriaDominio);
             logPort.debug(categoriaORM.toString());
             categoriaORM = categoriaRepository.save(categoriaORM);
         } catch (Exception e) {

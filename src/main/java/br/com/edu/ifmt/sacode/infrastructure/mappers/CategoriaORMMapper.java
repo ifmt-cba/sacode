@@ -12,10 +12,6 @@ import java.util.UUID;
 
 public class CategoriaORMMapper {
 
-    // Construtor privado
-    private CategoriaORMMapper() {
-        throw new UnsupportedOperationException("Não é permitido instanciar esta classe.");
-    }
 
     public static CategoriaORM dominioParaOrm(Categoria categoriaDominio) {
 

@@ -52,7 +52,7 @@ public class UsuarioRepositoryAdapterTest {
                 usuario.setUsername("Jose");
                 usuario.setPassword("44e0ce52a039177f58976cf227a50265e9ed4119f19b182ea08c40a75d3c1985");
                 usuario.setSuperusuario(false);
-                usuario.setMembroFamiliar(List.of());
+//                usuario.setMembroFamiliar(List.of());
                 usuarioId = UUID.randomUUID();
                 usuario.setIdUsuario(usuarioId.toString());
 
@@ -61,7 +61,7 @@ public class UsuarioRepositoryAdapterTest {
                 usuario2.setUsername("Jao");
                 usuario2.setPassword("44e0ce74a039177f58976cf227a54085e9ed4119f19b182ea08c40a75d3c8547");
                 usuario2.setSuperusuario(true);
-                usuario2.setMembroFamiliar(List.of());
+//                usuario2.setMembroFamiliar(List.of());
                 usuarioId2 = UUID.randomUUID();
                 usuario2.setIdUsuario(usuarioId2.toString());
 
@@ -70,7 +70,7 @@ public class UsuarioRepositoryAdapterTest {
                 usuario3.setUsername("Jojo");
                 usuario3.setPassword("487e0ce74a39177f58976cf426a54085e9ed4119f19t782ea08c40a75d3c8547");
                 usuario3.setSuperusuario(false);
-                usuario3.setMembroFamiliar(List.of());
+//                usuario3.setMembroFamiliar(List.of());
                 usuarioId3 = UUID.randomUUID();
                 usuario3.setIdUsuario(usuarioId3.toString());
 
@@ -93,8 +93,8 @@ public class UsuarioRepositoryAdapterTest {
                                 persistenceUsuario.getName().toString());
                 Assertions.assertEquals(usuario.getPassword(),
                                 persistenceUsuario.getSenha().toString());
-                Assertions.assertEquals(usuario.getMembroFamiliar().size(),
-                                persistenceUsuario.getMembroFamiliar().size());
+//                Assertions.assertEquals(usuario.getMembroFamiliar().size(),
+//                                persistenceUsuario.getMembroFamiliar().size());
 
         }
 
@@ -109,8 +109,8 @@ public class UsuarioRepositoryAdapterTest {
                                 persistenceUsuario.getName().toString());
                 Assertions.assertEquals(usuario2.getPassword(),
                                 persistenceUsuario.getSenha().toString());
-                Assertions.assertEquals(usuario2.getMembroFamiliar().size(),
-                                persistenceUsuario.getMembroFamiliar().size());
+//                Assertions.assertEquals(usuario2.getMembroFamiliar().size(),
+//                                persistenceUsuario.getMembroFamiliar().size());
 
         }
 

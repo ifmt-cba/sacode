@@ -1,0 +1,54 @@
+@url = http://localhost:8080/usuarios
+
+
+# Cria um novo usuario
+POST {{url}} HTTP/1.1
+content-type: application/json
+
+{
+    "nome":"viniciusZo",
+    "nomeUsuario":"vini1394",
+    "email":"vinicius1394@gmail.com",
+    "senha":"123456"
+}
+
+###
+
+# Realiza o login e armazena o token
+# @name login
+POST {{url}}/login HTTP/1.1
+content-type: application/json
+
+{
+    "email":"vinicius1394@gmail.com",
+    "senha":"123456"
+}
+
+> {% 
+    response = JSON.parse(response.body);
+    token = response.token;
+%}
+
+###
+@token = {{login.response.body.token}}
+
+# Busca usuário por id
+GET {{url}}/c0d19657-28e3-4fb2-9fd1-5abe7b692378 HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{token}}
+
+### 
+
+# Deletar usuario por ID e body
+DELETE {{url}}/{ID}  HTTP/1.1
+content-type: application/json
+Authorization: Bearer 
+
+{
+    "idUsuario":"67c45b88-0327-4592-9141-741121e91568",
+    "name":"viniciusZao",
+    "username":"vinicius321",
+    "email":"vinicius321@gmail.com",
+    "superUsuario":"false",
+    "password":"8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92"
+}

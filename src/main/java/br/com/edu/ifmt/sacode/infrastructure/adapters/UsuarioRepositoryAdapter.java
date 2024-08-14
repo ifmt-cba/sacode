@@ -12,23 +12,23 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
-public class UsuarioRepositoryAdapter implements UsuarioPort{
-    
+public class UsuarioRepositoryAdapter implements UsuarioPort {
+
     private final UsuarioRepository usuarioRepository;
     private final UsuarioORMMapper usuarioORMMapper;
 
     private final LogPort logPort;
 
     @Autowired
-    public UsuarioRepositoryAdapter(UsuarioRepository usuarioRepository, UsuarioORMMapper usuarioORMMapper, LogPort logPort) {
+    public UsuarioRepositoryAdapter(UsuarioRepository usuarioRepository, UsuarioORMMapper usuarioORMMapper,
+            LogPort logPort) {
         this.usuarioRepository = usuarioRepository;
         this.usuarioORMMapper = usuarioORMMapper;
         this.logPort = logPort;
     }
 
     @Override
-    public Usuario buscarPorIdUsuario(UUID id)
-    {
+    public Usuario buscarPorIdUsuario(UUID id) {
         logPort.trace("-> UsuarioRepositoryAdapter.buscarPorIdUsuario");
         UsuarioORM usuarioEncontrado = usuarioRepository.findByIdUsuario(id.toString());
         logPort.trace("<- UsuarioRepositoryAdapter.buscarPorIdUsuario");
@@ -39,7 +39,7 @@ public class UsuarioRepositoryAdapter implements UsuarioPort{
     public Boolean checarUsuarioExistente(String idUsuario) {
         logPort.trace(" -> UsuarioRepositoryAdapter.checarUsuarioExistente");
         if (idUsuario == null) {
-           return false;
+            return false;
         } else if (idUsuario.isEmpty()) {
             return false;
         }

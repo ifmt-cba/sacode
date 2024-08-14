@@ -61,7 +61,6 @@ public class CategoriaServiceTest {
         verify(logPort).info("Categoria criada com sucesso.");
     }
 
-
     @Test
     void testarCriacaoCategoriaLancaExcecao() throws CategoriaException {
         Categoria categoria = new Categoria();
@@ -70,13 +69,13 @@ public class CategoriaServiceTest {
         categoria.setDescricao(null);
         categoria.setUsuario(null);
 
-        when(categoriaPort.criarCategoria(any(Categoria.class))).thenThrow(new CategoriaException("erro: O id da categoria não pode ser nulo nem vazio erro: O nome da categoria não pode ser nulo nem vazio erro: A descrição da categoria não pode ser nula nem vazia"));
+        when(categoriaPort.criarCategoria(any(Categoria.class))).thenThrow(new CategoriaException(
+                "erro: O id da categoria não pode ser nulo nem vazio erro: O nome da categoria não pode ser nulo nem vazio erro: A descrição da categoria não pode ser nula nem vazia"));
         when(usuarioPort.checarUsuarioExistente(any(String.class))).thenReturn(false);
 
         CategoriaException excecao = assertThrows(CategoriaException.class, () -> {
             categoriaService.criarCategoria(categoria);
         });
-
 
         assertTrue(excecao.getMessage().trim().contains(excRB.getString("usuario.not.found")));
         assertTrue(excecao.getMessage().trim().contains(excRB.getString("usuario.id.nulo")));
@@ -85,12 +84,10 @@ public class CategoriaServiceTest {
         assertTrue(excecao.getMessage().trim().contains(excRB.getString("categoria.descricao.nula")));
     }
 
-
     @Test
     void testarExclusaoCategoriaComSucesso() throws CategoriaException {
         Categoria categoria = new Categoria();
         categoria.setId(UUID.randomUUID());
-
 
         doNothing().when(categoriaPort).excluirCategoria(any(UUID.class));
 
@@ -99,7 +96,6 @@ public class CategoriaServiceTest {
         verify(categoriaPort).excluirCategoria(categoria.getId());
         verify(logPort).info("Categoria excluida com sucesso.");
     }
-
 
     @Test
     void testarExclusaoCategoriaLancaExcecao() throws CategoriaException {
@@ -111,7 +107,6 @@ public class CategoriaServiceTest {
         });
         assertTrue(excecao.getMessage().contains("erro"));
     }
-
 
     @Test
     void testarValidacaoCamposObrigatoriosComSucesso() throws CategoriaException {
@@ -171,7 +166,8 @@ public class CategoriaServiceTest {
         Categoria categoria = new Categoria();
         categoria.setUsuario(UUID.randomUUID());
 
-        when(categoriaPort.buscarCategoria(categoria.getId())).thenThrow(new RuntimeException("Categoria nao encontrada"));
+        when(categoriaPort.buscarCategoria(categoria.getId()))
+                .thenThrow(new RuntimeException("Categoria nao encontrada"));
         when(usuarioPort.checarUsuarioExistente(any(String.class))).thenReturn(true);
         CategoriaException thrownException = assertThrows(CategoriaException.class, () -> {
             categoriaService.atualizarCategoria(categoria);
@@ -204,7 +200,6 @@ public class CategoriaServiceTest {
         assertTrue(excecao.getMessage().trim().contains(excRB.getString("categoria.descricao.nula")));
     }
 
-
     @Test
     void testarAtualizacaoCategoriaLancaExcecaoGenerica() {
         Categoria categoria = new Categoria();
@@ -222,7 +217,6 @@ public class CategoriaServiceTest {
 
         assertTrue(excecao.getMessage().contains("Erro genérico"));
     }
-
 
     @Test
     void testarBuscaCategoriasPorNomeComNomeCategoriaNulo() {
@@ -243,19 +237,20 @@ public class CategoriaServiceTest {
 
         List<Categoria> categoriasEsperadas = Arrays.asList(new Categoria(), new Categoria());
 
-        when(categoriaPort.buscaCategoriasPorNome(nomeCategoria)).thenReturn(categoriasEsperadas);
+        when(categoriaPort.buscarCategoriasPorNome(nomeCategoria)).thenReturn(categoriasEsperadas);
 
         List<Categoria> categoriasEncontradas = categoriaService.buscarCategoriasPorNome(nomeCategoria);
 
         assertEquals(categoriasEsperadas, categoriasEncontradas);
-        verify(categoriaPort).buscaCategoriasPorNome(nomeCategoria);
+        verify(categoriaPort).buscarCategoriasPorNome(nomeCategoria);
     }
 
     @Test
     void testarBuscaCategoriasPorNomeLancaExcecao() {
         Nome nomeCategoria = new Nome("categoriaTeste");
 
-        when(categoriaPort.buscaCategoriasPorNome(nomeCategoria)).thenThrow(new RuntimeException("Erro ao buscar categorias"));
+        when(categoriaPort.buscarCategoriasPorNome(nomeCategoria))
+                .thenThrow(new RuntimeException("Erro ao buscar categorias"));
 
         CategoriaException excecao = assertThrows(CategoriaException.class, () -> {
             categoriaService.buscarCategoriasPorNome(nomeCategoria);
@@ -281,19 +276,20 @@ public class CategoriaServiceTest {
         UUID categoriaIdPai = UUID.randomUUID();
         List<Categoria> subCategoriasEsperadas = Arrays.asList(new Categoria(), new Categoria());
 
-        when(categoriaPort.buscaSubCategorias(categoriaIdPai)).thenReturn(subCategoriasEsperadas);
+        when(categoriaPort.buscarSubCategorias(categoriaIdPai)).thenReturn(subCategoriasEsperadas);
 
         List<Categoria> subCategoriasEncontradas = categoriaService.buscarSubCategorias(categoriaIdPai);
 
         assertEquals(subCategoriasEsperadas, subCategoriasEncontradas);
-        verify(categoriaPort).buscaSubCategorias(categoriaIdPai);
+        verify(categoriaPort).buscarSubCategorias(categoriaIdPai);
     }
 
     @Test
     void testarBuscaSubCategoriasLancaExcecao() {
         UUID categoriaIdPai = UUID.randomUUID();
 
-        when(categoriaPort.buscaSubCategorias(categoriaIdPai)).thenThrow(new RuntimeException("Erro ao buscar subcategorias"));
+        when(categoriaPort.buscarSubCategorias(categoriaIdPai))
+                .thenThrow(new RuntimeException("Erro ao buscar subcategorias"));
 
         CategoriaException excecao = assertThrows(CategoriaException.class, () -> {
             categoriaService.buscarSubCategorias(categoriaIdPai);
@@ -310,7 +306,6 @@ public class CategoriaServiceTest {
             categoriaService.buscarCategoriasPorUsuario(usuarioId);
         });
 
-
         assertTrue(excecao.getMessage().trim().contains(excRB.getString("usuario.not.found")));
         assertTrue(excecao.getMessage().trim().contains(excRB.getString("usuario.id.nulo")));
     }
@@ -321,20 +316,21 @@ public class CategoriaServiceTest {
 
         List<Categoria> categoriasEsperadas = Arrays.asList(new Categoria(), new Categoria());
 
-        when(categoriaPort.buscaCategoriasPorUsuario(usuarioId)).thenReturn(categoriasEsperadas);
+        when(categoriaPort.buscarCategoriasPorUsuario(usuarioId)).thenReturn(categoriasEsperadas);
         when(usuarioPort.checarUsuarioExistente(any(String.class))).thenReturn(true);
 
         List<Categoria> categoriasEncontradas = categoriaService.buscarCategoriasPorUsuario(usuarioId);
 
         assertEquals(categoriasEsperadas, categoriasEncontradas);
-        verify(categoriaPort).buscaCategoriasPorUsuario(usuarioId);
+        verify(categoriaPort).buscarCategoriasPorUsuario(usuarioId);
     }
 
     @Test
     void testarBuscaCategoriasPorUsuarioLancaExcecao() {
         UUID usuarioId = UUID.randomUUID();
 
-        when(categoriaPort.buscaCategoriasPorUsuario(usuarioId)).thenThrow(new RuntimeException("Erro ao buscar categorias"));
+        when(categoriaPort.buscarCategoriasPorUsuario(usuarioId))
+                .thenThrow(new RuntimeException("Erro ao buscar categorias"));
         when(usuarioPort.checarUsuarioExistente(any(String.class))).thenReturn(true);
         CategoriaException excecao = assertThrows(CategoriaException.class, () -> {
             categoriaService.buscarCategoriasPorUsuario(usuarioId);
@@ -370,7 +366,6 @@ public class CategoriaServiceTest {
         assertEquals(categoriaEsperada, categoriaEncontrada);
         verify(categoriaPort).buscarCategoria(categoriaId);
     }
-
 
     @Test
     void testarBuscaCategoriaLancaExcecao() {
@@ -425,7 +420,8 @@ public class CategoriaServiceTest {
         UUID idCategoriaSuperior = UUID.randomUUID();
         UUID idCategoriaInferior = UUID.randomUUID();
 
-        when(categoriaPort.buscarCategoria(idCategoriaSuperior)).thenThrow(new RuntimeException("Erro ao buscar categoria"));
+        when(categoriaPort.buscarCategoria(idCategoriaSuperior))
+                .thenThrow(new RuntimeException("Erro ao buscar categoria"));
 
         CategoriaException thrownException = assertThrows(CategoriaException.class, () -> {
             categoriaService.adicionarCategoriaSuperior(idCategoriaSuperior, idCategoriaInferior);
@@ -476,11 +472,11 @@ public class CategoriaServiceTest {
 
         List<Categoria> subCategorias = new ArrayList<>();
 
-        when(categoriaPort.buscaSubCategorias(categoriaSuperior.getId())).thenReturn(subCategorias);
+        when(categoriaPort.buscarSubCategorias(categoriaSuperior.getId())).thenReturn(subCategorias);
 
         categoriaService.verificarSubCategorias(categoriaSuperior);
 
-        verify(categoriaPort, times(1)).buscaSubCategorias(categoriaSuperior.getId());
+        verify(categoriaPort, times(1)).buscarSubCategorias(categoriaSuperior.getId());
 
     }
 

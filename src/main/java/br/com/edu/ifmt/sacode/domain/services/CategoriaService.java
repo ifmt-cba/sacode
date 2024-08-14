@@ -23,7 +23,7 @@ public class CategoriaService {
     private final UsuarioPort usuarioPort;
 
     @Autowired
-    public CategoriaService(CategoriaPort categoriaPort, LogPort logPort,UsuarioPort usuarioPort) {
+    public CategoriaService(CategoriaPort categoriaPort, LogPort logPort, UsuarioPort usuarioPort) {
         this.categoriaPort = categoriaPort;
         this.logPort = logPort;
         this.usuarioPort = usuarioPort;
@@ -46,7 +46,8 @@ public class CategoriaService {
             }
             categoriaResposta = categoriaPort.criarCategoria(categoria);
         } catch (Exception ex) {
-            // Captura todas as exceções e lança uma CategoriaException com a mensagem acumulada e a mensagem original da exceção
+            // Captura todas as exceções e lança uma CategoriaException com a mensagem
+            // acumulada e a mensagem original da exceção
             String mensagemErro = exc.length() > 0 ? exc.toString() : "";
             throw new CategoriaException(mensagemErro.concat(ex.getMessage()));
         }
@@ -76,7 +77,8 @@ public class CategoriaService {
             }
             categoriaPort.excluirCategoria(categoria.getId());
         } catch (Exception ex) {
-            // Captura todas as exceções e lança uma CategoriaException com a mensagem acumulada e a mensagem original da exceção
+            // Captura todas as exceções e lança uma CategoriaException com a mensagem
+            // acumulada e a mensagem original da exceção
             String mensagemErro = !exc.isEmpty() ? exc.toString() : "";
             throw new CategoriaException(mensagemErro.concat(ex.getMessage()));
         }
@@ -112,7 +114,6 @@ public class CategoriaService {
             exc.append(excRB.getString("usuario.not.found").concat(" "));
         }
 
-
         if (!exc.isEmpty()) {
             logPort.warn(exc.toString());
             throw new CategoriaException(exc.toString());
@@ -145,7 +146,8 @@ public class CategoriaService {
 
             categoriaPort.atualizarCategoria(categoriaSalva);
         } catch (Exception ex) {
-            // Captura todas as exceções e lança uma CategoriaException com a mensagem acumulada e a mensagem original da exceção
+            // Captura todas as exceções e lança uma CategoriaException com a mensagem
+            // acumulada e a mensagem original da exceção
             String mensagemErro = !exc.isEmpty() ? exc.toString() : "";
             throw new CategoriaException(mensagemErro.concat(ex.getMessage()));
         }
@@ -161,9 +163,8 @@ public class CategoriaService {
         logPort.trace("-> CategoriaService.veririficaSubCategorias()");
         StringBuilder exc = new StringBuilder();
 
-
         try {
-            List<Categoria> subCategorias = categoriaPort.buscaSubCategorias(categoriaSuperior.getId());
+            List<Categoria> subCategorias = categoriaPort.buscarSubCategorias(categoriaSuperior.getId());
 
             if (!subCategorias.isEmpty()) {
                 for (Categoria subCategoria : subCategorias) {
@@ -191,9 +192,10 @@ public class CategoriaService {
                 logPort.warn(exc.toString());
                 throw new CategoriaException(exc.toString());
             }
-            categoriaResposta = categoriaPort.buscaCategoriasPorNome(nomeCategoria);
+            categoriaResposta = categoriaPort.buscarCategoriasPorNome(nomeCategoria);
         } catch (Exception ex) {
-            // Captura todas as exceções e lança uma CategoriaException com a mensagem acumulada e a mensagem original da exceção
+            // Captura todas as exceções e lança uma CategoriaException com a mensagem
+            // acumulada e a mensagem original da exceção
             String mensagemErro = !exc.isEmpty() ? exc.toString() : "";
             throw new CategoriaException(mensagemErro.concat(ex.getMessage()));
         }
@@ -217,9 +219,10 @@ public class CategoriaService {
                 logPort.warn(exc.toString());
                 throw new CategoriaException(exc.toString());
             }
-            categoriaResposta = categoriaPort.buscaSubCategorias(categoriaSuperior);
+            categoriaResposta = categoriaPort.buscarSubCategorias(categoriaSuperior);
         } catch (Exception ex) {
-            // Captura todas as exceções e lança uma CategoriaException com a mensagem acumulada e a mensagem original da exceção
+            // Captura todas as exceções e lança uma CategoriaException com a mensagem
+            // acumulada e a mensagem original da exceção
             String mensagemErro = !exc.isEmpty() ? exc.toString() : "";
             throw new CategoriaException(mensagemErro.concat(ex.getMessage()));
         }
@@ -249,9 +252,10 @@ public class CategoriaService {
                 logPort.warn(exc.toString());
                 throw new CategoriaException(exc.toString());
             }
-            categoriaResposta = categoriaPort.buscaCategoriasPorUsuario(usuarioId);
+            categoriaResposta = categoriaPort.buscarCategoriasPorUsuario(usuarioId);
         } catch (Exception ex) {
-            // Captura todas as exceções e lança uma CategoriaException com a mensagem acumulada e a mensagem original da exceção
+            // Captura todas as exceções e lança uma CategoriaException com a mensagem
+            // acumulada e a mensagem original da exceção
             String mensagemErro = !exc.isEmpty() ? exc.toString() : "";
             throw new CategoriaException(mensagemErro.concat(ex.getMessage()));
         }
@@ -277,7 +281,8 @@ public class CategoriaService {
             }
             categoriaResposta = categoriaPort.buscarCategoria(categoriaId);
         } catch (Exception ex) {
-            // Captura todas as exceções e lança uma CategoriaException com a mensagem acumulada e a mensagem original da exceção
+            // Captura todas as exceções e lança uma CategoriaException com a mensagem
+            // acumulada e a mensagem original da exceção
             String mensagemErro = !exc.isEmpty() ? exc.toString() : "";
             throw new CategoriaException(mensagemErro.concat(ex.getMessage()));
         }
@@ -288,7 +293,8 @@ public class CategoriaService {
         return categoriaResposta;
     }
 
-    public void adicionarCategoriaSuperior(UUID idCategoriaSuperior, UUID idCategoriaInferior) throws CategoriaException {
+    public void adicionarCategoriaSuperior(UUID idCategoriaSuperior, UUID idCategoriaInferior)
+            throws CategoriaException {
         logPort.trace("-> CategoriaService.adicionarCategoriaSuperior()");
         StringBuilder exc = new StringBuilder();
         Categoria categoriaResposta;
@@ -311,7 +317,8 @@ public class CategoriaService {
             categoriaResposta = categoriaPort.atualizarCategoria(categoriaInferior);
 
         } catch (Exception e) {
-            // Captura todas as exceções e lança uma CategoriaException com a mensagem acumulada e a mensagem original da exceção
+            // Captura todas as exceções e lança uma CategoriaException com a mensagem
+            // acumulada e a mensagem original da exceção
             String mensagemErro = !exc.isEmpty() ? exc.toString() : "";
             throw new CategoriaException(mensagemErro.concat(e.getMessage()));
         }
@@ -319,7 +326,6 @@ public class CategoriaService {
         logPort.info("categoria superior adicionada com sucesso.");
         logPort.debug(categoriaResposta.toString());
         logPort.trace("<- CategoriaService.adicionarCategoriaSuperior()");
-
 
     }
 
@@ -345,9 +351,9 @@ public class CategoriaService {
             categoriaInferior.setIdCategoriaSuperior(null);
             categoriaResposta = categoriaPort.atualizarCategoria(categoriaInferior);
 
-
         } catch (Exception e) {
-            // Captura todas as exceções e lança uma CategoriaException com a mensagem acumulada e a mensagem original da exceção
+            // Captura todas as exceções e lança uma CategoriaException com a mensagem
+            // acumulada e a mensagem original da exceção
             String mensagemErro = !exc.isEmpty() ? exc.toString() : "";
             throw new CategoriaException(mensagemErro.concat(e.getMessage()));
         }
@@ -356,6 +362,5 @@ public class CategoriaService {
         logPort.trace("<- CategoriaService.removeCategoriaSuperior()");
 
     }
-
 
 }

@@ -10,7 +10,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @SpringBootTest
-public class CategoriaTest {
+class CategoriaTest {
 
     @Test
     void testToStringJSONFormat() {

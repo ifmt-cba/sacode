@@ -5,14 +5,17 @@ import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.CategoriaORM;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.UsuarioORM;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Component
 public class CategoriaORMMapper {
+
+    // Construtor privado
+    private CategoriaORMMapper() {
+        throw new UnsupportedOperationException("Não é permitido instanciar esta classe.");
+    }
 
     public static CategoriaORM dominioParaOrm(Categoria categoriaDominio) {
 

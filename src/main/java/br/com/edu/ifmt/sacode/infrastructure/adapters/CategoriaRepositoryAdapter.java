@@ -17,15 +17,12 @@ import java.util.UUID;
 @Component
 public class CategoriaRepositoryAdapter implements CategoriaPort {
     private final CategoriaRepository categoriaRepository;
-    private final CategoriaORMMapper categoriaORMMapper;
-
 
     private final LogPort logPort;
 
     @Autowired
-    public CategoriaRepositoryAdapter(CategoriaRepository categoriaRepository, CategoriaORMMapper categoriaORMMapper, LogPort logPort) {
+    public CategoriaRepositoryAdapter(CategoriaRepository categoriaRepository, LogPort logPort) {
         this.categoriaRepository = categoriaRepository;
-        this.categoriaORMMapper = categoriaORMMapper;
         this.logPort = logPort;
 
     }

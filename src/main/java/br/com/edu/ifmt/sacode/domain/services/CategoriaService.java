@@ -90,7 +90,11 @@ public class CategoriaService {
     public boolean validarCamposObrigatorios(Categoria categoria) throws CategoriaException {
         logPort.trace("-> CategoriaService.validarCamposObrigatorios()");
         StringBuilder exc = new StringBuilder();
-        boolean usuarioExiste = usuarioPort.checarUsuarioExistente(categoria.getUsuario().toString());
+
+        boolean usuarioExiste = usuarioPort.checarUsuarioExistente(
+                categoria.getUsuario() != null ? categoria.getUsuario().toString() : "0"
+        );
+
 
         if (categoria.getId() == null || categoria.getId().toString().isEmpty()) {
             exc.append(adicionarMensagemErro("categoria.id.nulo"));
@@ -237,7 +241,10 @@ public class CategoriaService {
         logPort.trace("-> CategoriaService.buscaCategoriasPorUsuario()");
         StringBuilder exc = new StringBuilder();
         List<Categoria> categoriaResposta;
-        boolean usuarioExiste = usuarioPort.checarUsuarioExistente(usuarioId.toString());
+
+        boolean usuarioExiste = usuarioPort.checarUsuarioExistente(
+                usuarioId != null ? usuarioId.toString() : "0"
+        );
 
         try {
             if (usuarioId == null) {

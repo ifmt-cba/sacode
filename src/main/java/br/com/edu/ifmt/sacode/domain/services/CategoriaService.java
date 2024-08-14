@@ -170,7 +170,7 @@ public class CategoriaService {
         logPort.trace("-> CategoriaService.veririficaSubCategorias()");
 
         try {
-            List<Categoria> subCategorias = categoriaPort.buscaSubCategorias(categoriaSuperior.getId());
+            List<Categoria> subCategorias = categoriaPort.buscarSubCategorias(categoriaSuperior.getId());
 
             if (!subCategorias.isEmpty()) {
                 for (Categoria subCategoria : subCategorias) {
@@ -186,7 +186,7 @@ public class CategoriaService {
     }
 
     public List<Categoria> buscarCategoriasPorNome(Nome nomeCategoria) throws CategoriaException {
-        logPort.trace("-> CategoriaService.buscaCategoriasPorNome()");
+        logPort.trace("-> CategoriaService.buscarCategoriasPorNome()");
         StringBuilder exc = new StringBuilder();
         List<Categoria> categoriaResposta;
 
@@ -198,7 +198,7 @@ public class CategoriaService {
                 logPort.warn(exc.toString());
                 throw new CategoriaException(exc.toString());
             }
-            categoriaResposta = categoriaPort.buscaCategoriasPorNome(nomeCategoria);
+            categoriaResposta = categoriaPort.buscarCategoriasPorNome(nomeCategoria);
         } catch (Exception ex) {
             // Captura todas as exceções e lança uma CategoriaException com a mensagem acumulada e a mensagem original da exceção
             String mensagemErro = !exc.isEmpty() ? exc.toString() : "";
@@ -206,13 +206,13 @@ public class CategoriaService {
         }
 
         logPort.info("Categorias por nome buscada com sucesso.");
-        logPort.debug("<- CategoriaService.buscaCategoriasPorNome()");
+        logPort.debug("<- CategoriaService.buscarCategoriasPorNome()");
 
         return categoriaResposta;
     }
 
     public List<Categoria> buscarSubCategorias(UUID categoriaSuperior) throws CategoriaException {
-        logPort.trace("-> CategoriaService.buscaSubCategorias()");
+        logPort.trace("-> CategoriaService.buscarSubCategorias()");
         StringBuilder exc = new StringBuilder();
         List<Categoria> categoriaResposta;
 
@@ -224,7 +224,7 @@ public class CategoriaService {
                 logPort.warn(exc.toString());
                 throw new CategoriaException(exc.toString());
             }
-            categoriaResposta = categoriaPort.buscaSubCategorias(categoriaSuperior);
+            categoriaResposta = categoriaPort.buscarSubCategorias(categoriaSuperior);
         } catch (Exception ex) {
             // Captura todas as exceções e lança uma CategoriaException com a mensagem acumulada e a mensagem original da exceção
             String mensagemErro = !exc.isEmpty() ? exc.toString() : "";
@@ -232,13 +232,13 @@ public class CategoriaService {
         }
 
         logPort.info("SubCategorias buscadas com sucesso.");
-        logPort.debug("<- CategoriaService.buscaSubCategorias()");
+        logPort.debug("<- CategoriaService.buscarSubCategorias()");
 
         return categoriaResposta;
     }
 
     public List<Categoria> buscarCategoriasPorUsuario(UUID usuarioId) throws CategoriaException {
-        logPort.trace("-> CategoriaService.buscaCategoriasPorUsuario()");
+        logPort.trace("-> CategoriaService.buscarCategoriasPorUsuario()");
         StringBuilder exc = new StringBuilder();
         List<Categoria> categoriaResposta;
 
@@ -260,7 +260,7 @@ public class CategoriaService {
                 logPort.warn(exc.toString());
                 throw new CategoriaException(exc.toString());
             }
-            categoriaResposta = categoriaPort.buscaCategoriasPorUsuario(usuarioId);
+            categoriaResposta = categoriaPort.buscarCategoriasPorUsuario(usuarioId);
         } catch (Exception ex) {
             // Captura todas as exceções e lança uma CategoriaException com a mensagem acumulada e a mensagem original da exceção
             String mensagemErro = !exc.isEmpty() ? exc.toString() : "";
@@ -268,7 +268,7 @@ public class CategoriaService {
         }
 
         logPort.info("Categorias por usuario buscada com sucesso.");
-        logPort.debug("<- CategoriaService.buscaCategoriasPorUsuario()");
+        logPort.debug("<- CategoriaService.buscarCategoriasPorUsuario()");
 
         return categoriaResposta;
     }

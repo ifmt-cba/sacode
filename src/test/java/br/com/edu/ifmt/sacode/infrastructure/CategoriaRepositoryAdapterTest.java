@@ -43,8 +43,7 @@ public class CategoriaRepositoryAdapterTest {
 
     @BeforeEach
     void setUp() {
-        categoriaRepositoryAdapter = new CategoriaRepositoryAdapter(categoriaRepository, new CategoriaORMMapper(),
-                new LogAdapter());
+        categoriaRepositoryAdapter = new CategoriaRepositoryAdapter(categoriaRepository, new LogAdapter());
 
         usuario.setIdUsuario(UUID.randomUUID().toString());
         usuario.setEmail("mariasilva@gmail.com");

@@ -23,9 +23,10 @@ public class UsuarioORMMapper {
                 user.getNomeUsuario(),
                 user.getSenha(),
                 user.getName(),
-                user.isSuperUsuario(),
-                user.getMembroFamiliar().stream().map(Nome::toString)
-                        .collect(Collectors.toList()));
+                user.isSuperUsuario()
+//                user.getMembroFamiliar().stream().map(Nome::toString)
+//                        .collect(Collectors.toList())
+        );
     }
 
     public static Usuario toDomainObj(UsuarioORM userORM) {
@@ -36,9 +37,9 @@ public class UsuarioORMMapper {
         user.setSenha(new Password(userORM.getPassword()));
         user.setName(new Nome(userORM.getNome()));
         user.setSuperUsuario(userORM.isSuperusuario());
-        user.setMembroFamiliar(userORM.getMembroFamiliar().stream()
-                .map(Nome::new)
-                .collect(Collectors.toList()));
+//        user.setMembroFamiliar(userORM.getMembroFamiliar().stream()
+//                .map(Nome::new)
+//                .collect(Collectors.toList()));
         return user;
     }
 

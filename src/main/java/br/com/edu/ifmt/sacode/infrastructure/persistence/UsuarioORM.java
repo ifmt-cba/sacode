@@ -24,8 +24,8 @@ public class UsuarioORM {
     private String nome;
     private boolean superUsuario;
 
-    @ElementCollection
-    private List<String> membroFamiliar;
+//    @ElementCollection
+//    private List<String> membroFamiliar;
 
     public UsuarioORM(
         UUID idUsuario,
@@ -33,8 +33,8 @@ public class UsuarioORM {
         Username username, 
         Password password, 
         Nome nome,
-        boolean superUsuario, 
-        List<String> membroFamiliar
+        boolean superUsuario
+//        List<String> membroFamiliar
     )
     {
         this.idUsuario = idUsuario.toString();
@@ -43,7 +43,7 @@ public class UsuarioORM {
         this.password = password.toString();
         this.nome = nome.toString();
         this.superUsuario = superUsuario;
-        this.membroFamiliar = membroFamiliar;
+//        this.membroFamiliar = membroFamiliar;
     }
 
     public UsuarioORM() {
@@ -89,13 +89,13 @@ public class UsuarioORM {
     public void setSuperusuario(boolean superUsuario) {
         this.superUsuario = superUsuario;
     }
-    public List<String> getMembroFamiliar() {
-        return membroFamiliar;
-    }
-
-    public void setMembroFamiliar(List<String> membroFamiliar) {
-        this.membroFamiliar = membroFamiliar;
-    }
+//    public List<String> getMembroFamiliar() {
+//        return membroFamiliar;
+//    }
+//
+//    public void setMembroFamiliar(List<String> membroFamiliar) {
+//        this.membroFamiliar = membroFamiliar;
+//    }
 
     @Override
     public String toString() {
@@ -106,10 +106,7 @@ public class UsuarioORM {
                     "username" : "%s",
                     "password" : "%s",
                     "nome" : "%s",
-                    "superUsuario" : "%s",
-                    "membrofamiliar" : {
-                        "%s"
-                    }
+                    "superUsuario" : "%s"
                 }
                 """,
                 this.idUsuario,
@@ -117,8 +114,7 @@ public class UsuarioORM {
                 this.username,
                 this.password,
                 this.nome,
-                this.superUsuario,
-                this.membroFamiliar
+                this.superUsuario
             );
     }
 

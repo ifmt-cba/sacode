@@ -36,6 +36,7 @@ public class CategoriaRepositoryAdapterTest {
     UsuarioORM usuario = new UsuarioORM();
 
     CategoriaORM categoria = new CategoriaORM();
+
     CategoriaORM categoria1 = new CategoriaORM();
     CategoriaORM categoria2 = new CategoriaORM();
     CategoriaORM categoria3 = new CategoriaORM();

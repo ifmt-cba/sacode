@@ -38,7 +38,7 @@ public class CategoriaService {
 
         try {
             if (!validarCamposObrigatorios(categoria)) {
-                exc.append(excRB.getString("categoria.campoObrigatorio.validacao").concat(" "));
+                exc.append(adicionarMensagemErro("categoria.campoObrigatorio.validacao"));
             }
             if (exc.length() > 0) {
                 logPort.warn(exc.toString());
@@ -62,7 +62,7 @@ public class CategoriaService {
         StringBuilder exc = new StringBuilder();
         try {
             if (categoria.getId() == null || categoria.getId().toString().isEmpty()) {
-                exc.append(excRB.getString("categoria.id.nulo").concat(" "));
+                exc.append(adicionarMensagemErro("categoria.id.nulo"));
                 throw new CategoriaException(exc.toString());
             }
             if (!exc.isEmpty()) {
@@ -90,26 +90,27 @@ public class CategoriaService {
     public boolean validarCamposObrigatorios(Categoria categoria) throws CategoriaException {
         logPort.trace("-> CategoriaService.validarCamposObrigatorios()");
         StringBuilder exc = new StringBuilder();
+        boolean usuarioExiste = usuarioPort.checarUsuarioExistente(categoria.getUsuario().toString());
 
         if (categoria.getId() == null || categoria.getId().toString().isEmpty()) {
-            exc.append(excRB.getString("categoria.id.nulo").concat(" "));
+            exc.append(adicionarMensagemErro("categoria.id.nulo"));
         }
 
         if (categoria.getNome() == null) {
-            exc.append(excRB.getString("categoria.nome.nulo").concat(" "));
+            exc.append(adicionarMensagemErro("categoria.nome.nulo"));
         }
         if (categoria.getDescricao() == null) {
-            exc.append(excRB.getString("categoria.descricao.nula").concat(" "));
+            exc.append(adicionarMensagemErro("categoria.descricao.nula"));
         }
 
         if (categoria.getUsuario() == null) {
-            exc.append(excRB.getString("usuario.not.found").concat(" "));
-            exc.append(excRB.getString("usuario.id.nulo").concat(" "));
+            exc.append(excRB.getString("usuario.not.found"));
+            exc.append(excRB.getString("usuario.id.nulo"));
         } else if (categoria.getUsuario().toString().isEmpty()) {
-            exc.append(excRB.getString("usuario.not.found").concat(" "));
-            exc.append(excRB.getString("usuario.id.nulo").concat(" "));
-        } else if (!usuarioPort.checarUsuarioExistente(categoria.getUsuario().toString())) {
-            exc.append(excRB.getString("usuario.not.found").concat(" "));
+            exc.append(excRB.getString("usuario.not.found"));
+            exc.append(excRB.getString("usuario.id.nulo"));
+        } else if (!usuarioExiste) {
+            exc.append(adicionarMensagemErro("usuario.not.found"));
         }
 
 
@@ -123,13 +124,17 @@ public class CategoriaService {
         return true;
     }
 
+    String adicionarMensagemErro(String mensagem) {
+        return excRB.getString(mensagem).concat(" ");
+    }
+
     public Categoria atualizarCategoria(Categoria categoria) throws CategoriaException {
         logPort.trace("-> CategoriaService.atualizarCategoria()");
         StringBuilder exc = new StringBuilder();
         Categoria categoriaSalva = new Categoria();
         try {
             if (!validarCamposObrigatorios(categoria)) {
-                exc.append(excRB.getString("categoria.campoObrigatorio.validacao").concat(" "));
+                exc.append(adicionarMensagemErro("categoria.campoObrigatorio.validacao"));
             }
 
             if (!exc.isEmpty()) {
@@ -159,8 +164,6 @@ public class CategoriaService {
 
     public void verificarSubCategorias(Categoria categoriaSuperior) throws CategoriaException {
         logPort.trace("-> CategoriaService.veririficaSubCategorias()");
-        StringBuilder exc = new StringBuilder();
-
 
         try {
             List<Categoria> subCategorias = categoriaPort.buscaSubCategorias(categoriaSuperior.getId());
@@ -170,8 +173,8 @@ public class CategoriaService {
                     removerCategoriaSuperior(categoriaSuperior.getIdCategoriaSuperior(), subCategoria.getId());
                 }
             }
-        } catch (CategoriaException e) {
-            throw new RuntimeException(e);
+        } catch (CategoriaException ex) {
+            throw new CategoriaException(ex.getMessage());
         }
 
         logPort.trace("<- CategoriaService.veririficaSubCategorias()");
@@ -185,7 +188,7 @@ public class CategoriaService {
 
         try {
             if (nomeCategoria == null) {
-                exc.append(excRB.getString("categoria.nome.nulo").concat(" "));
+                exc.append(adicionarMensagemErro("categoria.nome.nulo"));
             }
             if (!exc.isEmpty()) {
                 logPort.warn(exc.toString());
@@ -211,7 +214,7 @@ public class CategoriaService {
 
         try {
             if (categoriaSuperior == null) {
-                exc.append(excRB.getString("categoria.idSuperior.invalido").concat(" "));
+                exc.append(adicionarMensagemErro("categoria.idSuperior.invalido"));
             }
             if (!exc.isEmpty()) {
                 logPort.warn(exc.toString());
@@ -234,16 +237,17 @@ public class CategoriaService {
         logPort.trace("-> CategoriaService.buscaCategoriasPorUsuario()");
         StringBuilder exc = new StringBuilder();
         List<Categoria> categoriaResposta;
+        boolean usuarioExiste = usuarioPort.checarUsuarioExistente(usuarioId.toString());
 
         try {
             if (usuarioId == null) {
-                exc.append(excRB.getString("usuario.not.found").concat(" "));
-                exc.append(excRB.getString("usuario.id.nulo").concat(" "));
+                exc.append(adicionarMensagemErro("usuario.not.found"));
+                exc.append(adicionarMensagemErro("usuario.id.nulo"));
             } else if (usuarioId.toString().isEmpty()) {
-                exc.append(excRB.getString("usuario.not.found").concat(" "));
-                exc.append(excRB.getString("usuario.id.nulo").concat(" "));
-            } else if (!usuarioPort.checarUsuarioExistente(usuarioId.toString())) {
-                exc.append(excRB.getString("usuario.not.found").concat(" "));
+                exc.append(adicionarMensagemErro("usuario.not.found"));
+                exc.append(adicionarMensagemErro("usuario.id.nulo"));
+            } else if (!usuarioExiste) {
+                exc.append(adicionarMensagemErro("usuario.not.found"));
             }
             if (!exc.isEmpty()) {
                 logPort.warn(exc.toString());
@@ -269,7 +273,7 @@ public class CategoriaService {
 
         try {
             if (categoriaId == null) {
-                exc.append(excRB.getString("categoria.id.nulo").concat(" "));
+                exc.append(adicionarMensagemErro("categoria.id.nulo"));
             }
             if (!exc.isEmpty()) {
                 logPort.warn(exc.toString());
@@ -294,10 +298,10 @@ public class CategoriaService {
         Categoria categoriaResposta;
         try {
             if (idCategoriaSuperior == null) {
-                exc.append(excRB.getString("categoria.idSuperior.invalido").concat(" "));
+                exc.append(adicionarMensagemErro("categoria.idSuperior.invalido"));
             }
             if (idCategoriaInferior == null) {
-                exc.append(excRB.getString("categoria.idInferior.invalido").concat(" "));
+                exc.append(adicionarMensagemErro("categoria.idInferior.invalido"));
             }
             if (!exc.isEmpty()) {
                 logPort.warn(exc.toString());
@@ -329,17 +333,17 @@ public class CategoriaService {
         Categoria categoriaResposta;
         try {
             if (idCategoriaSuperior == null) {
-                exc.append(excRB.getString("categoria.idSuperior.invalido").concat(" "));
+                exc.append(adicionarMensagemErro("categoria.idSuperior.invalido"));
             }
             if (idCategoriaInferior == null) {
-                exc.append(excRB.getString("categoria.idInferior.invalido").concat(" "));
+                exc.append(adicionarMensagemErro("categoria.idInferior.invalido"));
             }
             if (!exc.isEmpty()) {
                 logPort.warn(exc.toString());
                 throw new CategoriaException(exc.toString());
             }
 
-            Categoria categoriaSuperior = this.buscarCategoria(idCategoriaSuperior);
+            this.buscarCategoria(idCategoriaSuperior);
             Categoria categoriaInferior = this.buscarCategoria(idCategoriaInferior);
 
             categoriaInferior.setIdCategoriaSuperior(null);

@@ -36,7 +36,6 @@ public class DespesaORMMapper {
   }
 
   public static Despesa toDomainObj(DespesaORM despesaORM) {
-    CategoriaORMMapper categoriaORMMapper = new CategoriaORMMapper();
 
     Despesa despesa = new Despesa();
     despesa.setIdDespesa( UUID.fromString( despesaORM.getIdDespesa()));

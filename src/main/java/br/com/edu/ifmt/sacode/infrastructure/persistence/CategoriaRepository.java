@@ -9,6 +9,6 @@ import java.util.List;
 public interface CategoriaRepository extends CrudRepository<CategoriaORM, String>{
     List<CategoriaORM> findByNome(String categoriaNome);
     List<CategoriaORM> findByCategoriaSuperior(String categoriaSuperior);
-    List<CategoriaORM> findByUsuario_IdUsuario(String usuarioId);
+    List<CategoriaORM> findByUsuarioIdUsuario(String usuarioId);
 
 }

@@ -2,12 +2,18 @@ package br.com.edu.ifmt.sacode.application.configs;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class Sha256PasswordEncoder implements PasswordEncoder {
 
     @Override
     public String encode(CharSequence rawPassword) {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
         byte[] hash = digest.digest(rawPassword.toString().getBytes());
         return bytesToHex(hash);
     }

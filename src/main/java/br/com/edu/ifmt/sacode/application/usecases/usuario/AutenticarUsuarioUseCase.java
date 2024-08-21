@@ -8,6 +8,7 @@ import br.com.edu.ifmt.sacode.domain.ports.LogPort;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class AutenticarUsuarioUseCase {
         this.jwtTokenService = jwtTokenService;
     }
 
-    public RecuperaJwTokenDto autenticar(AutenticarUsuarioRequest request) {
+    public RecuperaJwTokenDto autenticar(AutenticarUsuarioRequest request)  throws AuthenticationException {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(request.email(), request.senha());
 
@@ -33,7 +34,9 @@ public class AutenticarUsuarioUseCase {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        return new RecuperaJwTokenDto(jwtTokenService.generateToken(userDetails));
+        return new RecuperaJwTokenDto(String.valueOf(userDetails.getUsuario().getIdUsuario()) ,
+                String.valueOf(userDetails.getUsuario().getName()), String.valueOf(userDetails.getUsuario().getEmail()),
+                userDetails.getUsuario().isSuperUsuario(), jwtTokenService.generateToken(userDetails));
     }
 
 

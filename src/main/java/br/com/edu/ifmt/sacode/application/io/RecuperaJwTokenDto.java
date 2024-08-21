@@ -1,12 +1,15 @@
 package br.com.edu.ifmt.sacode.application.io;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class RecuperaJwTokenDto {
 
-    String token;
-    public RecuperaJwTokenDto(String token) {
-        this.token = token;
-    }
+    private String idUsuario;
+    private String nome;
+    private String email;
+    private boolean superUsuario;
+    private String token;
 }

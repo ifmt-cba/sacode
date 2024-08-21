@@ -51,7 +51,7 @@ public class UsuarioRestAdapter {
 
 
     @PostMapping
-    public CriarUsuarioResponse criarUsuario(@RequestHeader Map<String, String> headers, @RequestBody CriarUsuarioRequest request) {
+    public ResponseEntity<?> criarUsuario(@RequestHeader Map<String, String> headers, @RequestBody CriarUsuarioRequest request) {
         logPort.trace("-> POST /users");
         logPort.debug(headers.toString());
         logPort.debug(request.toString());
@@ -59,12 +59,12 @@ public class UsuarioRestAdapter {
             CriarUsuarioResponse reply = criarUsuarioUseCase.criarUsuario(request);
             logPort.debug(reply.toString());
             logPort.trace("<- POST /users");
-            return reply;
+            return ResponseEntity.status(201).body(reply);
         } catch (NoSuchAlgorithmException e) {
             logPort.error(e.getMessage());
-            return new CriarUsuarioResponse(request.nomeUsuario(), request.email(), e.getMessage());
+            return ResponseEntity.internalServerError().body(e.getMessage());
         } catch (UsuarioException e) {
-            return new CriarUsuarioResponse(request.nomeUsuario(), request.email(), e.getMessage());
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 

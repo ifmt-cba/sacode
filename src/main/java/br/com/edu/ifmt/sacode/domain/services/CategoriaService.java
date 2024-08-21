@@ -23,7 +23,7 @@ public class CategoriaService {
     private final UsuarioPort usuarioPort;
 
     @Autowired
-    public CategoriaService(CategoriaPort categoriaPort, LogPort logPort,UsuarioPort usuarioPort) {
+    public CategoriaService(CategoriaPort categoriaPort, LogPort logPort, UsuarioPort usuarioPort) {
         this.categoriaPort = categoriaPort;
         this.logPort = logPort;
         this.usuarioPort = usuarioPort;

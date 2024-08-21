@@ -7,6 +7,7 @@ import br.com.edu.ifmt.sacode.domain.entities.Usuario;
 import br.com.edu.ifmt.sacode.infrastructure.mappers.UsuarioORMMapper;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.UsuarioORM;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.UsuarioRepository;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,16 +38,21 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
         if (checkIfEndpointIsNotPublic(request)) {
             String token = recoveryToken(request);
             if (nonNull(token)) {
-                String subject = jwtTokenService.getSubjectFromToken(token);
-                UsuarioORM usuario = usuarioRepository.findByEmail(subject).get();
-                UserDetailsImpl userDetails = new UserDetailsImpl(UsuarioORMMapper.toDomainObj(usuario));
+                try {
+                    String subject = jwtTokenService.getSubjectFromToken(token);
+                    UsuarioORM usuario = usuarioRepository.findByEmail(subject).get();
+                    UserDetailsImpl userDetails = new UserDetailsImpl(UsuarioORMMapper.toDomainObj(usuario));
 
-                Authentication authentication =
-                        new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
+                    Authentication authentication =
+                            new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                } catch (JWTVerificationException e) {
+                    throw e;
+                }
             } else {
-                throw new RuntimeException("O token está ausente.");
+                throw new JWTVerificationException("O token está ausente.");
             }
         }
         filterChain.doFilter(request, response);

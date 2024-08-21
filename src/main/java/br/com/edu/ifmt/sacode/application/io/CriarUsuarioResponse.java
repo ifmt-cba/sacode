@@ -1,4 +1,4 @@
 package br.com.edu.ifmt.sacode.application.io;
 
-public record CriarUsuarioResponse(String nomeUsuario, String email, String error) {
+public record CriarUsuarioResponse(String idUsuario, String nome, String nomeUsuario, String email, Boolean superUsuario, String error) {
 }

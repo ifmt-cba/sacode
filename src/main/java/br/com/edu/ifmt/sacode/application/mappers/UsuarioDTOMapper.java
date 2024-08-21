@@ -28,7 +28,8 @@ public class UsuarioDTOMapper {
     }
 
     public CriarUsuarioResponse toResponse(Usuario user) {
-        return new CriarUsuarioResponse(user.getNomeUsuario().toString(), user.getEmail().toString(),null);
+        return new CriarUsuarioResponse(user.getIdUsuario().toString(), user.getName().toString() ,user.getNomeUsuario().toString(),
+                user.getEmail().toString(), user.isSuperUsuario(), null);
     }
 
     public Usuario toUser(CriarUsuarioRequest request) throws NoSuchAlgorithmException {
@@ -37,7 +38,6 @@ public class UsuarioDTOMapper {
         usuario.setNomeUsuario(new Username(isNull(request.nomeUsuario()) ? "" : request.nomeUsuario()));
         usuario.setName(new Nome(isNull(request.nome()) ? "" : request.nome() ));
         if (nonNull(request.senha())) {
-//            byte[] sha256 = MessageDigest.getInstance("SHA-256").digest(request.senha().getBytes(StandardCharsets.UTF_8));
             String encodedPassword = securityConfiguration.passwordEncoder().encode(request.senha());
             usuario.setSenha(new Password(encodedPassword));
         } else

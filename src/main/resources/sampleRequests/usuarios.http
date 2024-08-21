@@ -27,28 +27,29 @@ content-type: application/json
 > {% 
     response = JSON.parse(response.body);
     token = response.token;
+    id - response.idUsuario;
 %}
 
 ###
 @token = {{login.response.body.token}}
+@id = {{login.response.body.idUsuario}}
 
 # Busca usuário por id
-GET {{url}}/c0d19657-28e3-4fb2-9fd1-5abe7b692378 HTTP/1.1
+GET {{url}}/{{id}} HTTP/1.1
 content-type: application/json
 Authorization: Bearer {{token}}
 
 ### 
 
 # Deletar usuario por ID e body
-DELETE {{url}}/{ID}  HTTP/1.1
+DELETE {{url}}/{{id}}  HTTP/1.1
 content-type: application/json
-Authorization: Bearer 
+Authorization: Bearer {{token}} 
 
 {
-    "idUsuario":"67c45b88-0327-4592-9141-741121e91568",
+    "idUsuario":"{{id}}",
     "name":"viniciusZao",
     "username":"vinicius321",
     "email":"vinicius321@gmail.com",
-    "superUsuario":"false",
-    "password":"8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92"
+    "superUsuario":"false"
 }

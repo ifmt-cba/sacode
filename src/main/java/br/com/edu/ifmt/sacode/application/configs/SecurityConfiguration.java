@@ -1,6 +1,7 @@
 package br.com.edu.ifmt.sacode.application.configs;
 
 import br.com.edu.ifmt.sacode.application.interceptors.UserAuthenticationFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,8 +44,19 @@ public class SecurityConfiguration {
         return httpSecurity.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST,ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
+                .requestMatchers(HttpMethod.POST, SecurityConfiguration.ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
                 .anyRequest().authenticated()
+                .and().exceptionHandling()
+                .authenticationEntryPoint((request, response, authException) -> {
+                    if (!response.isCommitted()) {
+                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Não autorizado");
+                    }
+                })
+                .accessDeniedHandler((request, response, accessDeniedException) -> {
+                    if (!response.isCommitted()) {
+                        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Acesso negado");
+                    }
+                })
                 .and().addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

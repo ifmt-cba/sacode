@@ -4,6 +4,8 @@ import br.com.edu.ifmt.sacode.domain.entities.Usuario;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
 import br.com.edu.ifmt.sacode.domain.ports.UsuarioPort;
 import br.com.edu.ifmt.sacode.domain.services.exception.UsuarioException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -11,6 +13,7 @@ import java.util.UUID;
 
 import static java.util.Objects.isNull;
 
+@Service
 public class UsuarioService {
 
     private ResourceBundle excRB;
@@ -66,7 +69,7 @@ public class UsuarioService {
         logPort.trace("-> UsuarioService.getByIdUsuario()");
         StringBuilder exc = new StringBuilder();
 
-        Usuario usuarioResponse = usuarioPort.buscaPorIdUsuario(usuarioId);
+        Usuario usuarioResponse = usuarioPort.buscarPorIdUsuario(usuarioId);
 
         if(isNull(usuarioResponse)){
             logPort.info(excRB.getString("usuario.not.found").concat(" "));

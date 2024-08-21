@@ -1,56 +1,63 @@
 package br.com.edu.ifmt.sacode.infrastructure.persistence;
 
-import java.util.UUID;
+
+import br.com.edu.ifmt.sacode.domain.entities.vo.Email;
+import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
+import br.com.edu.ifmt.sacode.domain.entities.vo.Password;
+import br.com.edu.ifmt.sacode.domain.entities.vo.Username;
+import jakarta.persistence.*;
 
 import java.util.List;
-
-import br.com.edu.ifmt.sacode.domain.entities.vo.*;
-import jakarta.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "usuario")
 public class UsuarioORM {
     
     @Id
-    private String id;
+    private String idUsuario;
+    @Column(unique = true)
     private String email;
+    @Column(unique = true)
     private String username;
     private String password;
     private String nome;
     private boolean superUsuario;
 
-    @ElementCollection
-    private List<String> membroFamiliar;
+//    @ElementCollection
+//    private List<String> membroFamiliar;
 
     public UsuarioORM(
-        UUID id, 
+        UUID idUsuario,
         Email email, 
         Username username, 
         Password password, 
         Nome nome,
-        boolean superUsuario, 
-        List<String> membroFamiliar
+        boolean superUsuario
+//        List<String> membroFamiliar
     )
     {
-        this.id = id.toString();
+        this.idUsuario = idUsuario.toString();
         this.email = email.toString();
         this.username = username.toString();
         this.password = password.toString();
         this.nome = nome.toString();
         this.superUsuario = superUsuario;
-        this.membroFamiliar = membroFamiliar;
+//        this.membroFamiliar = membroFamiliar;
     }
 
     public UsuarioORM() {
 
     }
 
-    public String getId() {
-        return id;
+    public String getIdUsuario() {
+        return idUsuario;
     }
-    public void setId(String id) {
-        this.id = id;
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
+
     public String getEmail() {
         return email;
     }
@@ -82,13 +89,13 @@ public class UsuarioORM {
     public void setSuperusuario(boolean superUsuario) {
         this.superUsuario = superUsuario;
     }
-    public List<String> getMembroFamiliar() {
-        return membroFamiliar;
-    }
-
-    public void setMembroFamiliar(List<String> membroFamiliar) {
-        this.membroFamiliar = membroFamiliar;
-    }
+//    public List<String> getMembroFamiliar() {
+//        return membroFamiliar;
+//    }
+//
+//    public void setMembroFamiliar(List<String> membroFamiliar) {
+//        this.membroFamiliar = membroFamiliar;
+//    }
 
     @Override
     public String toString() {
@@ -99,19 +106,15 @@ public class UsuarioORM {
                     "username" : "%s",
                     "password" : "%s",
                     "nome" : "%s",
-                    "superUsuario" : "%s",
-                    "membrofamiliar" : {
-                        "%s"
-                    }
+                    "superUsuario" : "%s"
                 }
                 """,
-                this.id,
+                this.idUsuario,
                 this.email,
                 this.username,
                 this.password,
                 this.nome,
-                this.superUsuario,
-                this.membroFamiliar
+                this.superUsuario
             );
     }
 

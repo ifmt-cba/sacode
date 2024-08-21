@@ -72,9 +72,9 @@ public class DespesaServiceTest {
     public void testPorMes() throws DespesaException {
         UUID usuario = UUID.randomUUID();
         List<Despesa> despesas = new ArrayList<>();
-        when(despesaPortMock.buscarDespesaPorPeriodo(usuario, LocalDate.of(2024, 4, 1), LocalDate.of(2024, 4, 30))).thenReturn(despesas);
+        when(despesaPortMock.buscarDespesasPorPeriodo(usuario, LocalDate.of(2024, 4, 1), LocalDate.of(2024, 4, 30))).thenReturn(despesas);
 
-        List<Despesa> result = despesaService.porMes(usuario, 2024, 4);
+        List<Despesa> result = despesaService.buscarDespesasPorMes(usuario, 2024, 4);
 
         assertEquals(despesas, result);
     }
@@ -82,7 +82,7 @@ public class DespesaServiceTest {
     @Test
     public void testPorMes_UserInvalido() {
         assertThrows(DespesaException.class, () -> {
-            despesaService.porMes(null, 2024, 4);
+            despesaService.buscarDespesasPorMes(null, 2024, 4);
         });
     }
 

@@ -1,10 +1,11 @@
 package br.com.edu.ifmt.sacode.domain.entities;
-import java.time.LocalDate;
-import java.util.UUID;
 
 import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
-import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Moeda;
+import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
+
+import java.time.LocalDate;
+import java.util.UUID;
 
 
 public class Despesa {
@@ -19,11 +20,12 @@ public class Despesa {
     private Nome financiadorDespesa;
     private UUID correlacaoParcelas;
     private Integer numParcela;
+    private  Categoria categoria;
 
     // criação do obe
     public Despesa() {
         this.idDespesa = new UUID(0, 0);
-        this.descricao = Descricao.mock();
+        this.descricao = new Descricao();
         this.valor = Moeda.mockMoeda();
         this.data = null;
         this.usuario = null;
@@ -32,6 +34,7 @@ public class Despesa {
         this.financiadorDespesa = new Nome();
         this.correlacaoParcelas = null;
         this.numParcela = null;
+        this.categoria = null;
     }
 
     // getters e setters padrão
@@ -51,10 +54,6 @@ public class Despesa {
 
     public void setData( LocalDate data) {this.data = data;}
 
-    public UUID getUsuario() {return usuario;}
-
-    public void setUsuario(UUID usuario) {this.usuario = usuario; }
-
     public Nome getAutorDespesa() {return autorDespesa;}
 
     public void setAutorDespesa(Nome autorDespesa) {this.autorDespesa = autorDespesa;}
@@ -73,9 +72,24 @@ public class Despesa {
 
     public Integer getNumParcela() {return numParcela;}
 
-    public void setNumParcela(Integer numParcela) {this.numParcela = numParcela;}   
+    public void setNumParcela(Integer numParcela) {this.numParcela = numParcela;}
 
-    
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public UUID getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UUID usuario) {
+        this.usuario = usuario;
+    }
+
     @Override
     public String toString() {
         return String.format( """

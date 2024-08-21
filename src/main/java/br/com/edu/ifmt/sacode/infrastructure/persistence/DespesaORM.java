@@ -1,18 +1,13 @@
 package br.com.edu.ifmt.sacode.infrastructure.persistence;
 
-import java.time.LocalDate;
-import java.util.UUID;
-
-import br.com.edu.ifmt.sacode.domain.entities.Usuario;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Moeda;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
-import br.com.edu.ifmt.sacode.infrastructure.mappers.UsuarioORMMapper;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
+import java.util.UUID;
+
 
 @Entity
 @Table(name = "despesa")
@@ -23,39 +18,46 @@ public class DespesaORM {
     private String descricao;
     private String valor;
     private LocalDate data;
-
-    //@ManyToOne
-    //@JoinColumn(name = "usuario")
-    private String usuario;
-
     private String autor;
     private Boolean fixa;
     private String financiador;
     private String correlacaoParcelas;
-    private Integer numParcela; DespesaORM() {}
+    private Integer numParcela;
+
+    public DespesaORM() {}
+
+    @ManyToOne
+    @JoinColumn(name = "id_categoria")
+    private CategoriaORM categoria;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private UsuarioORM usuario;
 
     public DespesaORM(
         UUID idDespesa,
         Descricao descricao,
         Moeda valor,
         LocalDate data,
-        UUID usuario,
+        UsuarioORM usuario,
         Nome autor,
         Boolean fixa,
         Nome financiador,
         UUID correlacaoParcelas,
-        Integer numParcela
+        Integer numParcela,
+        CategoriaORM categoria
         ) {
         this.idDespesa = idDespesa.toString();
         this.descricao = descricao.toString();
         this.valor = valor.toString();
         this.data = data;
-        this.usuario = usuario.toString();
+        this.usuario = usuario;
         this.autor = autor.toString();
         this.fixa = fixa;
         this.financiador = financiador.toString();
         this.correlacaoParcelas = correlacaoParcelas.toString();
         this.numParcela = numParcela;
+        this.categoria = categoria;
       }
 
     @Override
@@ -63,7 +65,8 @@ public class DespesaORM {
         return String.format( """
                 {
                     "idDespesa":"%s",                   
-                    "descricao":"%s",                   
+                    "descricao":"%s",     
+                    "categoria":"%s",               
                     "valor":%s,
                     "data":"%s",
                     "usuario":"%s",
@@ -76,6 +79,7 @@ public class DespesaORM {
                 """,
             this.idDespesa.toString(),
             this.descricao.toString(),
+            this.categoria.getNome(),
             this.valor.toString(),
             this.data.toString(),
             this.usuario.toString(),
@@ -119,14 +123,6 @@ public class DespesaORM {
         this.data = data;
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
     public String getAutorDespesa() {
         return autor;
     }
@@ -167,5 +163,19 @@ public class DespesaORM {
         this.numParcela = numParcela;
     }
 
-    
+    public CategoriaORM getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(CategoriaORM categoria) {
+        this.categoria = categoria;
+    }
+
+    public UsuarioORM getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioORM usuario) {
+        this.usuario = usuario;
+    }
 }

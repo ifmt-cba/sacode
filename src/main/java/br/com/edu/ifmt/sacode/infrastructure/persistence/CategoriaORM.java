@@ -1,64 +1,44 @@
 package br.com.edu.ifmt.sacode.infrastructure.persistence;
 
+import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
+import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
+import jakarta.persistence.*;
+
 import java.util.UUID;
 
-import br.com.edu.ifmt.sacode.domain.entities.vo.NomeCategoria;
-import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "categoria")
 public class CategoriaORM {
 
     @Id
-    private String id;
+    private String idCategoria;
     private String nome;
     private String descricao;
-    private String categoriaPai;
+    private String categoriaSuperior;
 
-    // @OneToMany(mappedBy = "categoriaPai", cascade = CascadeType.ALL,
-    // orphanRemoval = true)
-    // private List<Categoria> subCategorias;
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private UsuarioORM usuario;
 
     public CategoriaORM() {
     }
 
-    public CategoriaORM(UUID id, NomeCategoria nome, Descricao descricao,
-            UUID idCategoriaPai) {
-
-        this.id = id.toString();
-        this.nome = nome.getNomeCategoria();
-        this.descricao = descricao.getDescricao();
-        this.categoriaPai = idCategoriaPai.toString();
-
-    }
-
-    @Override
-    public String toString() {
-        return String.format("""
-                {
-                    "id":"%s",
-                    "nome":"%s",
-                    "descricao":"%s",
-                    "idCategoriaPai":"%s",
-                    "subCategorias":[%s]
-                }
-                """,
-                id.toString(),
-                nome.toString(),
-                descricao.toString(),
-                categoriaPai == null ? null : categoriaPai.toString());
+    public CategoriaORM(UUID idCategoria, Nome nomeCategoria, Descricao descricao,
+                        UUID categoriaSuperior, UsuarioORM usuario) {
+        this.idCategoria = idCategoria.toString();
+        this.nome = nomeCategoria.toString();
+        this.descricao = descricao.toString();
+        this.categoriaSuperior = categoriaSuperior.toString();
+        this.usuario = usuario;
     }
 
     public String getIdCategoria() {
-        return id;
+        return idCategoria;
     }
 
     public void setIdCategoria(String idCategoria) {
-        this.id = idCategoria;
+        this.idCategoria = idCategoria;
     }
 
     public String getNome() {
@@ -77,12 +57,37 @@ public class CategoriaORM {
         this.descricao = descricao;
     }
 
-    public String getCategoriaPai() {
-        return categoriaPai;
+    public String getCategoriaSuperior() {
+        return categoriaSuperior;
     }
 
-    public void setCategoriaPai(String categoriaPai) {
-        this.categoriaPai = categoriaPai;
+    public void setCategoriaSuperior(String categoriaSuperior) {
+        this.categoriaSuperior = categoriaSuperior;
     }
 
+    public UsuarioORM getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioORM usuario) {
+        this.usuario = usuario;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("""
+                        {
+                            "id":"%s",
+                            "nome":"%s",
+                            "descricao":"%s",
+                            "usuario":"%s",
+                            "idCategoriaSuperior":"%s"
+                        }
+                        """,
+                idCategoria != null ? idCategoria : "null",
+                nome != null ? nome : "null",
+                descricao != null ? descricao : "null",
+                usuario != null ? usuario.getNome() : "null",
+                categoriaSuperior != null ? categoriaSuperior : "null");
+    }
 }

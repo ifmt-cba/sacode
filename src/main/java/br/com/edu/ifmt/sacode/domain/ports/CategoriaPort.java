@@ -1,21 +1,27 @@
 package br.com.edu.ifmt.sacode.domain.ports;
 
 import br.com.edu.ifmt.sacode.domain.entities.Categoria;
-import br.com.edu.ifmt.sacode.domain.entities.vo.NomeCategoria;
+import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
+import br.com.edu.ifmt.sacode.domain.services.exception.CategoriaException;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
 
+@Component
 public interface CategoriaPort {
-    Categoria saveCategoria(Categoria categoria);
-    
-    boolean deleteCategoria(UUID id, Categoria categoria);
+    Categoria criarCategoria(Categoria categoria) throws CategoriaException;
 
-    Categoria findByIdCategoria(UUID categoriaId);
+    Categoria atualizarCategoria(Categoria categoria) throws CategoriaException;
 
-//    List<Categoria> buscaSubCategorias(UUID categoriaIdPai);
+    void excluirCategoria(UUID idCategoria) throws CategoriaException;
 
-    List<Categoria> buscaCategoriasPorNome(NomeCategoria nome);
+    Categoria buscarCategoria(UUID categoriaId);
 
-//    List<Categoria> buscaCategoriasPorUsuario(UUID usuarioId);
+    List<Categoria> buscarSubCategorias(UUID categoriaSuperior);
+
+    List<Categoria> buscarCategoriasPorNome(Nome nomeCategoria);
+
+    List<Categoria> buscarCategoriasPorUsuario(UUID usuarioId);
+
 }

@@ -25,7 +25,6 @@ public class Usuario {
         this.senha = new Password(null);
         this.email = new Email(null);
         this.superUsuario = false;
-        this.superUsuario = false;
         this.membroFamiliar = new ArrayList<>();
     }
 

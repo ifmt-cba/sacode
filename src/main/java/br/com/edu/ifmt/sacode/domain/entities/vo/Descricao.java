@@ -10,42 +10,27 @@ import java.util.regex.Pattern;
  * - A descrição pode ser vazia.
  */
 public class Descricao {
+    private static final String regexDescricao = "^[A-Za-zÀ-ÿ\\s0-9_'-]{0,500}$";
+    private static final Pattern patternDescricao = Pattern.compile(regexDescricao);
 
-    private static final String regex = "^[A-Za-z][A-Za-z0-9_]{0,499}$";
 
     private String descricao;
 
-    public Descricao(){
-        this.descricao = null;
-    }
-
-    public boolean equals(Descricao entrada){
-        return this.descricao.equals(entrada.descricao);
+    public Descricao() {
+        this.descricao = "";
     }
 
 
     public Descricao(String descricao) {
-        if (descricao != null && Pattern.matches(regex, descricao)) {
+        if (descricao != null && patternDescricao.matcher(descricao).matches()) {
             this.descricao = descricao;
         } else {
-            this.descricao = null;
+            this.descricao = ""; // ou talvez lançar uma exceção para indicar erro
         }
     }
 
     @Override
     public String toString() {
         return descricao;
-    }
-        
-    public String getDescricao() {
-        return descricao;
-    }
-
-    
-    
-
-    public static Descricao mock()
-    {
-        return new Descricao("Roberto");
     }
 }

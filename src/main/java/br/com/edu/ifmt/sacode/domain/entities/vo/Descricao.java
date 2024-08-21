@@ -13,11 +13,13 @@ public class Descricao {
     private static final String regexDescricao = "^[A-Za-zÀ-ÿ\\s0-9_'-]{0,500}$";
     private static final Pattern patternDescricao = Pattern.compile(regexDescricao);
 
+
     private String descricao;
 
     public Descricao() {
         this.descricao = "";
     }
+
 
     public Descricao(String descricao) {
         if (descricao != null && patternDescricao.matcher(descricao).matches()) {

@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
+
 @Entity
 @Table(name = "despesa")
 public class DespesaORM {
@@ -17,8 +18,6 @@ public class DespesaORM {
     private String descricao;
     private String valor;
     private LocalDate data;
-
-
     private String autor;
     private Boolean fixa;
     private String financiador;

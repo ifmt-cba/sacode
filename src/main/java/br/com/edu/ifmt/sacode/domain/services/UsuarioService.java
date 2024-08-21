@@ -4,7 +4,6 @@ import br.com.edu.ifmt.sacode.domain.entities.Usuario;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
 import br.com.edu.ifmt.sacode.domain.ports.UsuarioPort;
 import br.com.edu.ifmt.sacode.domain.services.exception.UsuarioException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Locale;
@@ -20,7 +19,6 @@ public class UsuarioService {
     private final UsuarioPort usuarioPort;
     private final LogPort logPort;
 
-    @Autowired
     public UsuarioService(UsuarioPort createUsuario, LogPort logPort) {
         this.usuarioPort = createUsuario;
         this.logPort = logPort;

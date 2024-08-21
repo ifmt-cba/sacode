@@ -4,7 +4,6 @@ import br.com.edu.ifmt.sacode.domain.entities.Usuario;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
 import br.com.edu.ifmt.sacode.domain.ports.UsuarioPort;
 import br.com.edu.ifmt.sacode.domain.services.exception.UsuarioException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Locale;
@@ -50,18 +49,11 @@ public class UsuarioService {
         return usuarioResponse;
     }
 
-    public void deletarUsuario(UUID id, Usuario usuario) throws UsuarioException {
+    public void deletarUsuario(UUID id, Usuario usuario) {
         logPort.trace("-> UsuarioService.deleteUsuario()");
-
-        //categoriaPort.deleteCategoriaByUsuarioId(usuario.usuarioId);
-
-        //despesaPort.deleteDespesaByUsuarioId(usuario.usuarioId);
-
         usuarioPort.deletarUsuario(id,usuario);
-
         logPort.info("Usuario successfully deleted.");
         logPort.trace("<- UsuarioService.deleteUsuario()");
-
     }
 
 
@@ -80,6 +72,30 @@ public class UsuarioService {
         logPort.debug(usuarioResponse.toString());
         logPort.trace("<- UsuarioService.getByIdUsuario()");
         return usuarioResponse;
+    }
 
+    public Usuario atualizarUsuario(Usuario usuario) throws UsuarioException {
+        logPort.trace("-> UsuarioService.atualizarUsuario()");
+        StringBuilder exc = new StringBuilder();
+
+        if (usuario.getNomeUsuario().toString() == null)
+            exc.append(excRB.getString("usuario.username.invalid").concat(" "));
+
+        if (usuario.getEmail().toString() == null)
+            exc.append(excRB.getString("usuario.email.invalid").concat(" "));
+
+        if (usuario.getSenha().toString() == null)
+            exc.append(excRB.getString("usuario.password.invalid").concat(" "));
+
+        if (!exc.isEmpty()){
+            logPort.warn(exc.toString());
+            throw new UsuarioException(exc.toString());
+        }
+
+        Usuario usuarioResponse = usuarioPort.atualizarUsuario(usuario);
+        logPort.info("Usuario atualizado com sucesso.");
+        logPort.debug(usuarioResponse.toString());
+        logPort.trace("<- UsuarioService.atualizarUsuario()");
+        return usuarioResponse;
     }
 }

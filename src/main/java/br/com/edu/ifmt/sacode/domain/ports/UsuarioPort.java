@@ -15,4 +15,5 @@ public interface UsuarioPort {
 
     Boolean checarUsuarioExistente(String idUsuario);
 
+    Usuario atualizarUsuario(Usuario user);
 }

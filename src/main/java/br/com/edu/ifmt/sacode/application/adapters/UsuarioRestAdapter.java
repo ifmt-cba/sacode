@@ -1,13 +1,7 @@
 package br.com.edu.ifmt.sacode.application.adapters;
 
-import br.com.edu.ifmt.sacode.application.io.AutenticarUsuarioRequest;
-import br.com.edu.ifmt.sacode.application.io.CriarUsuarioRequest;
-import br.com.edu.ifmt.sacode.application.io.CriarUsuarioResponse;
-import br.com.edu.ifmt.sacode.application.io.RecuperaJwTokenDto;
-import br.com.edu.ifmt.sacode.application.usecases.usuario.AutenticarUsuarioUseCase;
-import br.com.edu.ifmt.sacode.application.usecases.usuario.BuscarUsuarioPorIdUseCase;
-import br.com.edu.ifmt.sacode.application.usecases.usuario.CriarUsuarioUseCase;
-import br.com.edu.ifmt.sacode.application.usecases.usuario.DeletarUsuarioUseCase;
+import br.com.edu.ifmt.sacode.application.io.*;
+import br.com.edu.ifmt.sacode.application.usecases.usuario.*;
 import br.com.edu.ifmt.sacode.domain.entities.Usuario;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
 import br.com.edu.ifmt.sacode.domain.services.exception.UsuarioException;
@@ -25,16 +19,18 @@ public class UsuarioRestAdapter {
     private final BuscarUsuarioPorIdUseCase buscarUsuarioPorIdUseCase;
     private final DeletarUsuarioUseCase deletarUsuarioUseCase;
     private final AutenticarUsuarioUseCase autenticarUsuarioUseCase;
+    private final AtualizarUsuarioUseCase atualizarUsuarioUseCase;
     private final LogPort logPort;
 
     UsuarioRestAdapter(CriarUsuarioUseCase criarUsuarioUseCase, LogPort logPort,
                        BuscarUsuarioPorIdUseCase buscarUsuarioPorIdUseCase, DeletarUsuarioUseCase deletarUsuarioUseCase,
-                       AutenticarUsuarioUseCase autenticarUsuarioUseCase){
+                       AutenticarUsuarioUseCase autenticarUsuarioUseCase, AtualizarUsuarioUseCase atualizarUsuarioUseCase) {
         this.criarUsuarioUseCase = criarUsuarioUseCase;
         this.logPort = logPort;
         this.buscarUsuarioPorIdUseCase = buscarUsuarioPorIdUseCase;
         this.deletarUsuarioUseCase = deletarUsuarioUseCase;
         this.autenticarUsuarioUseCase = autenticarUsuarioUseCase;
+        this.atualizarUsuarioUseCase = atualizarUsuarioUseCase;
     }
 
     @PostMapping("/login")
@@ -45,7 +41,7 @@ public class UsuarioRestAdapter {
     }
 
     @GetMapping("/{id}")
-    public CriarUsuarioResponse buscarUsuario(@PathVariable("id") String id) throws Exception{
+    public CriarUsuarioResponse buscarUsuario(@PathVariable("id") String id) throws UsuarioException {
         return buscarUsuarioPorIdUseCase.buscarUsuario(id);
     }
 
@@ -73,6 +69,16 @@ public class UsuarioRestAdapter {
         deletarUsuarioUseCase.deletarUsuario(id, usuario);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AtualizarUsuarioResponse> atualizarUsuario(@PathVariable("id") String id, @RequestBody CriarUsuarioRequest atualizarUsuarioRequest) throws UsuarioException, NoSuchAlgorithmException {
+        logPort.trace("-> PUT /usuarios/{id}");
+        logPort.debug(atualizarUsuarioRequest.toString());
+        AtualizarUsuarioResponse reply = atualizarUsuarioUseCase.atualizarUsuario(atualizarUsuarioRequest);
+        logPort.debug(reply.toString());
+        logPort.trace("<- PUT /usuarios/{id}");
+        return ResponseEntity.status(200).body(reply);
     }
 
 }

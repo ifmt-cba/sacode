@@ -60,6 +60,16 @@ public class UsuarioRepositoryAdapter implements UsuarioPort {
     }
 
     @Override
+    public Usuario atualizarUsuario(Usuario usuario) {
+        logPort.trace(" -> UsuarioRepositoryAdapter.salvarUsuario");
+        UsuarioORM usuarioSalvar = usuarioORMMapper.toORM(usuario);
+        logPort.info(" Usuario mapeado para o banco de dados");
+        usuarioRepository.save(usuarioSalvar);
+        logPort.debug(" Salvo com sucesso");
+        return usuarioORMMapper.toDomainObj(usuarioSalvar);
+    }
+
+    @Override
     public void deletarUsuario(UUID id, Usuario usuario) {
         logPort.trace(" -> UsuarioRepositoryAdapter.deletarUsuario");
         UsuarioORM usuarioDeletar = usuarioORMMapper.toORM(usuario);

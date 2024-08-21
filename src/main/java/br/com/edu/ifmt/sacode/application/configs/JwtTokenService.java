@@ -48,11 +48,11 @@ public class JwtTokenService {
     }
 
     private Instant creationDate() {
-        return ZonedDateTime.now(ZoneId.of("America/Recife")).toInstant();
+        return ZonedDateTime.now(ZoneId.of("America/Cuiaba")).toInstant();
     }
 
     private Instant expirationDate() {
-        return ZonedDateTime.now(ZoneId.of("America/Recife")).plusHours(12).toInstant();
+        return ZonedDateTime.now(ZoneId.of("America/Cuiaba")).plusHours(12).toInstant();
     }
 
 }

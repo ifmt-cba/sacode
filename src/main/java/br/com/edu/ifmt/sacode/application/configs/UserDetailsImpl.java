@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 public class UserDetailsImpl implements UserDetails {
 
-    private Usuario usuario;
+    private transient Usuario usuario;
 
     public UserDetailsImpl(Usuario usuario) {
         this.usuario = usuario;
@@ -52,4 +52,11 @@ public class UserDetailsImpl implements UserDetails {
         return true;
     }
 
+    public String getString() {
+        return usuario.toString();
+    }
+ 
+    public Usuario getUsuario() {
+        return this.usuario;
+    }
 }

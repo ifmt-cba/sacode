@@ -1,6 +1,7 @@
 package br.com.edu.ifmt.sacode.application.mappers;
 
 import br.com.edu.ifmt.sacode.application.configs.SecurityConfiguration;
+import br.com.edu.ifmt.sacode.application.io.AtualizarUsuarioResponse;
 import br.com.edu.ifmt.sacode.application.io.CriarUsuarioRequest;
 import br.com.edu.ifmt.sacode.application.io.CriarUsuarioResponse;
 import br.com.edu.ifmt.sacode.domain.entities.Usuario;
@@ -10,8 +11,6 @@ import br.com.edu.ifmt.sacode.domain.entities.vo.Password;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Username;
 import org.springframework.stereotype.Component;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -32,7 +31,12 @@ public class UsuarioDTOMapper {
                 user.getEmail().toString(), user.isSuperUsuario(), null);
     }
 
-    public Usuario toUser(CriarUsuarioRequest request) throws NoSuchAlgorithmException {
+    public AtualizarUsuarioResponse toAtualizarResponse(Usuario user) {
+        return new AtualizarUsuarioResponse(user.getIdUsuario().toString(), user.getName().toString() ,user.getNomeUsuario().toString(),
+                user.getEmail().toString(), user.isSuperUsuario(), null);
+    }
+
+    public Usuario toUser(CriarUsuarioRequest request) {
         Usuario usuario = new Usuario();
         usuario.setIdUsuario(UUID.randomUUID());
         usuario.setNomeUsuario(new Username(isNull(request.nomeUsuario()) ? "" : request.nomeUsuario()));
@@ -44,17 +48,5 @@ public class UsuarioDTOMapper {
             usuario.setSenha(new Password(null));
         usuario.setEmail(new Email(isNull(request.email()) ? "" :request.email()));
         return usuario;
-    }
-
-    private static String bytesToHex(byte[] hash) {
-        StringBuilder hexString = new StringBuilder(2 * hash.length);
-        for (int i = 0; i < hash.length; i++) {
-            String hex = Integer.toHexString(0xff & hash[i]);
-            if(hex.length() == 1) {
-                hexString.append('0');
-            }
-            hexString.append(hex);
-        }
-        return hexString.toString();
     }
 }

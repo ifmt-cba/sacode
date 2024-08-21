@@ -13,6 +13,7 @@ public class Despesa {
     private Descricao descricao;
     private Moeda valor;
     private LocalDate data;
+//    private Usuario usuario;
     private UUID usuario;
     private Nome autorDespesa;
     private Boolean fixa;

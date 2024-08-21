@@ -1,5 +1,6 @@
 package br.com.edu.ifmt.sacode.infrastructure.persistence;
 
+
 import br.com.edu.ifmt.sacode.domain.entities.vo.Email;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Password;

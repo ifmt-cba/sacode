@@ -23,4 +23,5 @@ public interface CategoriaPort {
     List<Categoria> buscarCategoriasPorNome(Nome nomeCategoria);
 
     List<Categoria> buscarCategoriasPorUsuario(UUID usuarioId);
+
 }

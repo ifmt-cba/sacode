@@ -2,7 +2,6 @@ package br.com.edu.ifmt.sacode.domain.entities;
 
 import br.com.edu.ifmt.sacode.domain.entities.vo.Descricao;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
-
 import java.util.UUID;
 
 public class Categoria {
@@ -23,7 +22,6 @@ public class Categoria {
 
     public UUID getId() {return id;}
     public void setId(UUID id) {this.id = id;}
-
     public Nome getNome() {
         return nome;
     }

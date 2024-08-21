@@ -20,7 +20,6 @@ public class UsuarioService {
     private final UsuarioPort usuarioPort;
     private final LogPort logPort;
 
-    @Autowired
     public UsuarioService(UsuarioPort createUsuario, LogPort logPort) {
         this.usuarioPort = createUsuario;
         this.logPort = logPort;
@@ -83,5 +82,4 @@ public class UsuarioService {
         return usuarioResponse;
 
     }
-
 }

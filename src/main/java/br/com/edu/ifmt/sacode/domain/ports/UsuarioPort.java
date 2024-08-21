@@ -14,4 +14,5 @@ public interface UsuarioPort {
     Usuario buscarPorIdUsuario(UUID userId);
 
     Boolean checarUsuarioExistente(String idUsuario);
+
 }

@@ -1,5 +1,6 @@
 package br.com.edu.ifmt.sacode.domain.services;
 
+
 import br.com.edu.ifmt.sacode.domain.entities.Usuario;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Email;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
@@ -94,7 +95,6 @@ public class UsuarioServiceTest {
     void deveLancarExcecaoQuandoBuscarUsuarioNaoExistente() {
 
         when(userPort.buscarPorIdUsuario(ID)).thenReturn(null);
-
         assertThrows(UsuarioException.class, () -> {
             userService.buscaPorIdUsuario(ID);
         });

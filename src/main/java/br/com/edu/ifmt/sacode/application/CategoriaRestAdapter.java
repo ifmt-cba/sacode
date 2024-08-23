@@ -3,6 +3,7 @@ package br.com.edu.ifmt.sacode.application;
 import java.util.List;
 import java.util.UUID;
 
+import br.com.edu.ifmt.sacode.application.io.CategoriaResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,8 @@ import br.com.edu.ifmt.sacode.domain.entities.Categoria;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import br.com.edu.ifmt.sacode.domain.services.CategoriaService;
 import br.com.edu.ifmt.sacode.domain.services.exception.CategoriaException;
+
+import static java.util.Objects.nonNull;
 
 @RestController
 @RequestMapping("/categoria")
@@ -66,12 +69,10 @@ public class CategoriaRestAdapter {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Categoria> buscarCategoriaPorId(@PathVariable Long id){
-        try {
-            return new ResponseEntity<>(categoriaService.buscarCategoria(UUID.fromString(String.valueOf(id))), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<CategoriaResponse> buscarCategoriaPorId(@PathVariable String id) throws CategoriaException {
+        Categoria categoria = categoriaService.buscarCategoria(UUID.fromString(id));
+        return ResponseEntity.ok(new CategoriaResponse(categoria.getId().toString(), categoria.getUsuario().toString(), categoria.getNome().toString(),
+                categoria.getDescricao().toString(), nonNull(categoria.getIdCategoriaSuperior()) ? categoria.getIdCategoriaSuperior().toString() : null));
     }
 
     @GetMapping("/usuario/{id}")

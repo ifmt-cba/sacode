@@ -36,7 +36,15 @@ public class SecurityConfiguration {
 
     public static final String [] ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
             "/usuarios/login",
-            "/usuarios"
+            "/usuarios",
+            "/swagger-resources/**",
+            "/swagger-ui/**",
+            "/swagger-ui/index.html",
+            "/swagger-ui/index",
+            "/v3/api-docs/**",
+            "/v3/api-docs/",
+            "/swagger-ui.html",
+            "/webjars/**"
     };
 
     @Bean
@@ -44,7 +52,7 @@ public class SecurityConfiguration {
         return httpSecurity.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, SecurityConfiguration.ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
+                .requestMatchers(SecurityConfiguration.ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .authenticationEntryPoint((request, response, authException) -> {

@@ -9,6 +9,7 @@ import br.com.edu.ifmt.sacode.infrastructure.persistence.UsuarioORM;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import static java.util.Objects.nonNull;
 
 public class CategoriaORMMapper {
 
@@ -35,7 +36,9 @@ public class CategoriaORMMapper {
         categoriaDominio.setId(UUID.fromString(categoriaORM.getIdCategoria()));
         categoriaDominio.setNome( new Nome(categoriaORM.getNome()));
         categoriaDominio.setDescricao(new Descricao(categoriaORM.getDescricao()));
-        categoriaDominio.setIdCategoriaSuperior(UUID.fromString(categoriaORM.getCategoriaSuperior()));
+        if(nonNull(categoriaORM.getCategoriaSuperior())){
+            categoriaDominio.setIdCategoriaSuperior(UUID.fromString(categoriaORM.getCategoriaSuperior()));
+        }
         categoriaDominio.setUsuario(UUID.fromString(categoriaORM.getUsuario().getIdUsuario()));
         return categoriaDominio;
     }

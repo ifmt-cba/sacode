@@ -1,5 +1,6 @@
 package br.com.edu.ifmt.sacode.application.interceptors;
 
+import br.com.edu.ifmt.sacode.application.exceptions.NotFoundException;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
 import br.com.edu.ifmt.sacode.domain.services.exception.CategoriaException;
 import br.com.edu.ifmt.sacode.domain.services.exception.UsuarioException;
@@ -82,6 +83,11 @@ public class ExceptionInterceptor {
     @ExceptionHandler(CategoriaException.class)
     public ResponseEntity<String> handleCategoriaException(CategoriaException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<String> handleNotFoundException(NotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
 }

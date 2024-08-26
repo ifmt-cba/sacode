@@ -330,7 +330,6 @@ public class CategoriaService {
         logPort.debug(categoriaResposta.toString());
         logPort.trace("<- CategoriaService.adicionarCategoriaSuperior()");
 
-
     }
 
     public void removerCategoriaSuperior(UUID idCategoriaSuperior, UUID idCategoriaInferior) throws CategoriaException {
@@ -355,7 +354,6 @@ public class CategoriaService {
             categoriaInferior.setIdCategoriaSuperior(null);
             categoriaResposta = categoriaPort.atualizarCategoria(categoriaInferior);
 
-
         } catch (Exception e) {
             // Captura todas as exceções e lança uma CategoriaException com a mensagem acumulada e a mensagem original da exceção
             String mensagemErro = !exc.isEmpty() ? exc.toString() : "";
@@ -366,6 +364,5 @@ public class CategoriaService {
         logPort.trace("<- CategoriaService.removeCategoriaSuperior()");
 
     }
-
 
 }

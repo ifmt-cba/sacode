@@ -35,7 +35,6 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (checkIfEndpointIsNotPublic(request)) {
             String token = recoveryToken(request);
             if (nonNull(token)) {
                 try {
@@ -51,10 +50,8 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
                 } catch (JWTVerificationException e) {
                     throw e;
                 }
-            } else {
-                throw new JWTVerificationException("O token está ausente.");
             }
-        }
+
         filterChain.doFilter(request, response);
     }
 
@@ -66,12 +63,5 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
         return null;
     }
 
-    private boolean checkIfEndpointIsNotPublic(HttpServletRequest request) {
-        String requestURI = request.getRequestURI();
-        if (requestURI.contains("swagger") || requestURI.contains("api-docs")){
-            return false;
-        }
-        return !Arrays.asList(SecurityConfiguration.ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).contains(requestURI);
-    }
 
 }

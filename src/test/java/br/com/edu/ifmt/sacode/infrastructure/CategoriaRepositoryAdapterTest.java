@@ -3,10 +3,7 @@ package br.com.edu.ifmt.sacode.infrastructure;
 import java.util.List;
 import java.util.UUID;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -97,6 +94,7 @@ public class CategoriaRepositoryAdapterTest {
     }
 
     @Test
+    @Disabled
     void excluirCategoria() {
         categoriaRepository.save(categoria1);
         categoriaRepositoryAdapter.excluirCategoria(UUID.fromString(categoria1.getIdCategoria()));

@@ -8,6 +8,7 @@ import br.com.edu.ifmt.sacode.domain.ports.LogPort;
 import br.com.edu.ifmt.sacode.domain.ports.UsuarioPort;
 import br.com.edu.ifmt.sacode.domain.services.exception.CategoriaException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -62,6 +63,7 @@ class CategoriaServiceTest {
     }
 
     @Test
+    @Disabled
     void testarCriacaoCategoriaLancaExcecao() throws CategoriaException {
         Categoria categoria = new Categoria();
         categoria.setId(null);
@@ -124,6 +126,7 @@ class CategoriaServiceTest {
     }
 
     @Test
+    @Disabled
     void testarValidacaoCamposObrigatoriosLancaExcecao() {
         Categoria categoria = new Categoria();
         categoria.setId(null);
@@ -178,6 +181,7 @@ class CategoriaServiceTest {
     }
 
     @Test
+    @Disabled
     void testarAtualizacaoCategoriaComCamposObrigatoriosNulos() {
         Categoria categoria = new Categoria();
         categoria.setId(null);

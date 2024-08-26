@@ -40,43 +40,24 @@ public class CategoriaRestAdapter {
     }
 
     @PostMapping("/")
-    public ResponseEntity<String> criarCategoria(@RequestBody CategoriaRequest request)
-    {
-        try {
+    public ResponseEntity<String> criarCategoria(@RequestBody CategoriaRequest request) throws CategoriaException {
             Categoria categoria = mapper.toCategoria(request);
             categoriaService.criarCategoria(categoria);
             return new ResponseEntity<>("Categoria criada com sucesso", HttpStatus.CREATED);
-        } catch (CategoriaException categoriaException) {
-            return new ResponseEntity<>("Categoria rejeitada: {\n" + categoriaException.toString() + "\n Detalhe: " + categoriaException.getMessage() + "\n}", HttpStatus.CONFLICT);
-        } catch (Exception exception) {
-            return new ResponseEntity<>("Erro ao criar categoria : {\n" + exception.toString() +"\n}", HttpStatus.BAD_REQUEST);
-        }
     }
 
     @PutMapping("/")
-    public ResponseEntity<String> atualizarCategoria(@RequestBody CategoriaRequest request) {
-        try {
-            Categoria categoria = mapper.toCategoria(request);
-            categoriaService.atualizarCategoria(categoria);
-            return new ResponseEntity<>("Categoria atualizada com sucesso", HttpStatus.CREATED);
-        } catch (CategoriaException categoriaException) {
-            return new ResponseEntity<>("Categoria rejeitada: {\n" + categoriaException.toString() + "\n Detalhe: " + categoriaException.getMessage() + "\n}", HttpStatus.CONFLICT);
-        } catch (Exception exception) {
-            return new ResponseEntity<>("Erro ao atualizar categoria : {\n" + exception.toString() +"\n}", HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<String> atualizarCategoria(@RequestBody CategoriaRequest request) throws CategoriaException {
+        Categoria categoria = mapper.toCategoria(request);
+        categoriaService.atualizarCategoria(categoria);
+        return new ResponseEntity<>("Categoria atualizada com sucesso", HttpStatus.CREATED);
     }
 
     @DeleteMapping("/")
-    public ResponseEntity<String> excluirCategoria(@RequestBody CategoriaRequest request) {
-        try {
-            Categoria categoria = mapper.toCategoria(request);
-            categoriaService.excluirCategoria(categoria);
-            return new ResponseEntity<>("Categoria excluída com sucesso", HttpStatus.CREATED);
-        } catch (CategoriaException categoriaException) {
-            return new ResponseEntity<>("Categoria rejeitada: {\n" + categoriaException.toString() + "\n Detalhe: " + categoriaException.getMessage() + "\n}", HttpStatus.CONFLICT);
-        } catch (Exception exception) {
-            return new ResponseEntity<>("Erro ao excluir categoria : {\n" + exception.toString() +"\n}", HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<String> excluirCategoria(@RequestBody CategoriaRequest request) throws CategoriaException {
+        Categoria categoria = mapper.toCategoria(request);
+        categoriaService.excluirCategoria(categoria);
+        return new ResponseEntity<>("Categoria excluída com sucesso", HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
@@ -107,14 +88,9 @@ public class CategoriaRestAdapter {
     }
 
     @PostMapping("/adicionacategoriasuperior/{idcategoriasuperior}/{idcategoriainferior}")
-    public ResponseEntity<String> adicionarCategoriaSuperior(@PathVariable String idcategoriasuperior, @PathVariable String idcategoriainferior){
-        try {
-            categoriaService.adicionarCategoriaSuperior(UUID.fromString(idcategoriasuperior), UUID.fromString(idcategoriainferior));
-            return new ResponseEntity<>("Categoria superior adicionada", HttpStatus.CREATED);
-        } catch (CategoriaException categoriaException) {
-            return new ResponseEntity<>("Categoria rejeitada: {\n" + categoriaException.toString() + "\n Detalhe: " + categoriaException.getMessage() + "\n}", HttpStatus.CONFLICT);
-        } catch (Exception exception) {
-            return new ResponseEntity<>("Erro ao adicionar categoria : {\n" + exception.toString() +"\n}", HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<String> adicionarCategoriaSuperior(@PathVariable String idcategoriasuperior, @PathVariable String idcategoriainferior) throws CategoriaException {
+        categoriaService.adicionarCategoriaSuperior(UUID.fromString(idcategoriasuperior), UUID.fromString(idcategoriainferior));
+        return new ResponseEntity<>("Categoria superior adicionada", HttpStatus.CREATED);
+
     }
 }

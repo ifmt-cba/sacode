@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "categoria")
-public class CategoriaORM {
+public class CategoriaORM extends  AbstractEntity<CategoriaORM> {
 
     @Id
     private String idCategoria;

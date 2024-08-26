@@ -21,7 +21,9 @@ public class CategoriaORMMapper {
         categoriaORM.setIdCategoria(categoriaDominio.getId().toString());
         categoriaORM.setDescricao(categoriaDominio.getDescricao().toString());
         categoriaORM.setNome(categoriaDominio.getNome().toString());
-        categoriaORM.setCategoriaSuperior(categoriaDominio.getIdCategoriaSuperior().toString());
+        if(nonNull(categoriaDominio.getIdCategoriaSuperior())){
+            categoriaORM.setCategoriaSuperior(categoriaDominio.getIdCategoriaSuperior().toString());
+        }
 
         UsuarioORM usuario = new UsuarioORM();
         usuario.setIdUsuario(categoriaDominio.getUsuario().toString());

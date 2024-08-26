@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "despesa")
-public class DespesaORM {
+public class DespesaORM extends AbstractEntity<DespesaORM> {
 
     @Id
     private String idDespesa;

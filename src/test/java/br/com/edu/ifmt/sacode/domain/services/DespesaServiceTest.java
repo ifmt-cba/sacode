@@ -3,6 +3,7 @@ package br.com.edu.ifmt.sacode.domain.services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -19,6 +20,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -34,14 +36,17 @@ public class DespesaServiceTest {
 
     @Mock
     private LogPort logPortMock;
+    @Mock
+    private ResourceBundle resourceBundleMock;
 
     static private DespesaService despesaService;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        ResourceBundle.clearCache();
-        despesaService = new DespesaService(despesaPortMock, logPortMock);
+        despesaService = new DespesaService(logPortMock, despesaPortMock);
+        when(resourceBundleMock.getString(anyString())).thenReturn("Mensagem de erro mockada");
+        ReflectionTestUtils.setField(despesaService, "excRB", resourceBundleMock, ResourceBundle.class);
     }
 
     @Test

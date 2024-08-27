@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static java.util.Objects.nonNull;
+
 @Component
 public class DespesaORMMapper {
     CategoriaORMMapper categoriaORMMapper;
@@ -29,7 +31,7 @@ public class DespesaORMMapper {
             despesaDomainObj.getAutorDespesa(),
             despesaDomainObj.isFixa(),
             despesaDomainObj.getFinanciadorDespesa(),
-            despesaDomainObj.getCorrelacaoParcelas(),
+            nonNull(despesaDomainObj.getCorrelacaoParcelas()) ? despesaDomainObj.getCorrelacaoParcelas(): null,
             despesaDomainObj.getNumParcela(),
             CategoriaORMMapper.dominioParaOrm(despesaDomainObj.getCategoria())
         );
@@ -46,7 +48,9 @@ public class DespesaORMMapper {
     despesa.setAutorDespesa(new Nome(despesaORM.getAutorDespesa().toString()));
     despesa.setFixa( despesaORM.getFixa());
     despesa.setFinanciadorDespesa(new Nome(despesaORM.getFinanciadorDespesa().toString()));
-    despesa.setCorrelacaoParcelas(  UUID.fromString(despesaORM.getCorrelacaoParcelas()));
+    if(nonNull(despesaORM.getCorrelacaoParcelas())){
+        despesa.setCorrelacaoParcelas(UUID.fromString(despesaORM.getCorrelacaoParcelas()));
+    }
     despesa.setNumParcela(despesaORM.getNumParcela());
     despesa.setCategoria(CategoriaORMMapper.ormParaDominio(despesaORM.getCategoria()));
     return despesa;

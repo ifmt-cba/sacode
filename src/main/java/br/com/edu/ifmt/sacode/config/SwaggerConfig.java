@@ -23,8 +23,18 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("Sacode")
                         .version("1.0.0")
-                        .description("Swagger do Sacode")
-                        .contact(new Contact().name("IFMT").email("preti.joao@ifmt.edu.br"))
+                        .description("Para núcleos familiares no qual a falta de controle na " +
+                                "despesa familiar é um problema, o Sacode " +
+                                "(Sistema de Auxílio ao Controle de Despesas) " +
+                                "é uma API para registro de despesas e monitoramento da evolução de gastos, " +
+                                "que melhora a conscientização das famílias acerca dos seus gastos, " +
+                                "auxiliando no gerenciamento dos seus recursos financeiros e " +
+                                "possibilita futuros investimentos. Ao contrário das formas convencionais " +
+                                "de gerenciar despesas, como planilhas ou papéis, este produto facilita " +
+                                "o desenvolvimento de ferramentas de controle financeiro.")
+
+                        .contact(new Contact().name("Equipe Sacode")
+                                .email("preti.joao@ifmt.edu.br, heloisebastos28@hotmail.com, mateusgoulart20@hotmail.com, samuelbianch38@gmail.com, thiagoramalhosetubal6@gmail.com, viniciusdemoraespro@gmail.com, wendersonpfarias@gmail.com"))
                         .license(new License().name("Site do IFMT").url("https://cba.ifmt.edu.br/")));
     }
 }

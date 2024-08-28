@@ -2,10 +2,11 @@ package br.com.edu.ifmt.sacode.domain.services;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Locale;
+import static java.util.Objects.isNull;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +16,12 @@ import br.com.edu.ifmt.sacode.domain.ports.DespesaPort;
 import br.com.edu.ifmt.sacode.domain.services.exception.DespesaException;
 
 @Service
+@RequiredArgsConstructor
 public class DespesaService {
     private ResourceBundle excRB;
     private final LogPort logPort;
     private final DespesaPort despesaPort;
 
-    @Autowired
-    public DespesaService(DespesaPort createDespesa, LogPort logPort) {
-        this.despesaPort = createDespesa;
-        this.logPort = logPort;
-        this.excRB = ResourceBundle.getBundle("exceptions", new Locale("pt", "BR"));
-    }
 
     public Despesa criarDespesa(Despesa despesa) throws DespesaException {
 
@@ -39,14 +35,14 @@ public class DespesaService {
                 throw new DespesaException(exc.toString());
             }
 
-            if (verificarCampos(despesa)) {
+            if (!verificarCampos(despesa)) {
                 exc.append(excRB.getString("despesa.verificarCampos").concat(" "));
                 logPort.warn(exc.toString());
                 throw new DespesaException(exc.toString());
             }
             despesaResponse = despesaPort.criarDespesa(despesa);
-        } catch (Exception e) {
-            throw new DespesaException(exc.toString());
+        } catch (DespesaException e) {
+            throw new DespesaException(e.getMessage());
         }
         logPort.info("Despesa criada com sucesso.");
         logPort.debug(despesa.toString());
@@ -58,34 +54,34 @@ public class DespesaService {
         logPort.trace("-> DespesaService.verificarCampos()");
 
         StringBuilder exc = new StringBuilder();
-        if (despesa.getDescricao().toString() == null)
+
+        if (isNull(despesa.getDescricao()))
             exc.append(excRB.getString("despesa.descricao.invalid").concat(" "));
 
-        if (despesa.getValor().toString() == null)
+        if (isNull(despesa.getValor()))
             exc.append(excRB.getString("despesa.valor.invalid").concat(" "));
 
-        if (despesa.getData().toString() == null)
+        if (isNull(despesa.getData()))
             exc.append(excRB.getString("despesa.data.invalid").concat(" "));
 
-        if (despesa.getUsuario().toString() == null)
+        if (isNull(despesa.getUsuario()))
             exc.append(excRB.getString("despesa.usuario.invalid").concat(" "));
 
-        if (despesa.getAutorDespesa().toString() == null)
+        if (isNull(despesa.getAutorDespesa()))
             exc.append(excRB.getString("despesa.autorDespesa.invalid").concat(" "));
 
-        if (despesa.isFixa().equals(null))
+        if (isNull(despesa.isFixa()))
             exc.append(excRB.getString("despesa.fixa.invalid").concat(" "));
 
-        if (despesa.getFinanciadorDespesa().toString() == null)
+        if (isNull(despesa.getFinanciadorDespesa()))
             exc.append(excRB.getString("despesa.financiadorDespesa.invalid").concat(" "));
 
-        if (despesa.getNumParcela().equals(null))
+        if (isNull(despesa.getNumParcela()))
             exc.append(excRB.getString("despesa.numParcelas.invalid").concat(" "));
-
-        if (despesa.getNumParcela() < 0)
+        else if (despesa.getNumParcela() < 0)
             exc.append(excRB.getString("despesa.numParcelas.isNegative").concat(" "));
 
-        if (despesa.getCorrelacaoParcelas().toString() == null && despesa.getNumParcela() > 0)
+        if (isNull(despesa.getCorrelacaoParcelas()) && !isNull(despesa.getNumParcela()) && despesa.getNumParcela() > 0)
             exc.append(excRB.getString("despesa.parcelamento.semRefrencia").concat(" "));
 
         if (!exc.isEmpty()) {

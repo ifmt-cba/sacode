@@ -4,10 +4,12 @@ import br.com.edu.ifmt.sacode.domain.entities.Despesa;
 import br.com.edu.ifmt.sacode.domain.ports.DespesaPort;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
 import br.com.edu.ifmt.sacode.infrastructure.mappers.DespesaORMMapper;
+import br.com.edu.ifmt.sacode.infrastructure.persistence.CategoriaORM;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.DespesaORM;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.DespesaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -30,8 +32,10 @@ public class DespesaRepositoryAdapter implements DespesaPort {
   @Override
   public Despesa criarDespesa(Despesa despesaDomainObj) {
     logPort.trace("-> DespesaRepositoryAdapter.criarDespesa");
-    DespesaORM despesaORM = despesaORMMapper.toORM(despesaDomainObj);
+    var despesaORM =  new DespesaORM();
+    despesaORM = DespesaORMMapper.toORM(despesaDomainObj);
     logPort.debug(despesaORM.toString());
+    despesaORM.setIdDespesa(UUID.randomUUID().toString());
     DespesaORM savedDespesa = despesaRepository.save(despesaORM);
     logPort.info("Despesa inserida na tabela despesa.");
     logPort.debug(despesaORM.toString());
@@ -52,6 +56,7 @@ public class DespesaRepositoryAdapter implements DespesaPort {
   }
 
   @Override
+  @Transactional
   public int excluirDespesa(UUID idDespesa, UUID usuario) {
     logPort.trace("-> DespesaRepositoryAdapter.excluirDespesa");
     int retorno = despesaRepository.deleteByIdDespesaAndUsuario_IdUsuario(idDespesa.toString(), usuario.toString());

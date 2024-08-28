@@ -71,7 +71,7 @@ public class DespesaRepositoryAdapterTest {
         usuario.setUsername("Maria");
         usuario.setPassword("44e0ce52a039177f58976cf227a50265e9ed4119f19b182ea08c40a75d3c1985");
         usuario.setSuperusuario(true);
-//        usuario.setMembroFamiliar(List.of());
+        usuario.setMembroFamiliar(List.of());
 
         categoria1.setIdCategoria(UUID.randomUUID().toString());
         categoria1.setNome("Despesas Mensal");

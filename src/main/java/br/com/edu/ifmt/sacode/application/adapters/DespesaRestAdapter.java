@@ -23,7 +23,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/despesas")
+@RequestMapping("despesas")
 @RequiredArgsConstructor
 @Tag(name = "Despesas", description = "Operações relacionadas a despesas")
 public class DespesaRestAdapter {

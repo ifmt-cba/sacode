@@ -95,14 +95,9 @@ public class CategoriaRestAdapter {
     }
 
     @DeleteMapping("/removercategoriasuperior/{idcategoriasuperior}/{idcategoriainferior}")
-public ResponseEntity<String> removerCategoriaSuperior(@PathVariable Long idcategoriasuperior, @PathVariable Long idcategoriainferior) {
-    try {
-        categoriaService.removerCategoriaSuperior(UUID.fromString(String.valueOf(idcategoriasuperior)), UUID.fromString(String.valueOf(idcategoriainferior)));
-        return new ResponseEntity<>("Categoria excluída com sucesso", HttpStatus.OK);
-    } catch (CategoriaException categoriaException) {
-        return new ResponseEntity<>("Categoria rejeitada: {\n" + categoriaException.toString() + "\n Detalhe: " + categoriaException.getMessage() + "\n}", HttpStatus.CONFLICT);
-    } catch (Exception exception) {
-        return new ResponseEntity<>("Erro ao excluir categoria : {\n" + exception.toString() +"\n}", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> removerCategoriaSuperior(@PathVariable String idcategoriasuperior, @PathVariable String idcategoriainferior) throws CategoriaException {
+        categoriaService.removerCategoriaSuperior(UUID.fromString(idcategoriasuperior), UUID.fromString(idcategoriainferior));
+        return new ResponseEntity<>("Categoria Superior excluída com sucesso", HttpStatus.OK);
+
     }
-}
 }

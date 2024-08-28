@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import br.com.edu.ifmt.sacode.application.DespesaRestAdapter;
+import br.com.edu.ifmt.sacode.application.adapters.DespesaRestAdapter;
 import br.com.edu.ifmt.sacode.domain.entities.Despesa;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
 import br.com.edu.ifmt.sacode.domain.ports.DespesaPort;

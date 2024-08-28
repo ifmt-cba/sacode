@@ -1,4 +1,4 @@
-package br.com.edu.ifmt.sacode.application;
+package br.com.edu.ifmt.sacode.application.adapters;
 
 import br.com.edu.ifmt.sacode.application.io.DespesaRequest;
 import br.com.edu.ifmt.sacode.application.io.DespesaResponse;

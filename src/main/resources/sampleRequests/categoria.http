@@ -1,4 +1,4 @@
-@url = http://localhost:8080/categoria
+@url = http://localhost:8080/sacode/api/v1.0.0/categoria
 
 # Cria categoria
 POST {{url}}/ HTTP/1.1

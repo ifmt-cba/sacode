@@ -1,4 +1,4 @@
-@url = http://localhost:8080/usuarios
+@url = http://localhost:8080/sacode/api/v1.0.0/usuarios
 
 
 # Cria um novo usuario

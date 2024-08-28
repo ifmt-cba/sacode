@@ -1,19 +1,20 @@
-@url = http://localhost:8080/despesas
+@url = http://localhost:8080/sacode/api/v1.0.0/despesas
 
 POST {{url}}/ HTTP/1.1
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzYWNvZGUtYXBpIiwiaWF0IjoxNzI0ODQ1NDc2LCJleHAiOjE3MjQ4ODg2NzYsInN1YiI6InNhbXVlbEB1Zm10LmJyIn0.i7sdkhA8I_G2crnGk1yIVW8AEHVBWNgKv_apWFhSUKI
 
 {
-	  "idDespesa":null,
-    "descricao":null,
-    "valor":null,
-    "data":null,
-		"usuario":null,
-    "autorDespesa":null,
-    "fixa":null,
-    "financiadorDespesa":null,
-    "correlacaoParcelas":null,
-	  "numParcela":null
+    "descricao": "teste",
+    "valor": "BRL20",
+    "data": "2021-08-02",
+		"usuario": "4d5b19f6-fa16-418a-bf55-bcf94009227e",
+    "autorDespesa": "samuel",
+    "fixa": false,
+    "correlacaoParcelas": null,
+    "numParcela": "0",
+    "financiadorDespesa": "samuel",
+    "categoriaId": "3f6a6ee9-757e-49d5-84c0-f097f89736cf"
 }
 
 ###

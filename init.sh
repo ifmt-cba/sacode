@@ -30,10 +30,7 @@ printf '\n'
 mvn spring-boot:run
 
 printf '\n'
-printf 'http://localhost:8080/login                        -> Aplicação Principal\n'
-printf 'http://localhost:8080/swagger-ui/index.html        -> OpenAPI\n'
-printf 'http://localhost:8081/                             -> Aplicação de monitoramento\n'
+printf 'http://localhost:8080/sacode/api/v1.0.0/login                           -> Aplicação Principal\n'
+printf 'http://localhost:8080/sacode/api/v1.0.0/swagger-ui/index.html           -> OpenAPI\n'
+printf 'http://localhost:8081/                                                  -> Aplicação de monitoramento\n'
 printf '\n'
-printf 'SERVICE         PORT\n'
-printf 'API             8080\n'
-printf 'Monitoramento   5432\n'

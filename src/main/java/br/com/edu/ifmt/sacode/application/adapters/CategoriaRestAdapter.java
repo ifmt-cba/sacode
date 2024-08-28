@@ -1,4 +1,4 @@
-package br.com.edu.ifmt.sacode.application;
+package br.com.edu.ifmt.sacode.application.adapters;
 
 import br.com.edu.ifmt.sacode.application.io.CategoriaRequest;
 import br.com.edu.ifmt.sacode.application.io.CategoriaResponse;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 import static java.util.Objects.nonNull;
 
 @RestController
-@RequestMapping("/categoria")
+@RequestMapping("categorias")
 @Tag(name = "Categoria", description = "Operações relacionada a categoria")
 public class CategoriaRestAdapter {
     private final CategoriaService categoriaService;

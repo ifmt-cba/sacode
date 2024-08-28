@@ -1,4 +1,4 @@
-package br.com.edu.ifmt.sacode.application;
+package br.com.edu.ifmt.sacode.application.adapters;
 
 import br.com.edu.ifmt.sacode.application.io.DespesaRequest;
 import br.com.edu.ifmt.sacode.application.io.DespesaResponse;
@@ -23,7 +23,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/despesas")
+@RequestMapping("despesas")
 @RequiredArgsConstructor
 @Tag(name = "Despesas", description = "Operações relacionadas a despesas")
 public class DespesaRestAdapter {

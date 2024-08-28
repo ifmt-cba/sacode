@@ -1,0 +1,37 @@
+name: Deploy SACODE Application
+
+on:
+  pull_request:
+    branches: [develop]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Build project
+        run: mvn clean install -DskipTests
+      - name: Login Docker Hub
+        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+      - name: Build docker image
+        run: docker build -t vinimeso/deploy_sacode .
+      - name: Push image docker
+        run: docker push vinimeso/deploy_sacode
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull image from docker hub
+        run: docker pull vinimeso/deploy_sacode:latest
+      - name: Remove docker container
+        run: docker rm -f deploy_sacode
+      - name: Run docker container
+        run: docker run -d -p 8080:8080 --name deploy_sacode vinimeso/deploy_sacode

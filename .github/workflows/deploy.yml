@@ -30,8 +30,8 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Pull image from docker hub
-        run: docker pull vinimeso/deploy_sacode:latest
+        run: sudo docker pull vinimeso/deploy_sacode:latest
       - name: Remove docker container
-        run: docker rm -f deploy_sacode
+        run: sudo docker rm -f deploy_sacode
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name deploy_sacode vinimeso/deploy_sacode
+        run: sudo docker run -d -p 80:8080 --name deploy_sacode vinimeso/deploy_sacode

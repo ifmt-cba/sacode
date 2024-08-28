@@ -7,7 +7,7 @@ import java.util.List;
 
 @Repository
 public interface CategoriaRepository extends CrudRepository<CategoriaORM, String>{
-    List<CategoriaORM> findByNome(String categoriaNome);
+    List<CategoriaORM> findByNomeContainingIgnoreCase(String categoriaNome);
     List<CategoriaORM> findByCategoriaSuperior(String categoriaSuperior);
     List<CategoriaORM> findByUsuarioIdUsuario(String usuarioId);
 

@@ -1,7 +1,5 @@
 package br.com.edu.ifmt.sacode.application.usecases.usuario;
 
-import java.security.NoSuchAlgorithmException;
-
 import org.springframework.stereotype.Service;
 
 import br.com.edu.ifmt.sacode.application.io.CriarUsuarioRequest;
@@ -24,7 +22,7 @@ public class AtualizarUsuarioUseCase {
         this.logPort = logPort;
     }
 
-    public AtualizarUsuarioResponse atualizarUsuario(CriarUsuarioRequest request) throws NoSuchAlgorithmException, UsuarioException {
+    public AtualizarUsuarioResponse atualizarUsuario(CriarUsuarioRequest request) throws UsuarioException {
         logPort.trace("-> AtualizarUsuarioUseCase.atualizarUsuario");
         Usuario usuarioObj = usuarioDTOMapper.toUser(request);
         logPort.debug(usuarioObj.toString());

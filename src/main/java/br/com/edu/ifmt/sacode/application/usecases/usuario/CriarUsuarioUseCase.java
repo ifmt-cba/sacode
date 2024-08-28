@@ -9,8 +9,6 @@ import br.com.edu.ifmt.sacode.domain.services.UsuarioService;
 import br.com.edu.ifmt.sacode.domain.services.exception.UsuarioException;
 import org.springframework.stereotype.Component;
 
-import java.security.NoSuchAlgorithmException;
-
 @Component
 public class CriarUsuarioUseCase {
 
@@ -24,7 +22,7 @@ public class CriarUsuarioUseCase {
         this.logPort = logPort;
     }
 
-    public CriarUsuarioResponse criarUsuario(CriarUsuarioRequest request) throws NoSuchAlgorithmException, UsuarioException {
+    public CriarUsuarioResponse criarUsuario(CriarUsuarioRequest request) throws UsuarioException {
         logPort.trace("-> CriarUsuarioUseCase.criarUsuario");
         Usuario usuarioObj = usuarioDTOMapper.toUser(request);
         logPort.debug(usuarioObj.toString());

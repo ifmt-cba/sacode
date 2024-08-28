@@ -25,9 +25,41 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
+
+
+### Terraform ###
+
+# Diretório de estado do Terraform
+*.tfstate
+*.tfstate.*
+
+# Logs de crash do Terraform
+crash.log
+
+# Planos de execução do Terraform
+*.tfplan
+
+# Backups do Terraform
+*.backup
+
+# Arquivos de configuração de variáveis sensíveis
+*.tfvars
+*.tfvars.json
+
+# Diretório de bloqueio de provedor do Terraform
+.terraform/
+
+# Arquivos de override
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Diretório de configuração de plugins do Terraform
+.terraformrc
+terraform.rc

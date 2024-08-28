@@ -126,7 +126,7 @@ public class CategoriaRepositoryAdapter implements CategoriaPort {
         logPort.trace("-> CategoriaRepositoryAdapter.buscarCategoriasPorNome");
         List<CategoriaORM> categoriasORM = null;
         try {
-            categoriasORM = categoriaRepository.findByNome(nomeCategoria.toString());
+            categoriasORM = categoriaRepository.findByNomeContainingIgnoreCase(nomeCategoria.toString());
         } catch (Exception e) {
             logPort.error("Erro ao erro ao buscar categorias por nome.".concat(e.getMessage()));
         }

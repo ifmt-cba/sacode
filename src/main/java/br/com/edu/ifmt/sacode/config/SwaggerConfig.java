@@ -24,7 +24,7 @@ public class SwaggerConfig {
                         .title("Sacode")
                         .version("1.0.0")
                         .description("Swagger do Sacode")
-                        .contact(new Contact().name("Thiago").email("thiagoramalhosetubal6@gmail.com"))
-                        .license(new License().name("Licença do Sistema").url("http://Sacode.com")));
+                        .contact(new Contact().name("IFMT").email("preti.joao@ifmt.edu.br"))
+                        .license(new License().name("Site do IFMT").url("https://cba.ifmt.edu.br/")));
     }
 }

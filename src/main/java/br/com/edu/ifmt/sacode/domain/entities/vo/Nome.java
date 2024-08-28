@@ -13,16 +13,17 @@ import java.util.regex.Pattern;
  * $ Fim da string
  */
 public class Nome {
-    private static final String regexNome = "^[a-zA-ZÀ-ÿ\\s'-]{2,79}$";
+
+    private static final String REGEX_STRING = "^[a-zA-ZÀ-ÿ\\s'-]{2,79}$";
 
     private String nome;
 
     public Nome() {
-        this.nome = new String();
+        this.nome = null;
     }
-
+    
     public Nome(String nome) {
-        if (nome != null && Pattern.matches(regexNome, nome)) {
+        if (nome != null && Pattern.matches(REGEX_STRING, nome)) {
             this.nome = nome;
         } else {
             this.nome = null;

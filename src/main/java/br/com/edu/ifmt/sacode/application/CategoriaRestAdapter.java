@@ -23,11 +23,14 @@ import br.com.edu.ifmt.sacode.domain.entities.Categoria;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import br.com.edu.ifmt.sacode.domain.services.CategoriaService;
 import br.com.edu.ifmt.sacode.domain.services.exception.CategoriaException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import static java.util.Objects.nonNull;
 
 @RestController
 @RequestMapping("/categoria")
+@Tag(name = "Categoria", description = "Operações relacionada a categoria")
 public class CategoriaRestAdapter {
     private final CategoriaService categoriaService;
 
@@ -39,6 +42,7 @@ public class CategoriaRestAdapter {
         this.mapper = mapper;
     }
 
+    @Operation(summary = "Criar categoria", description = "Cria uma categoria")
     @PostMapping("/")
     public ResponseEntity<String> criarCategoria(@RequestBody CategoriaRequest request) throws CategoriaException {
             Categoria categoria = mapper.toCategoria(request);
@@ -46,6 +50,7 @@ public class CategoriaRestAdapter {
             return new ResponseEntity<>("Categoria criada com sucesso", HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Atualizar categoria", description = "Atualiza uma categoria")
     @PutMapping("/")
     public ResponseEntity<String> atualizarCategoria(@RequestBody CategoriaRequest request) throws CategoriaException {
         Categoria categoria = mapper.toCategoria(request);
@@ -53,6 +58,7 @@ public class CategoriaRestAdapter {
         return new ResponseEntity<>("Categoria atualizada com sucesso", HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Excluir categoria", description = "Exclui uma categoria")
     @DeleteMapping("/")
     public ResponseEntity<String> excluirCategoria(@RequestBody CategoriaRequest request) throws CategoriaException {
         Categoria categoria = mapper.toCategoria(request);
@@ -60,6 +66,7 @@ public class CategoriaRestAdapter {
         return new ResponseEntity<>("Categoria excluída com sucesso", HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Buscar categoria", description = "Busca uma categoria pelo id")
     @GetMapping("/{id}")
     public ResponseEntity<CategoriaResponse> buscarCategoriaPorId(@PathVariable String id) throws CategoriaException {
         Categoria categoria = categoriaService.buscarCategoria(UUID.fromString(id));
@@ -67,19 +74,21 @@ public class CategoriaRestAdapter {
                 categoria.getDescricao().toString(), nonNull(categoria.getIdCategoriaSuperior()) ? categoria.getIdCategoriaSuperior().toString() : null));
     }
 
+    @Operation(summary = "Buscar categoria por usuário", description = "Busca uma categoria pelo id de usuário")
     @GetMapping("/usuario/{id}")
     public ResponseEntity<List<CategoriaResponse>> buscarCategoriaPorUsuarioId(@PathVariable String id) throws CategoriaException {
         List<Categoria> categorias = categoriaService.buscarCategoriasPorUsuario(UUID.fromString(id));
         return ResponseEntity.ok(categorias.stream().map(mapper::toResponse).collect(Collectors.toList()));
     }
 
-    @GetMapping("/bucapornome/{nome}")
-    public ResponseEntity<List<CategoriaResponse>> buscarCategoriaPorNome(@PathVariable String nome) throws CategoriaException {
+    @Operation(summary = "Buscar categoria por nome", description = "Busca uma categoria pelo nome")
+    @GetMapping("/buscapornome")
+    public ResponseEntity<List<CategoriaResponse>> buscarCategoriaPorNome(@RequestBody String nome) throws CategoriaException {
         List<Categoria> categorias = categoriaService.buscarCategoriasPorNome(new Nome(nome));
         return ResponseEntity.ok(categorias.stream().map(mapper::toResponse).collect(Collectors.toList()));
     }
 
-
+    @Operation(summary = "Buscar subcategorias por id de categoria", description = "Busca subcategorias por id de categoria")
     @GetMapping("/subcategorias/{id}")
     public ResponseEntity<List<CategoriaResponse>> buscarSubCategoriaPorIdCategoria(@PathVariable String id) throws CategoriaException {
         List<Categoria> categorias = categoriaService.buscarSubCategorias(UUID.fromString(id));
@@ -87,6 +96,7 @@ public class CategoriaRestAdapter {
 
     }
 
+    @Operation(summary = "Adicionar categoria superior", description = "Adiciona uma categoria superior passando o id da categoria superior e o id da categoria inferior")
     @PostMapping("/adicionacategoriasuperior/{idcategoriasuperior}/{idcategoriainferior}")
     public ResponseEntity<String> adicionarCategoriaSuperior(@PathVariable String idcategoriasuperior, @PathVariable String idcategoriainferior) throws CategoriaException {
         categoriaService.adicionarCategoriaSuperior(UUID.fromString(idcategoriasuperior), UUID.fromString(idcategoriainferior));

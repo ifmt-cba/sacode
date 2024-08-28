@@ -6,10 +6,10 @@ POST {{url}} HTTP/1.1
 content-type: application/json
 
 {
-    "nome":"viniciusZo",
-    "nomeUsuario":"vini1394",
-    "email":"vinicius1394@gmail.com",
-    "senha":"123456"
+    "nomeUsuario": "testando",
+    "nome": "samuel2",
+    "senha": "samuca",
+    "email": "samuel@ufmt.br"
 }
 
 ###

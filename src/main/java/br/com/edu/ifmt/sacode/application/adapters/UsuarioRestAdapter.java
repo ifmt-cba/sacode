@@ -5,14 +5,17 @@ import br.com.edu.ifmt.sacode.application.usecases.usuario.*;
 import br.com.edu.ifmt.sacode.domain.entities.Usuario;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
 import br.com.edu.ifmt.sacode.domain.services.exception.UsuarioException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 @RestController
 @RequestMapping("usuarios")
+@Tag(name = "Usuário", description = "Operações relacionadas a usuários")
 public class UsuarioRestAdapter {
 
     private final CriarUsuarioUseCase criarUsuarioUseCase;
@@ -33,6 +36,7 @@ public class UsuarioRestAdapter {
         this.atualizarUsuarioUseCase = atualizarUsuarioUseCase;
     }
 
+    @Operation(summary = "Autenticar usuário", description = "Autentica um usuário")
     @PostMapping("/login")
     public ResponseEntity<RecuperaJwTokenDto> autenticarUsuario(@RequestBody AutenticarUsuarioRequest request){
         RecuperaJwTokenDto token = autenticarUsuarioUseCase.autenticar(request);
@@ -40,30 +44,25 @@ public class UsuarioRestAdapter {
         return ResponseEntity.status(200).body(token);
     }
 
+    @Operation(summary = "Buscar usuário", description = "Busca um usuário pelo id")
     @GetMapping("/{id}")
     public CriarUsuarioResponse buscarUsuario(@PathVariable("id") String id) throws UsuarioException {
         return buscarUsuarioPorIdUseCase.buscarUsuario(id);
     }
 
-
+    @Operation(summary = "Criar usuário", description = "Cria um usuário")
     @PostMapping
-    public ResponseEntity<?> criarUsuario(@RequestHeader Map<String, String> headers, @RequestBody CriarUsuarioRequest request) {
+    public ResponseEntity<?> criarUsuario(@RequestHeader Map<String, String> headers, @RequestBody CriarUsuarioRequest request) throws UsuarioException {
         logPort.trace("-> POST /users");
         logPort.debug(headers.toString());
         logPort.debug(request.toString());
-        try {
-            CriarUsuarioResponse reply = criarUsuarioUseCase.criarUsuario(request);
-            logPort.debug(reply.toString());
-            logPort.trace("<- POST /users");
-            return ResponseEntity.status(201).body(reply);
-        } catch (NoSuchAlgorithmException e) {
-            logPort.error(e.getMessage());
-            return ResponseEntity.internalServerError().body(e.getMessage());
-        } catch (UsuarioException e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
-        }
+        CriarUsuarioResponse reply = criarUsuarioUseCase.criarUsuario(request);
+        logPort.debug(reply.toString());
+        logPort.trace("<- POST /users");
+        return ResponseEntity.status(201).body(reply);
     }
 
+    @Operation(summary = "Deletar usuário", description = "Deleta um usuário")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarUsuario(@PathVariable("id") String id, @RequestBody Usuario usuario) throws UsuarioException {
         deletarUsuarioUseCase.deletarUsuario(id, usuario);
@@ -71,8 +70,9 @@ public class UsuarioRestAdapter {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Atualizar usuário", description = "Atualiza um usuário")
     @PutMapping("/{id}")
-    public ResponseEntity<AtualizarUsuarioResponse> atualizarUsuario(@PathVariable("id") String id, @RequestBody CriarUsuarioRequest atualizarUsuarioRequest) throws UsuarioException, NoSuchAlgorithmException {
+    public ResponseEntity<AtualizarUsuarioResponse> atualizarUsuario(@PathVariable("id") String id, @RequestBody CriarUsuarioRequest atualizarUsuarioRequest) throws UsuarioException {
         logPort.trace("-> PUT /usuarios/{id}");
         logPort.debug(atualizarUsuarioRequest.toString());
         AtualizarUsuarioResponse reply = atualizarUsuarioUseCase.atualizarUsuario(atualizarUsuarioRequest);

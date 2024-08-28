@@ -11,7 +11,6 @@ import br.com.edu.ifmt.sacode.domain.entities.vo.Password;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Username;
 import org.springframework.stereotype.Component;
 
-import java.security.NoSuchAlgorithmException;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 

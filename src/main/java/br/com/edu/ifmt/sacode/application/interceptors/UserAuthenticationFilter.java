@@ -34,23 +34,24 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-            String token = recoveryToken(request);
-            if (nonNull(token)) {
-                try {
-                    String subject = jwtTokenService.getSubjectFromToken(token);
-                    UsuarioORM usuario = usuarioRepository.findByEmail(subject).get();
-                    UserDetailsImpl userDetails = new UserDetailsImpl(UsuarioORMMapper.toDomainObj(usuario));
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        String token = recoveryToken(request);
+        if (nonNull(token)) {
+            try {
+                String subject = jwtTokenService.getSubjectFromToken(token);
+                UsuarioORM usuario = usuarioRepository.findByEmail(subject).get();
+                UserDetailsImpl userDetails = new UserDetailsImpl(UsuarioORMMapper.toDomainObj(usuario));
 
-                    Authentication authentication =
-                            new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
+                Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null,
+                        userDetails.getAuthorities());
 
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
 
-                } catch (JWTVerificationException e) {
-                    throw e;
-                }
+            } catch (JWTVerificationException e) {
+                throw e;
             }
+        }
 
         filterChain.doFilter(request, response);
     }
@@ -62,6 +63,5 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
         }
         return null;
     }
-
 
 }

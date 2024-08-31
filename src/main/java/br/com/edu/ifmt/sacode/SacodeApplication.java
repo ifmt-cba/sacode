@@ -9,6 +9,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+import de.codecentric.boot.admin.server.config.EnableAdminServer;
+
+@EnableAdminServer
 @ComponentScan(basePackages = "br.com.edu.ifmt.sacode")
 @SpringBootApplication
 public class SacodeApplication {

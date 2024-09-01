@@ -1,30 +1,27 @@
 package br.com.edu.ifmt.sacode.application.configs;
 
 import br.com.edu.ifmt.sacode.application.interceptors.UserAuthenticationFilter;
+import br.com.edu.ifmt.sacode.application.interceptors.UserBasicAuthenticationFilter;
 import de.codecentric.boot.admin.server.config.AdminServerProperties;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -53,14 +50,15 @@ public class SecurityConfiguration {
         // };
 
         @Bean
-        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-                SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
+        public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
+                final SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
                 successHandler.setTargetUrlParameter("redirectTo");
-                successHandler.setDefaultTargetUrl(this.adminServer.getContextPath() + "/");
-
+                successHandler.setDefaultTargetUrl(this.adminServer.path(""));
                 return http.authorizeHttpRequests(req -> req
                                 .requestMatchers(this.adminServer.getContextPath() + "/assets/**").permitAll()
                                 .requestMatchers(this.adminServer.getContextPath() + "/login").permitAll()
+                                .requestMatchers(this.adminServer.getContextPath() + "/logout/**").permitAll()
+                                .requestMatchers(this.adminServer.getContextPath() + "/instances/**").permitAll()
                                 .requestMatchers("/usuarios", "/usuarios/login", "/v3/api-docs/**",
                                                 "/swagger-resources/**",
                                                 "/swagger-ui.html", "/swagger-ui/**", "/configuration/security",
@@ -90,7 +88,12 @@ public class SecurityConfiguration {
                                                 .tokenValiditySeconds(1209600))
                                 .sessionManagement(session -> session
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                                .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                                .addFilterBefore(this.userAuthenticationFilter,
+                                                UsernamePasswordAuthenticationFilter.class)
+                                .addFilterBefore(
+                                                new UserBasicAuthenticationFilter(this.userDetailsService,
+                                                                this.passwordEncoder()),
+                                                BasicAuthenticationFilter.class)
                                 .build();
 
                 // return http.csrf(csrf -> csrf.disable())

@@ -17,8 +17,10 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -27,10 +29,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Tag(name = "Despesas", description = "Operações relacionadas a despesas")
 public class DespesaRestAdapter {
-    static final String OBJETO_NULO = "Objeto nulo";
-    static final String DESPESA_REJEITADA = "Despesa rejeitada:{\n";
-    static final String DETALHE = "\nDetalhe: ";
-    static final String CAUSA = "\nCausa: ";
 
     private final DespesaService despesaService;
     private final DespesaDTOMapper mapper;
@@ -170,5 +168,23 @@ public class DespesaRestAdapter {
     @DeleteMapping("/{id}/parcelas/{parcela}")
     public ResponseEntity<Integer> excluirParcelas(@PathVariable String id, @PathVariable String parcela) throws DespesaException {
         return ResponseEntity.ok(despesaService.excluirParcelas(UUID.fromString(id), UUID.fromString(parcela)));
+    }
+
+    @Operation(
+            summary = "Despesas por Usuario e Ano.",
+            description = "Despesas por Usuario e do Ano agrupadas por mês.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Sucesso."),
+                    @ApiResponse(responseCode = "500", description = "Erro interno no servidor", content = @Content)
+            }
+    )
+    @GetMapping("/ano/{ano}/usuario/{idUsuario}")
+    public ResponseEntity<Map<String, Map<String, BigDecimal>>> getDespesasPorAno(
+            @PathVariable int ano,
+            @PathVariable String idUsuario) {
+
+        Map<String, Map<String, BigDecimal>> despesas = despesaService.buscarDespesasPorAnoEUsuario(ano, idUsuario);
+
+        return ResponseEntity.ok(despesas);
     }
 }

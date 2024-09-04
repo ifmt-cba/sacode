@@ -20,7 +20,7 @@ POST {{url}}/login HTTP/1.1
 content-type: application/json
 
 {
-    "email":"vinicius1394@gmail.com",
+    "email":"vinicius@gmail.com",
     "senha":"123456"
 }
 

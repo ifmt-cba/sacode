@@ -1,8 +1,11 @@
 package br.com.edu.ifmt.sacode.domain.services;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import static java.util.Objects.isNull;
+
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
@@ -140,10 +143,6 @@ public class DespesaService {
 
     }
 
-    /*
-     * GETTERS
-     * porAnos
-     */
 
     public List<Despesa> buscarDespesasPorMes(UUID user, int ano, int mes) throws DespesaException {
         logPort.trace("-> DespesaService.porMes");
@@ -242,6 +241,13 @@ public class DespesaService {
         List<Despesa> despesaResponse = despesaPort.buscarDespesasPorUsuario(usuario);
         logPort.trace("<- DespesaService.DespesaPorUsuario()");
         return despesaResponse;
+    }
+
+    public Map<String, Map<String, BigDecimal>> buscarDespesasPorAnoEUsuario(int ano, String idUsuario) {
+        logPort.trace("-> DespesaService.buscarDespesasPorAnoEUsuario()");
+        Map<String, Map<String, BigDecimal>> response = despesaPort.buscarDespesasPorAnoEUsuario(ano, UUID.fromString(idUsuario));
+        logPort.trace("<- DespesaService.buscarDespesasPorAnoEUsuario()");
+        return response;
     }
 
 }

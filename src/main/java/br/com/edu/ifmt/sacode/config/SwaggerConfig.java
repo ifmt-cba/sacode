@@ -35,6 +35,6 @@ public class SwaggerConfig {
 
                         .contact(new Contact().name("Equipe Sacode")
                                 .email("preti.joao@ifmt.edu.br, heloisebastos28@hotmail.com, mateusgoulart20@hotmail.com, samuelbianch38@gmail.com, thiagoramalhosetubal6@gmail.com, viniciusdemoraespro@gmail.com, wendersonpfarias@gmail.com"))
-                        .license(new License().name("Site do IFMT").url("https://cba.ifmt.edu.br/")));
+                        .license(new License().name("Site do ESA Lab").url("https://esa.ifmt.edu.br/")));
     }
 }

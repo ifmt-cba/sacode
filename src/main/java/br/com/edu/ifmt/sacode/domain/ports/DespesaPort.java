@@ -2,8 +2,10 @@ package br.com.edu.ifmt.sacode.domain.ports;
 
 import br.com.edu.ifmt.sacode.domain.entities.Despesa;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.stereotype.Component;
@@ -24,6 +26,7 @@ public interface DespesaPort {
     List<Despesa> buscarDespesasPorAutor(UUID usuario, String autor);
     List<Despesa> buscarDespesasPorFinanciador(UUID usuario, String financiador);
     List<Despesa> buscarDespesasPorUsuario(UUID usuario);
+    Map<String, Map<String, BigDecimal>> buscarDespesasPorAnoEUsuario(int ano, UUID idUsuario);
 
 
 }

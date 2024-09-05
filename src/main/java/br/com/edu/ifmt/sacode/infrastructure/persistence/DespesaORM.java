@@ -8,10 +8,12 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import static java.util.Objects.nonNull;
+
 
 @Entity
 @Table(name = "despesa")
-public class DespesaORM {
+public class DespesaORM extends AbstractEntity<DespesaORM> {
 
     @Id
     private String idDespesa;
@@ -55,7 +57,9 @@ public class DespesaORM {
         this.autor = autor.toString();
         this.fixa = fixa;
         this.financiador = financiador.toString();
-        this.correlacaoParcelas = correlacaoParcelas.toString();
+        if(nonNull(correlacaoParcelas)){
+            this.correlacaoParcelas = correlacaoParcelas.toString();
+        }
         this.numParcela = numParcela;
         this.categoria = categoria;
       }
@@ -86,7 +90,7 @@ public class DespesaORM {
             this.autor.toString(),
             this.fixa.toString(),
             this.financiador.toString(),
-            this.correlacaoParcelas.toString(),
+            nonNull(this.correlacaoParcelas) ? this.correlacaoParcelas.toString(): "",
             this.numParcela.toString()
         );
     }

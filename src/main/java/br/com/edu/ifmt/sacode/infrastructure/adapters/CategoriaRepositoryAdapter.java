@@ -1,5 +1,6 @@
 package br.com.edu.ifmt.sacode.infrastructure.adapters;
 
+import br.com.edu.ifmt.sacode.application.exceptions.NotFoundException;
 import br.com.edu.ifmt.sacode.domain.entities.Categoria;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import br.com.edu.ifmt.sacode.domain.ports.CategoriaPort;
@@ -69,7 +70,7 @@ public class CategoriaRepositoryAdapter implements CategoriaPort {
         if (categoriaORMOpcional.isEmpty()) {
             logPort.debug("Categoria não encontrada para o ID: " + categoriaId);
             logPort.trace("<- CategoriaRepositoryAdapter.buscarCategoria()");
-            return null;
+            throw new NotFoundException("Categoria não encontrada para o ID: " + categoriaId);
         }
 
         // Categoria encontrada
@@ -125,7 +126,7 @@ public class CategoriaRepositoryAdapter implements CategoriaPort {
         logPort.trace("-> CategoriaRepositoryAdapter.buscarCategoriasPorNome");
         List<CategoriaORM> categoriasORM = null;
         try {
-            categoriasORM = categoriaRepository.findByNome(nomeCategoria.toString());
+            categoriasORM = categoriaRepository.findByNomeContainingIgnoreCase(nomeCategoria.toString());
         } catch (Exception e) {
             logPort.error("Erro ao erro ao buscar categorias por nome.".concat(e.getMessage()));
         }

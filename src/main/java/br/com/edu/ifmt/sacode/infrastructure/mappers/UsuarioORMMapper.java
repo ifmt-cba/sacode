@@ -7,6 +7,7 @@ import br.com.edu.ifmt.sacode.domain.entities.vo.Password;
 import br.com.edu.ifmt.sacode.domain.entities.vo.Username;
 import br.com.edu.ifmt.sacode.infrastructure.persistence.UsuarioORM;
 import org.springframework.stereotype.Component;
+import static org.springframework.util.CollectionUtils.isEmpty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +24,9 @@ public class UsuarioORMMapper {
                 user.getNomeUsuario(),
                 user.getSenha(),
                 user.getName(),
-                user.isSuperUsuario()
-//                user.getMembroFamiliar().stream().map(Nome::toString)
-//                        .collect(Collectors.toList())
+                user.isSuperUsuario(),
+                user.getMembroFamiliar().stream().map(Nome::toString)
+                        .collect(Collectors.toList())
         );
     }
 
@@ -37,9 +38,11 @@ public class UsuarioORMMapper {
         user.setSenha(new Password(userORM.getPassword()));
         user.setName(new Nome(userORM.getNome()));
         user.setSuperUsuario(userORM.isSuperusuario());
-//        user.setMembroFamiliar(userORM.getMembroFamiliar().stream()
-//                .map(Nome::new)
-//                .collect(Collectors.toList()));
+        user.setMembroFamiliar(userORM.getMembroFamiliar().stream()
+                .map(Nome::new)
+                .collect(Collectors.toList()));
+
+
         return user;
     }
 

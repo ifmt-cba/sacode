@@ -3,21 +3,19 @@ package br.com.edu.ifmt.sacode.application.configs;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.regex.Pattern;
 
 public class Sha256PasswordEncoder implements PasswordEncoder {
 
-    private static final String regex = "[A-Fa-f0-9]{64}";
-
     @Override
     public String encode(CharSequence rawPassword) {
+        MessageDigest digest = null;
         try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(rawPassword.toString().getBytes());
-            return bytesToHex(hash);
+            digest = MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Error encoding password", e);
+            throw new RuntimeException(e);
         }
+        byte[] hash = digest.digest(rawPassword.toString().getBytes());
+        return bytesToHex(hash);
     }
 
     @Override

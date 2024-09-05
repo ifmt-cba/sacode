@@ -1,4 +1,4 @@
-@url = http://localhost:8080/usuarios
+@url = http://localhost:8080/sacode/api/v1.0.0/usuarios
 
 
 # Cria um novo usuario
@@ -6,10 +6,10 @@ POST {{url}} HTTP/1.1
 content-type: application/json
 
 {
-    "nome":"viniciusZo",
-    "nomeUsuario":"vini1394",
-    "email":"vinicius1394@gmail.com",
-    "senha":"123456"
+    "nomeUsuario": "testando",
+    "nome": "samuel2",
+    "senha": "samuca",
+    "email": "samuel@ufmt.br"
 }
 
 ###
@@ -20,7 +20,7 @@ POST {{url}}/login HTTP/1.1
 content-type: application/json
 
 {
-    "email":"vinicius1394@gmail.com",
+    "email":"vinicius@gmail.com",
     "senha":"123456"
 }
 

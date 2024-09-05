@@ -1,6 +1,9 @@
 package br.com.edu.ifmt.sacode.application.interceptors;
 
+import br.com.edu.ifmt.sacode.application.exceptions.NotFoundException;
 import br.com.edu.ifmt.sacode.domain.ports.LogPort;
+import br.com.edu.ifmt.sacode.domain.services.exception.CategoriaException;
+import br.com.edu.ifmt.sacode.domain.services.exception.DespesaException;
 import br.com.edu.ifmt.sacode.domain.services.exception.UsuarioException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import jakarta.validation.ConstraintViolationException;
@@ -76,6 +79,26 @@ public class ExceptionInterceptor {
     public ResponseEntity<String> handleConstraintViolation(ConstraintViolationException ex) {
         String mensagem = "Erro de validação: " + ex.getMessage();
         return new ResponseEntity<>(mensagem, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CategoriaException.class)
+    public ResponseEntity<String> handleCategoriaException(CategoriaException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<String> handleNotFoundException(NotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DespesaException.class)
+    public ResponseEntity<String> handleDespesaException(DespesaException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

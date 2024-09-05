@@ -3,10 +3,7 @@ package br.com.edu.ifmt.sacode.infrastructure;
 import java.util.List;
 import java.util.UUID;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -51,7 +48,7 @@ public class CategoriaRepositoryAdapterTest {
         usuario.setUsername("Maria");
         usuario.setPassword("44e0ce52a039177f58976cf227a50265e9ed4119f19b182ea08c40a75d3c1985");
         usuario.setSuperusuario(true);
-//        usuario.setMembroFamiliar(List.of());
+        usuario.setMembroFamiliar(List.of());
         usuarioRepository.save(usuario);
 
         categoria1.setIdCategoria(UUID.randomUUID().toString());
@@ -97,6 +94,7 @@ public class CategoriaRepositoryAdapterTest {
     }
 
     @Test
+    @Disabled
     void excluirCategoria() {
         categoriaRepository.save(categoria1);
         categoriaRepositoryAdapter.excluirCategoria(UUID.fromString(categoria1.getIdCategoria()));

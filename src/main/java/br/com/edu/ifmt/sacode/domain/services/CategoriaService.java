@@ -90,11 +90,7 @@ public class CategoriaService {
     public boolean validarCamposObrigatorios(Categoria categoria) throws CategoriaException {
         logPort.trace("-> CategoriaService.validarCamposObrigatorios()");
         StringBuilder exc = new StringBuilder();
-
-        boolean usuarioExiste = usuarioPort.checarUsuarioExistente(
-                categoria.getUsuario() != null ? categoria.getUsuario().toString() : "0"
-        );
-
+        boolean usuarioExiste = false;
 
         if (categoria.getId() == null || categoria.getId().toString().isEmpty()) {
             exc.append(adicionarMensagemErro("categoria.id.nulo"));
@@ -113,10 +109,13 @@ public class CategoriaService {
         } else if (categoria.getUsuario().toString().isEmpty()) {
             exc.append(excRB.getString("usuario.not.found"));
             exc.append(excRB.getString("usuario.id.nulo"));
-        } else if (!usuarioExiste) {
-            exc.append(adicionarMensagemErro("usuario.not.found"));
         }
 
+        usuarioExiste = usuarioPort.checarUsuarioExistente(categoria.getUsuario().toString());
+
+        if (!usuarioExiste) {
+            exc.append(adicionarMensagemErro("usuario.not.found"));
+        }
 
         if (!exc.isEmpty()) {
             logPort.warn(exc.toString());
@@ -318,7 +317,7 @@ public class CategoriaService {
             Categoria categoriaSuperior = this.buscarCategoria(idCategoriaSuperior);
             Categoria categoriaInferior = this.buscarCategoria(idCategoriaInferior);
 
-            categoriaInferior.setIdCategoriaSuperior(categoriaSuperior.getIdCategoriaSuperior());
+            categoriaInferior.setIdCategoriaSuperior(categoriaSuperior.getId());
             categoriaResposta = categoriaPort.atualizarCategoria(categoriaInferior);
 
         } catch (Exception e) {

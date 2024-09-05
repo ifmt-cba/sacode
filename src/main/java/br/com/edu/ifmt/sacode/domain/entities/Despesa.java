@@ -7,6 +7,8 @@ import br.com.edu.ifmt.sacode.domain.entities.vo.Nome;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import static java.util.Objects.nonNull;
+
 
 public class Despesa {
     private UUID idDespesa;
@@ -113,8 +115,7 @@ public class Despesa {
             this.usuario.toString(),
             this.autorDespesa.toString(),
             this.fixa.toString(),
-            this.financiadorDespesa.toString(),
-            this.correlacaoParcelas.toString(),
+            this.financiadorDespesa.toString(), nonNull(this.correlacaoParcelas) ? this.correlacaoParcelas.toString() : null,
             this.numParcela.toString()
         );
     }
